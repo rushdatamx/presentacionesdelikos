@@ -1,0 +1,107 @@
+"use client"
+
+import { useState } from "react"
+import Link from "next/link"
+import { ChevronLeft, ChevronRight, Home } from "lucide-react"
+
+// Import all MERCO slides
+import Slide1Portada from "../components/charts/merco/Slide1-Portada"
+import Slide2RelacionComercial from "../components/charts/merco/Slide2-RelacionComercial"
+import Slide3TopProductos from "../components/charts/merco/Slide3-TopProductos"
+import Slide4PerformanceTiendas from "../components/charts/merco/Slide4-PerformanceTiendas"
+import Slide5Oportunidades from "../components/charts/merco/Slide5-Oportunidades"
+
+const slides = [
+  { id: 1, name: "Portada", component: Slide1Portada },
+  { id: 2, name: "Relación Comercial", component: Slide2RelacionComercial },
+  { id: 3, name: "Top Productos", component: Slide3TopProductos },
+  { id: 4, name: "Performance Tiendas", component: Slide4PerformanceTiendas },
+  { id: 5, name: "Oportunidades", component: Slide5Oportunidades },
+]
+
+export default function MercoPresentation() {
+  const [currentSlide, setCurrentSlide] = useState(0)
+
+  const goToSlide = (index: number) => {
+    if (index >= 0 && index < slides.length) {
+      setCurrentSlide(index)
+    }
+  }
+
+  const CurrentSlideComponent = slides[currentSlide].component
+
+  return (
+    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
+      {/* Navigation Bar */}
+      <div className="w-[1280px] flex items-center justify-between mb-4">
+        <Link
+          href="/"
+          className="flex items-center gap-2 px-4 py-2 bg-white rounded-xl shadow-md hover:shadow-lg transition-all hover:scale-105 text-gray-700"
+        >
+          <Home size={18} />
+          <span className="font-medium">Inicio</span>
+        </Link>
+
+        <div className="flex items-center gap-2 bg-white rounded-xl shadow-md px-2 py-1">
+          {slides.map((slide, index) => (
+            <button
+              key={slide.id}
+              onClick={() => goToSlide(index)}
+              className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
+                currentSlide === index
+                  ? "bg-[#F7B500] text-[#1A1A1A]"
+                  : "text-gray-500 hover:bg-gray-100"
+              }`}
+            >
+              {slide.id}
+            </button>
+          ))}
+        </div>
+
+        <div className="text-sm text-gray-500 bg-white px-4 py-2 rounded-xl shadow-md">
+          <span className="font-bold text-[#F7B500]">{currentSlide + 1}</span>
+          <span> / {slides.length}</span>
+          <span className="ml-2 text-gray-400">|</span>
+          <span className="ml-2">{slides[currentSlide].name}</span>
+        </div>
+      </div>
+
+      {/* Slide Container */}
+      <div className="relative">
+        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
+          <CurrentSlideComponent key={currentSlide} />
+        </div>
+
+        {/* Navigation Arrows */}
+        <button
+          onClick={() => goToSlide(currentSlide - 1)}
+          disabled={currentSlide === 0}
+          className={`absolute left-[-60px] top-1/2 -translate-y-1/2 w-12 h-12 rounded-full flex items-center justify-center transition-all ${
+            currentSlide === 0
+              ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+              : "bg-white shadow-lg hover:shadow-xl hover:scale-110 text-gray-700"
+          }`}
+        >
+          <ChevronLeft size={24} />
+        </button>
+
+        <button
+          onClick={() => goToSlide(currentSlide + 1)}
+          disabled={currentSlide === slides.length - 1}
+          className={`absolute right-[-60px] top-1/2 -translate-y-1/2 w-12 h-12 rounded-full flex items-center justify-center transition-all ${
+            currentSlide === slides.length - 1
+              ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+              : "bg-[#F7B500] shadow-lg hover:shadow-xl hover:scale-110 text-[#1A1A1A]"
+          }`}
+        >
+          <ChevronRight size={24} />
+        </button>
+      </div>
+
+      {/* Keyboard hint */}
+      <div className="mt-4 text-sm text-gray-400">
+        Usa las flechas ← → o haz clic en los números para navegar
+      </div>
+    </div>
+  )
+}
