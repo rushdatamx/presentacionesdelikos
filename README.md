@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Presentaciones DELIKOS
 
-## Getting Started
+Presentaciones ejecutivas interactivas para DELIKOS - Botanas Mexicanas.
 
-First, run the development server:
+## Estructura
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+├── merco/      # MERCO Review 2025 (5 slides)
+└── sell-in/    # Sell-In 2025 (10 slides)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## MERCO Review 2025
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+5 diapositivas de análisis de desempeño con MERCO:
+- Slide 1: Portada
+- Slide 2: Relación Comercial (crecimiento $7.6M → $18.5M)
+- Slide 3: Top Productos
+- Slide 4: Performance por Tiendas
+- Slide 5: Conclusiones
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+cd merco
+npm install
+npm run dev
+```
 
-## Learn More
+## Sell-In 2025
 
-To learn more about Next.js, take a look at the following resources:
+10 diapositivas de resultados generales 2025:
+- Slide 1: Portada
+- Slide 2: Resumen Ejecutivo
+- Slide 3: Desempeño por Cliente
+- Slide 4: Tendencia Mensual
+- Slide 5: Mix por Categoría
+- Slide 6: Top 10 SKUs
+- Slide 7: Análisis MERCO
+- Slide 8: Análisis HEB
+- Slide 9: Oportunidades
+- Slide 10: Arranque 2026
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+cd sell-in
+npm install
+npm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Tech Stack
 
-## Deploy on Vercel
+- Next.js 16 + React 19
+- TypeScript
+- Tailwind CSS 4
+- Recharts
+- Lucide React
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Características
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Animaciones de entrada
+- Hover effects interactivos
+- Click para filtrar datos
+- Tooltips informativos
+- Count-up en números
+- Diseño 1280x720 optimizado para presentación
