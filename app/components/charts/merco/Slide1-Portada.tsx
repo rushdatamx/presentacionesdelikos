@@ -11,11 +11,11 @@ export default function Slide1Portada() {
   }, [])
 
   return (
-    <div className="w-[1280px] h-[720px] bg-[#1A1A1A] p-12 font-sans flex flex-col relative overflow-hidden">
+    <div className="w-[1280px] h-[720px] bg-white p-12 font-sans flex flex-col relative overflow-hidden">
       {/* Background accent - animated */}
       <div
         className={`absolute top-0 right-0 w-[500px] h-[500px] transition-opacity duration-1000 ${
-          isLoaded ? "opacity-10" : "opacity-0"
+          isLoaded ? "opacity-20" : "opacity-0"
         }`}
         style={{
           background: "radial-gradient(circle at top right, #F7B500 0%, transparent 70%)"
@@ -24,7 +24,7 @@ export default function Slide1Portada() {
 
       {/* Gold accent line - animated width */}
       <div
-        className={`absolute top-0 left-0 h-1 bg-[#F7B500] transition-all duration-1000 ease-out ${
+        className={`absolute top-0 left-0 h-2 bg-[#F7B500] transition-all duration-1000 ease-out ${
           isLoaded ? "w-full" : "w-0"
         }`}
       />
@@ -39,17 +39,17 @@ export default function Slide1Portada() {
           style={{ transitionDelay: "200ms" }}
         >
           <Image
-            src="/images/delikos-logo.png"
-            alt="DELIKOS"
-            width={280}
-            height={120}
+            src="/images/delikos-logo-nuevo.jpeg"
+            alt="Botanas Delikos"
+            width={400}
+            height={180}
             className="object-contain hover:scale-105 transition-transform duration-300"
           />
         </div>
 
         {/* Title - animated */}
         <h1
-          className={`text-6xl font-bold text-white tracking-tight mb-2 transition-all duration-700 ${
+          className={`text-5xl font-bold text-[#1A1A1A] tracking-tight mb-2 transition-all duration-700 ${
             isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
           style={{ transitionDelay: "400ms" }}
@@ -67,7 +67,7 @@ export default function Slide1Portada() {
 
         {/* Subtitle - animated */}
         <h2
-          className={`text-2xl text-gray-300 font-light tracking-wide transition-all duration-700 ${
+          className={`text-2xl text-gray-600 font-light tracking-wide transition-all duration-700 ${
             isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
           style={{ transitionDelay: "800ms" }}
@@ -77,12 +77,12 @@ export default function Slide1Portada() {
 
         {/* Date - animated */}
         <div
-          className={`mt-12 px-6 py-2 border border-[#F7B500]/30 rounded-full transition-all duration-700 hover:border-[#F7B500] hover:bg-[#F7B500]/10 cursor-pointer ${
+          className={`mt-12 px-6 py-2 bg-[#F7B500] rounded-full transition-all duration-700 hover:bg-[#F7B500]/90 hover:shadow-lg cursor-pointer ${
             isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-90"
           }`}
           style={{ transitionDelay: "1000ms" }}
         >
-          <p className="text-sm text-[#F7B500]">Febrero 2026</p>
+          <p className="text-sm text-[#1A1A1A] font-semibold">Febrero 2026</p>
         </div>
       </div>
 

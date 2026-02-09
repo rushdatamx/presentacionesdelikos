@@ -3,14 +3,23 @@
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { Presentation, TrendingUp, Store, ChevronRight } from "lucide-react"
+import { Presentation, TrendingUp, Store, ChevronRight, ShoppingCart, Target } from "lucide-react"
 
 const presentaciones = [
+  {
+    id: "heb",
+    titulo: "HEB Oportunidades 2026",
+    descripcion: "Análisis Sell-Out y oportunidades de crecimiento",
+    slides: 7,
+    color: "#E31837",
+    icono: Target,
+    highlights: ["$4.58M Ventas", "$929K Oportunidad", "Sell-Out Ago-Feb"]
+  },
   {
     id: "merco",
     titulo: "MERCO Review 2025",
     descripcion: "Análisis de desempeño con cliente MERCO",
-    slides: 5,
+    slides: 6,
     color: "#F7B500",
     icono: Store,
     highlights: ["Crecimiento 143%", "Top Productos", "Performance Tiendas"]
@@ -19,7 +28,7 @@ const presentaciones = [
     id: "sell-in",
     titulo: "Sell-In 2025",
     descripcion: "Resultados generales de ventas 2025",
-    slides: 10,
+    slides: 9,
     color: "#1A1A1A",
     icono: TrendingUp,
     highlights: ["$65.1M Total", "Mix por Categoría", "Arranque 2026"]
@@ -59,7 +68,7 @@ export default function HomePage() {
       </div>
 
       {/* Cards */}
-      <div className="flex gap-8 max-w-5xl">
+      <div className="flex gap-6 max-w-6xl flex-wrap justify-center">
         {presentaciones.map((pres, index) => {
           const Icon = pres.icono
           const isHovered = hoveredId === pres.id
@@ -68,7 +77,7 @@ export default function HomePage() {
             <Link
               key={pres.id}
               href={`/${pres.id}`}
-              className={`flex-1 bg-white rounded-3xl border-2 p-8 cursor-pointer transition-all duration-500 ${
+              className={`w-[340px] bg-white rounded-3xl border-2 p-6 cursor-pointer transition-all duration-500 ${
                 isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
               } ${
                 isHovered

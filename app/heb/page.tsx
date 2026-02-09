@@ -4,24 +4,26 @@ import { useState } from "react"
 import Link from "next/link"
 import { ChevronLeft, ChevronRight, Home } from "lucide-react"
 
-// Import all MERCO slides
-import Slide1Portada from "../components/charts/merco/Slide1-Portada"
-import Slide2RelacionComercial from "../components/charts/merco/Slide2-RelacionComercial"
-import Slide3TopProductos from "../components/charts/merco/Slide3-TopProductos"
-import Slide4PerformanceTiendas from "../components/charts/merco/Slide4-PerformanceTiendas"
-import Slide5Oportunidades from "../components/charts/merco/Slide5-Oportunidades"
-import Slide6RotacionProductos from "../components/charts/merco/Slide6-RotacionProductos"
+// Import all HEB slides
+import Slide1Portada from "../components/charts/heb/Slide1-Portada"
+import Slide2ResumenEjecutivo from "../components/charts/heb/Slide2-ResumenEjecutivo"
+import Slide3TopTiendas from "../components/charts/heb/Slide3-TopTiendas"
+import Slide4QuiebresStock from "../components/charts/heb/Slide4-QuiebresStock"
+import Slide5TiendasPotencial from "../components/charts/heb/Slide5-TiendasPotencial"
+import Slide6BalancePDQ from "../components/charts/heb/Slide6-BalancePDQ"
+import Slide7ProximosPasos from "../components/charts/heb/Slide7-ProximosPasos"
 
 const slides = [
   { id: 1, name: "Portada", component: Slide1Portada },
-  { id: 2, name: "Relación Comercial", component: Slide2RelacionComercial },
-  { id: 3, name: "Top Productos", component: Slide3TopProductos },
-  { id: 4, name: "Performance Tiendas", component: Slide4PerformanceTiendas },
-  { id: 5, name: "Oportunidades", component: Slide5Oportunidades },
-  { id: 6, name: "Rotación Productos", component: Slide6RotacionProductos },
+  { id: 2, name: "Resumen Ejecutivo", component: Slide2ResumenEjecutivo },
+  { id: 3, name: "Top 5 Tiendas", component: Slide3TopTiendas },
+  { id: 4, name: "Quiebres de Stock", component: Slide4QuiebresStock },
+  { id: 5, name: "Tiendas Potencial", component: Slide5TiendasPotencial },
+  { id: 6, name: "Balance PDQ", component: Slide6BalancePDQ },
+  { id: 7, name: "Próximos Pasos", component: Slide7ProximosPasos },
 ]
 
-export default function MercoPresentation() {
+export default function HEBPresentation() {
   const [currentSlide, setCurrentSlide] = useState(0)
 
   const goToSlide = (index: number) => {
@@ -44,14 +46,14 @@ export default function MercoPresentation() {
           <span className="font-medium">Inicio</span>
         </Link>
 
-        <div className="flex items-center gap-2 bg-white rounded-xl shadow-md px-2 py-1">
+        <div className="flex items-center gap-1 bg-white rounded-xl shadow-md px-2 py-1">
           {slides.map((slide, index) => (
             <button
               key={slide.id}
               onClick={() => goToSlide(index)}
               className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
                 currentSlide === index
-                  ? "bg-[#F7B500] text-[#1A1A1A]"
+                  ? "bg-[#E31837] text-white"
                   : "text-gray-500 hover:bg-gray-100"
               }`}
             >
@@ -61,7 +63,7 @@ export default function MercoPresentation() {
         </div>
 
         <div className="text-sm text-gray-500 bg-white px-4 py-2 rounded-xl shadow-md">
-          <span className="font-bold text-[#F7B500]">{currentSlide + 1}</span>
+          <span className="font-bold text-[#E31837]">{currentSlide + 1}</span>
           <span> / {slides.length}</span>
           <span className="ml-2 text-gray-400">|</span>
           <span className="ml-2">{slides[currentSlide].name}</span>
@@ -93,7 +95,7 @@ export default function MercoPresentation() {
           className={`absolute right-[-60px] top-1/2 -translate-y-1/2 w-12 h-12 rounded-full flex items-center justify-center transition-all ${
             currentSlide === slides.length - 1
               ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-              : "bg-[#F7B500] shadow-lg hover:shadow-xl hover:scale-110 text-[#1A1A1A]"
+              : "bg-[#E31837] shadow-lg hover:shadow-xl hover:scale-110 text-white"
           }`}
         >
           <ChevronRight size={24} />

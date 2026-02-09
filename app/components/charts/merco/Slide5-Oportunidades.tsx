@@ -1,12 +1,12 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { TrendingUp, PieChart, Shield, Sparkles, CheckCircle, ArrowRight, Target } from "lucide-react"
+import { TrendingUp, PieChart, Rocket, Sparkles, CheckCircle, ArrowRight, Target } from "lucide-react"
 
 const oportunidades = [
   {
     id: 1,
-    titulo: "Papas 45g y 70g",
+    titulo: "Papas 45g",
     descripcion: "Sell-through 84%, pueden pedir mas",
     color: "#27AE60",
     bgColor: "#ECFDF5",
@@ -36,18 +36,18 @@ const oportunidades = [
   },
   {
     id: 3,
-    titulo: "Diversificacion",
-    descripcion: "Reducir dependencia de Tostada Roja",
+    titulo: "Expandir el Exito",
+    descripcion: "Replicar el modelo ganador en mas categorias",
     color: "#3B82F6",
     bgColor: "#EFF6FF",
     borderColor: "#BFDBFE",
-    icon: Shield,
+    icon: Rocket,
     metricas: [
-      { label: "Tostada Roja", value: "65%", numValue: 65 },
-      { label: "Objetivo", value: "50%", numValue: 50 },
+      { label: "Papas", value: "+50%", numValue: 50 },
+      { label: "Cacahuates", value: "+30%", numValue: 30 },
     ],
-    estrategia: "Promover otras categorias",
-    impacto: "Reduce riesgo 30%"
+    estrategia: "Aplicar la formula Tostada Roja a otras lineas",
+    impacto: "Potencial +$2M"
   },
 ]
 
@@ -215,13 +215,13 @@ export default function Slide5Oportunidades() {
         style={{ transitionDelay: "700ms" }}
       >
         <div className="flex items-center gap-3">
-          <Shield size={22} className="text-[#F7B500] animate-pulse" />
+          <Rocket size={22} className="text-[#F7B500]" />
           <span className="text-white font-medium">
-            Beneficio clave de diversificar:
+            Beneficio clave:
           </span>
         </div>
         <span className="text-[#F7B500] font-semibold">
-          Protege a ambos ante cualquier problema de abasto
+          Capturar mas ocasiones de consumo con un portafolio ganador
         </span>
       </div>
 

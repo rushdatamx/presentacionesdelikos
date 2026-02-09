@@ -1,14 +1,14 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { AlertTriangle, ShoppingCart, TrendingUp, Star } from "lucide-react"
+import { Trophy, ShoppingCart, TrendingUp, Star } from "lucide-react"
 
 const data = [
-  { rank: 1, producto: "Tostada Roja 70pz", ventas: 14.2, porcentaje: 64.6, isAlert: true, trend: "+12%" },
-  { rank: 2, producto: "Durito 20pz", ventas: 1.1, porcentaje: 5.1, isAlert: false, trend: "+8%" },
-  { rank: 3, producto: "Cacahuate Mixto", ventas: 0.939, porcentaje: 4.3, isAlert: false, trend: "+15%" },
-  { rank: 4, producto: "Cacahuate Cantinero", ventas: 0.740, porcentaje: 3.4, isAlert: false, trend: "+5%" },
-  { rank: 5, producto: "Tostada Amarilla", ventas: 0.402, porcentaje: 1.8, isAlert: false, trend: "-3%" },
+  { rank: 1, producto: "Tostada Roja 70pz", ventas: 14.2, porcentaje: 64.6, isBestSeller: true, trend: "+12%" },
+  { rank: 2, producto: "Durito 20pz", ventas: 1.1, porcentaje: 5.1, isBestSeller: false, trend: "+8%" },
+  { rank: 3, producto: "Cacahuate Mixto", ventas: 0.939, porcentaje: 4.3, isBestSeller: false, trend: "+15%" },
+  { rank: 4, producto: "Cacahuate Cantinero", ventas: 0.740, porcentaje: 3.4, isBestSeller: false, trend: "+5%" },
+  { rank: 5, producto: "Tostada Amarilla", ventas: 0.402, porcentaje: 1.8, isBestSeller: false, trend: "-3%" },
 ]
 
 const COLORS = {
@@ -115,12 +115,12 @@ export default function Slide3TopProductos() {
                 } ${activeIndex === index ? "font-bold" : ""}`}>
                   {item.producto}
                 </span>
-                {item.isAlert && (
-                  <div className={`flex items-center gap-1 px-2 py-1 bg-red-100 rounded-full transition-all duration-300 ${
+                {item.isBestSeller && (
+                  <div className={`flex items-center gap-1 px-2 py-1 bg-amber-100 rounded-full transition-all duration-300 ${
                     activeIndex === index ? "animate-pulse" : ""
                   }`}>
-                    <AlertTriangle size={12} className="text-red-600" />
-                    <span className="text-xs text-red-600 font-medium">Concentracion</span>
+                    <Trophy size={12} className="text-amber-600" />
+                    <span className="text-xs text-amber-600 font-medium">Best Seller</span>
                   </div>
                 )}
                 {item.rank === 1 && activeIndex === index && (
@@ -197,28 +197,28 @@ export default function Slide3TopProductos() {
 
         {/* Side summary - animated */}
         <div className="w-[280px] flex flex-col gap-4">
-          {/* Alert card */}
+          {/* Best Seller card */}
           <div
-            className={`p-5 bg-red-50 border-2 border-red-200 rounded-2xl transition-all duration-500 hover:border-red-400 hover:shadow-lg cursor-pointer ${
+            className={`p-5 bg-amber-50 border-2 border-amber-300 rounded-2xl transition-all duration-500 hover:border-amber-500 hover:shadow-lg cursor-pointer ${
               isLoaded ? "opacity-100 translate-x-0" : "opacity-0 translate-x-4"
             }`}
             style={{ transitionDelay: "200ms" }}
           >
             <div className="flex items-center gap-2 mb-3">
-              <AlertTriangle size={20} className="text-red-600 animate-pulse" />
-              <span className="font-semibold text-red-800">Alerta de Concentracion</span>
+              <Trophy size={20} className="text-amber-600" />
+              <span className="font-semibold text-amber-800">Producto Campeon</span>
             </div>
-            <p className="text-sm text-red-700 mb-3">
-              La Tostada Roja representa el <span className="font-bold">65%</span> de las ventas totales.
+            <p className="text-sm text-amber-700 mb-3">
+              Tostada Roja lidera las ventas con <span className="font-bold">65%</span> de participacion - el producto preferido por sus clientes.
             </p>
             <div className="flex items-center gap-2">
-              <div className="flex-1 h-4 bg-red-200 rounded-full overflow-hidden">
+              <div className="flex-1 h-4 bg-amber-200 rounded-full overflow-hidden">
                 <div
                   className="h-full bg-[#F7B500] rounded-full transition-all duration-1000"
                   style={{ width: isLoaded ? "64.6%" : "0%" }}
                 />
               </div>
-              <span className="text-sm font-bold text-red-800">64.6%</span>
+              <span className="text-sm font-bold text-amber-800">64.6%</span>
             </div>
           </div>
 
@@ -246,14 +246,14 @@ export default function Slide3TopProductos() {
 
           {/* Opportunity */}
           <div
-            className={`p-5 bg-gray-50 border border-gray-200 rounded-2xl transition-all duration-500 hover:border-gray-400 hover:bg-gray-100 cursor-pointer ${
+            className={`p-5 bg-green-50 border border-green-200 rounded-2xl transition-all duration-500 hover:border-green-400 hover:bg-green-100 cursor-pointer ${
               isLoaded ? "opacity-100 translate-x-0" : "opacity-0 translate-x-4"
             }`}
             style={{ transitionDelay: "400ms" }}
           >
-            <p className="text-sm text-gray-500 font-medium mb-2">Oportunidad</p>
-            <p className="text-sm text-gray-700">
-              <span className="font-semibold">Diversificar</span> el portafolio para reducir riesgo de dependencia en un solo producto.
+            <p className="text-sm text-green-600 font-medium mb-2">Oportunidad</p>
+            <p className="text-sm text-green-700">
+              <span className="font-semibold">Expandir el exito</span> de Tostada Roja a otras lineas de productos con alto potencial.
             </p>
           </div>
         </div>
@@ -267,7 +267,7 @@ export default function Slide3TopProductos() {
         style={{ transitionDelay: "600ms" }}
       >
         <p className="text-sm text-gray-500 text-center">
-          La Tostada Roja representa el 65% de las ventas. Oportunidad de diversificar.
+          Tostada Roja lidera con 65% de participacion. Gran oportunidad de replicar este exito en otras categorias.
         </p>
       </div>
     </div>
