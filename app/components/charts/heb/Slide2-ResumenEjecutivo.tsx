@@ -4,16 +4,16 @@ import { useState, useEffect } from "react"
 import { TrendingUp, DollarSign, Package, Store, AlertTriangle, Target, Sparkles } from "lucide-react"
 
 const metricas = [
-  { label: "Venta total", valor: "$4,583,016", icono: DollarSign, color: "#E31837" },
-  { label: "Unidades vendidas", valor: "191,177", icono: Package, color: "#F7B500" },
-  { label: "Tiendas activas", valor: "26", icono: Store, color: "#1A1A1A" },
-  { label: "Crecimiento vs anterior", valor: "+27.1%", icono: TrendingUp, color: "#27AE60" },
+  { label: "Venta total", valor: "$8,204,315", icono: DollarSign, color: "#E31837" },
+  { label: "Unidades vendidas", valor: "325,398", icono: Package, color: "#F7B500" },
+  { label: "Tiendas activas", valor: "29", icono: Store, color: "#1A1A1A" },
+  { label: "Venta diaria promedio", valor: "$21,995", icono: TrendingUp, color: "#27AE60" },
 ]
 
 const oportunidades = [
-  { label: "Quiebres de stock", valor: "$295,830", porcentaje: 32, color: "#E31837" },
-  { label: "Tiendas con potencial", valor: "$509,347", porcentaje: 55, color: "#F7B500" },
-  { label: "Cobertura de productos", valor: "$123,906", porcentaje: 13, color: "#6B7280" },
+  { label: "Quiebres de stock", valor: "$320,000", porcentaje: 29, color: "#E31837" },
+  { label: "Tiendas con potencial", valor: "$1,120,170", porcentaje: 58, color: "#F7B500" },
+  { label: "Cobertura de productos", valor: "$150,000", porcentaje: 13, color: "#6B7280" },
 ]
 
 // Hook para animacion count-up
@@ -50,9 +50,9 @@ export default function Slide2ResumenEjecutivo() {
     return () => clearTimeout(timer)
   }, [])
 
-  const ventaAnimada = useCountUp(4.58, 2000, isLoaded)
-  const crecimientoAnimado = useCountUp(27, 1800, isLoaded)
-  const oportunidadAnimada = useCountUp(0.93, 2200, isLoaded)
+  const ventaAnimada = useCountUp(8.20, 2000, isLoaded)
+  const crecimientoAnimado = useCountUp(79, 1800, isLoaded)
+  const oportunidadAnimada = useCountUp(1.59, 2200, isLoaded)
 
   return (
     <div className="w-[1280px] h-[720px] bg-white p-12 font-sans flex flex-col">
@@ -65,7 +65,7 @@ export default function Slide2ResumenEjecutivo() {
         <h1 className="text-4xl font-bold text-[#1A1A1A] tracking-tight">
           Resumen del Período
         </h1>
-        <p className="text-lg text-gray-500 mt-2">Agosto 2025 - Febrero 2026</p>
+        <p className="text-lg text-gray-500 mt-2">Febrero 2025 - Febrero 2026 (12 meses)</p>
       </div>
 
       {/* Main KPI */}

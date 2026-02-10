@@ -4,18 +4,18 @@ import { useState, useEffect } from "react"
 import { AlertTriangle, Package, Store, CheckCircle, ArrowRight } from "lucide-react"
 
 const productosAfectados = [
-  { producto: "Papa Jalapeño 340gr", dias: 118, ventaPerdida: 119857 },
-  { producto: "Papas Fritas Jalapeño", dias: 91, ventaPerdida: 72353 },
-  { producto: "Papa Fuego 340gr", dias: 65, ventaPerdida: 58420 },
-  { producto: "Papa Natural 340gr", dias: 42, ventaPerdida: 45200 },
+  { producto: "Papa Jalapeño 500gr", dias: 125, ventaPerdida: 135000, dos: 2.1, ventaDiaria: 1034 },
+  { producto: "Papas Fritas Jalapeño", dias: 98, ventaPerdida: 85000, dos: 3.2, ventaDiaria: 995 },
+  { producto: "Papa Fuego 500gr", dias: 72, ventaPerdida: 68000, dos: 2.8, ventaDiaria: 1356 },
+  { producto: "Papa Natural 500gr", dias: 58, ventaPerdida: 52000, dos: 3.5, ventaDiaria: 1990 },
 ]
 
 const tiendasQuiebres = [
-  { tienda: "MT MTY LINCOLN", dias: 102 },
-  { tienda: "MT MTY ZUAZUA", dias: 86 },
-  { tienda: "MT NVO REFORMA", dias: 81 },
-  { tienda: "MT VALLE STA MARIA", dias: 77 },
-  { tienda: "MT MTY ANZURES", dias: 72 },
+  { tienda: "MT CAT MONTERREY", dias: 151 },
+  { tienda: "MT MTY LINCOLN", dias: 105 },
+  { tienda: "MT MTY ZUAZUA", dias: 89 },
+  { tienda: "MT NVO REFORMA", dias: 83 },
+  { tienda: "MT VALLE STA MARIA", dias: 78 },
 ]
 
 // Hook para animacion count-up
@@ -52,7 +52,7 @@ export default function Slide4QuiebresStock() {
     return () => clearTimeout(timer)
   }, [])
 
-  const ventaPerdidaAnimada = useCountUp(295830, 2000, isLoaded)
+  const ventaPerdidaAnimada = useCountUp(340000, 2000, isLoaded)
 
   return (
     <div className="w-[1280px] h-[720px] bg-white p-12 font-sans flex flex-col">
@@ -108,21 +108,23 @@ export default function Slide4QuiebresStock() {
           </h3>
 
           <div className="bg-gray-50 rounded-2xl overflow-hidden">
-            <div className="grid grid-cols-3 gap-4 p-3 bg-gray-100 text-xs font-semibold text-gray-600">
+            <div className="grid grid-cols-5 gap-3 p-3 bg-gray-100 text-xs font-semibold text-gray-600">
               <span>Producto</span>
+              <span className="text-center">DOS</span>
+              <span className="text-center">Venta/día</span>
               <span className="text-center">Días sin stock</span>
               <span className="text-right">Venta perdida</span>
             </div>
 
             {productosAfectados.map((item, index) => {
               const isHovered = hoveredProduct === index
-              const maxDias = 118
+              const maxDias = 125
               const barWidth = (item.dias / maxDias) * 100
 
               return (
                 <div
                   key={item.producto}
-                  className={`grid grid-cols-3 gap-4 p-3 border-b border-gray-200 cursor-pointer transition-all duration-300 ${
+                  className={`grid grid-cols-5 gap-3 p-3 border-b border-gray-200 cursor-pointer transition-all duration-300 ${
                     isHovered ? "bg-[#E31837]/5 scale-[1.01]" : "hover:bg-gray-100"
                   }`}
                   onMouseEnter={() => setHoveredProduct(index)}
@@ -132,6 +134,14 @@ export default function Slide4QuiebresStock() {
                     isHovered ? "font-bold text-[#E31837]" : "text-gray-800"
                   }`}>
                     {item.producto}
+                  </span>
+                  <span className={`text-center text-sm font-bold ${
+                    item.dos < 3 ? "text-[#E31837]" : "text-[#F7B500]"
+                  }`}>
+                    {item.dos}d
+                  </span>
+                  <span className="text-center text-sm font-medium text-gray-600">
+                    ${item.ventaDiaria.toLocaleString()}
                   </span>
                   <div className="flex items-center gap-2">
                     <div className="flex-1 h-3 bg-gray-200 rounded-full overflow-hidden">
@@ -144,7 +154,7 @@ export default function Slide4QuiebresStock() {
                         }}
                       />
                     </div>
-                    <span className={`text-sm font-bold w-12 transition-all duration-300 ${
+                    <span className={`text-sm font-bold w-10 transition-all duration-300 ${
                       isHovered ? "scale-110" : ""
                     }`} style={{ color: item.dias > 100 ? "#E31837" : "#1A1A1A" }}>
                       {item.dias}d

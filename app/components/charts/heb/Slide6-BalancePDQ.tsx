@@ -5,9 +5,9 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts"
 import { LayoutGrid, AlertTriangle, CheckCircle, ArrowRight, Sparkles } from "lucide-react"
 
 const distribucionCadena = [
-  { name: "Fuego", value: 42.9, color: "#E31837", esperado: 33.3, diferencia: 9.6 },
-  { name: "Sal", value: 28.6, color: "#F7B500", esperado: 33.3, diferencia: -4.7 },
-  { name: "Jalapeño", value: 28.5, color: "#27AE60", esperado: 33.3, diferencia: -4.8 },
+  { name: "Fuego", value: 42.7, color: "#E31837", esperado: 33.3, diferencia: 9.4 },
+  { name: "Sal", value: 28.7, color: "#F7B500", esperado: 33.3, diferencia: -4.6 },
+  { name: "Jalapeño", value: 28.6, color: "#27AE60", esperado: 33.3, diferencia: -4.7 },
 ]
 
 const tiendasSesgo = [

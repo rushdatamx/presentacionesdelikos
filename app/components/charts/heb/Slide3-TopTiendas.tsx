@@ -5,11 +5,11 @@ import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Cell, LabelList, Tool
 import { Star, TrendingUp, Sparkles } from "lucide-react"
 
 const data = [
-  { tienda: "MT REY BUGAMBILIAS", venta: 337829, porcentaje: 7.4, vsPromedio: 91.7 },
-  { tienda: "MT MAT LAS BRISAS", venta: 310054, porcentaje: 6.8, vsPromedio: 75.9 },
-  { tienda: "MT REY PERIFERICO", venta: 271671, porcentaje: 5.9, vsPromedio: 54.1 },
-  { tienda: "MT MTY ZUAZUA", venta: 270561, porcentaje: 5.9, vsPromedio: 53.5 },
-  { tienda: "MT REY SAN FERNANDO", venta: 247405, porcentaje: 5.4, vsPromedio: 40.4 },
+  { tienda: "MT REY BUGAMBILIAS", venta: 603931, porcentaje: 7.4, vsPromedio: 84.0, ventaDiaria: 1619 },
+  { tienda: "MT MAT LAS BRISAS", venta: 495551, porcentaje: 6.0, vsPromedio: 51.0, ventaDiaria: 1329 },
+  { tienda: "MT MTY ZUAZUA", venta: 478689, porcentaje: 5.8, vsPromedio: 45.9, ventaDiaria: 1283 },
+  { tienda: "MT REY PERIFERICO", venta: 462460, porcentaje: 5.6, vsPromedio: 40.9, ventaDiaria: 1240 },
+  { tienda: "MT REY SAN FERNANDO", venta: 460595, porcentaje: 5.6, vsPromedio: 40.4, ventaDiaria: 1235 },
 ]
 
 const COLORS = ["#E31837", "#F7B500", "#1A1A1A", "#6B7280", "#9CA3AF"]
@@ -66,7 +66,7 @@ export default function Slide3TopTiendas() {
         {/* KPI Badge */}
         <div className="px-6 py-3 bg-gradient-to-r from-[#E31837]/10 to-[#F7B500]/10 rounded-2xl border border-[#E31837]/20">
           <span className="text-sm text-gray-600">Top 5 = </span>
-          <span className="text-2xl font-bold text-[#E31837]">31.4%</span>
+          <span className="text-2xl font-bold text-[#E31837]">30.4%</span>
           <span className="text-sm text-gray-600"> de la venta total</span>
         </div>
       </div>
@@ -82,10 +82,11 @@ export default function Slide3TopTiendas() {
         >
           <div className="bg-gray-50 rounded-2xl overflow-hidden">
             {/* Header */}
-            <div className="grid grid-cols-4 gap-4 p-4 bg-gray-100 text-sm font-semibold text-gray-600">
+            <div className="grid grid-cols-5 gap-4 p-4 bg-gray-100 text-sm font-semibold text-gray-600">
               <span>Tienda</span>
-              <span className="text-right">Venta 6 meses</span>
+              <span className="text-right">Venta 12 meses</span>
               <span className="text-right">% del Total</span>
+              <span className="text-right">Venta Diaria</span>
               <span className="text-right">vs Promedio</span>
             </div>
 
@@ -97,7 +98,7 @@ export default function Slide3TopTiendas() {
               return (
                 <div
                   key={item.tienda}
-                  className={`grid grid-cols-4 gap-4 p-4 border-b border-gray-200 cursor-pointer transition-all duration-300 ${
+                  className={`grid grid-cols-5 gap-4 p-4 border-b border-gray-200 cursor-pointer transition-all duration-300 ${
                     isActive ? "bg-[#E31837]/5 scale-[1.01]" : isDimmed ? "opacity-40" : "hover:bg-gray-100"
                   }`}
                   onMouseEnter={() => setHoveredIndex(index)}
@@ -126,6 +127,9 @@ export default function Slide3TopTiendas() {
                   </span>
                   <span className="text-right font-medium text-gray-600">
                     {item.porcentaje}%
+                  </span>
+                  <span className="text-right font-medium text-[#F7B500]">
+                    ${item.ventaDiaria.toLocaleString()}/día
                   </span>
                   <span className={`text-right font-bold transition-all duration-300 ${
                     isActive ? "scale-105" : ""

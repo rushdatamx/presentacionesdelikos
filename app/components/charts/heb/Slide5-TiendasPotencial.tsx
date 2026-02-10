@@ -5,14 +5,14 @@ import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Cell, ReferenceLine, 
 import { TrendingUp, Target, CheckCircle, ArrowRight } from "lucide-react"
 
 const data = [
-  { tienda: "MT MTY ANZURES", ventaActual: 88034, gap: 88236, porcentajePromedio: 50 },
-  { tienda: "MT MTY AZTLAN", ventaActual: 102689, gap: 73581, porcentajePromedio: 58 },
-  { tienda: "MT SAL SATELITE", ventaActual: 117512, gap: 58758, porcentajePromedio: 67 },
-  { tienda: "MT MTY METROPLEX", ventaActual: 118791, gap: 57479, porcentajePromedio: 67 },
-  { tienda: "MT SAL FUNDADORES", ventaActual: 120877, gap: 55393, porcentajePromedio: 69 },
+  { tienda: "MT MTY ANZURES", ventaActual: 88738, gap: 239393, porcentajePromedio: 27 },
+  { tienda: "MT SAL SATELITE", ventaActual: 216424, gap: 111707, porcentajePromedio: 66 },
+  { tienda: "MT MTY PLAZA BOSQUE", ventaActual: 220547, gap: 107584, porcentajePromedio: 67 },
+  { tienda: "MT MTY METROPLEX", ventaActual: 227241, gap: 100890, porcentajePromedio: 69 },
+  { tienda: "MT MTY AZTLAN", ventaActual: 232800, gap: 95331, porcentajePromedio: 71 },
 ]
 
-const PROMEDIO = 176270
+const PROMEDIO = 328131
 
 const CustomTooltip = ({ active, payload }: any) => {
   if (active && payload && payload.length) {
@@ -84,11 +84,11 @@ export default function Slide5TiendasPotencial() {
       >
         <div className="flex-1 p-5 bg-gradient-to-r from-[#F7B500]/10 to-amber-50 rounded-2xl border border-[#F7B500]/20">
           <span className="text-sm text-gray-600">Oportunidad si llegan al promedio</span>
-          <span className="block text-4xl font-bold text-[#F7B500]">$509,347</span>
+          <span className="block text-4xl font-bold text-[#F7B500]">$1,120,170</span>
         </div>
         <div className="p-5 bg-gray-50 rounded-2xl border border-gray-200">
-          <span className="text-sm text-gray-600">Venta promedio por tienda</span>
-          <span className="block text-4xl font-bold text-[#1A1A1A]">$176,270</span>
+          <span className="text-sm text-gray-600">Venta promedio por tienda (12 meses)</span>
+          <span className="block text-4xl font-bold text-[#1A1A1A]">$328,131</span>
         </div>
       </div>
 
@@ -173,7 +173,7 @@ export default function Slide5TiendasPotencial() {
               layout="vertical"
               margin={{ top: 10, right: 30, left: 10, bottom: 10 }}
             >
-              <XAxis type="number" domain={[0, 200000]} hide />
+              <XAxis type="number" domain={[0, 400000]} hide />
               <YAxis
                 type="category"
                 dataKey="tienda"
