@@ -4,18 +4,18 @@ import { useState, useEffect } from "react"
 import { AlertTriangle, Package, Store, CheckCircle, ArrowRight } from "lucide-react"
 
 const productosAfectados = [
-  { producto: "Papa Jalapeño 500gr", dias: 125, ventaPerdida: 135000, dos: 2.1, ventaDiaria: 1034 },
-  { producto: "Papas Fritas Jalapeño", dias: 98, ventaPerdida: 85000, dos: 3.2, ventaDiaria: 995 },
-  { producto: "Papa Fuego 500gr", dias: 72, ventaPerdida: 68000, dos: 2.8, ventaDiaria: 1356 },
-  { producto: "Papa Natural 500gr", dias: 58, ventaPerdida: 52000, dos: 3.5, ventaDiaria: 1990 },
+  { producto: "Papa Casera Jalapeño 45gr", dias: 95, ventaPerdida: 98000, dos: 2.9, ventaDiaria: 1083 },
+  { producto: "Papa Casera Fuego 45gr", dias: 82, ventaPerdida: 85000, dos: 2.9, ventaDiaria: 1063 },
+  { producto: "Papas Fritas Jalapeño 70gr", dias: 68, ventaPerdida: 72000, dos: 3.2, ventaDiaria: 995 },
+  { producto: "Torcidito Fuego", dias: 45, ventaPerdida: 32000, dos: 4.1, ventaDiaria: 31 },
 ]
 
 const tiendasQuiebres = [
-  { tienda: "MT CAT MONTERREY", dias: 151 },
   { tienda: "MT MTY LINCOLN", dias: 105 },
   { tienda: "MT MTY ZUAZUA", dias: 89 },
   { tienda: "MT NVO REFORMA", dias: 83 },
   { tienda: "MT VALLE STA MARIA", dias: 78 },
+  { tienda: "MT MTY ELOY CAVAZOS", dias: 72 },
 ]
 
 // Hook para animacion count-up
@@ -86,11 +86,6 @@ export default function Slide4QuiebresStock() {
             ${(ventaPerdidaAnimada / 1000).toFixed(0)}K
           </span>
         </div>
-        <div className="max-w-md p-4 bg-white/80 rounded-xl border border-[#F7B500]/30">
-          <p className="text-gray-700 font-medium">
-            "Si mejoramos el abasto en estas tiendas, <span className="text-[#E31837] font-bold">ambos ganamos</span>"
-          </p>
-        </div>
       </div>
 
       {/* Content */}
@@ -118,7 +113,7 @@ export default function Slide4QuiebresStock() {
 
             {productosAfectados.map((item, index) => {
               const isHovered = hoveredProduct === index
-              const maxDias = 125
+              const maxDias = 95
               const barWidth = (item.dias / maxDias) * 100
 
               return (

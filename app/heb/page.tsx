@@ -9,18 +9,18 @@ import Slide1Portada from "../components/charts/heb/Slide1-Portada"
 import Slide2ResumenEjecutivo from "../components/charts/heb/Slide2-ResumenEjecutivo"
 import Slide3TopTiendas from "../components/charts/heb/Slide3-TopTiendas"
 import Slide4QuiebresStock from "../components/charts/heb/Slide4-QuiebresStock"
-import Slide5TiendasPotencial from "../components/charts/heb/Slide5-TiendasPotencial"
-import Slide6BalancePDQ from "../components/charts/heb/Slide6-BalancePDQ"
-import Slide7ProximosPasos from "../components/charts/heb/Slide7-ProximosPasos"
+import Slide5PDQ340 from "../components/charts/heb/Slide6-PDQ340"
+import Slide6PDQ45 from "../components/charts/heb/Slide7-PDQ45"
+import Slide7ProximosPasos from "../components/charts/heb/Slide8-ProximosPasos"
 
 const slides = [
   { id: 1, name: "Portada", component: Slide1Portada },
   { id: 2, name: "Resumen Ejecutivo", component: Slide2ResumenEjecutivo },
   { id: 3, name: "Top 5 Tiendas", component: Slide3TopTiendas },
   { id: 4, name: "Quiebres de Stock", component: Slide4QuiebresStock },
-  { id: 5, name: "Tiendas Potencial", component: Slide5TiendasPotencial },
-  { id: 6, name: "Balance PDQ", component: Slide6BalancePDQ },
-  { id: 7, name: "Próximos Pasos", component: Slide7ProximosPasos },
+  { id: 5, name: "PDQ 340gr", component: Slide5PDQ340 },
+  { id: 6, name: "PDQ 45gr", component: Slide6PDQ45 },
+  { id: 7, name: "Plan de Acción", component: Slide7ProximosPasos },
 ]
 
 export default function HEBPresentation() {

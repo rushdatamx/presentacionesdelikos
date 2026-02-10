@@ -1,44 +1,35 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Target, CheckCircle, AlertTriangle, TrendingUp, LayoutGrid, Package, ArrowRight } from "lucide-react"
+import { Target, CheckCircle, AlertTriangle, Package, ArrowRight, Truck } from "lucide-react"
 
 const acciones = [
   {
     num: 1,
     oportunidad: "Quiebres de stock",
-    monto: "$295,830",
-    accion: "Incrementar inventario mínimo de Papas Jalapeño y Fuego 340gr",
+    monto: "$340K",
+    accion: "Incrementar inventario mínimo de Papa Casera Jalapeño y Fuego 45gr",
     responsable: "HEB + DELIKOS",
     color: "#E31837",
     icono: AlertTriangle,
   },
   {
     num: 2,
-    oportunidad: "Tiendas bajo desempeño",
-    monto: "$509,347",
-    accion: "Plan de activación en 5 tiendas: exhibición + promoción",
+    oportunidad: "Surtido PDQ 340gr",
+    monto: "3 tiendas",
+    accion: "Surtir PDQ completo en: MTY Zuazua, SAL Satélite, MTY Buena Vista",
     responsable: "DELIKOS",
     color: "#F7B500",
-    icono: TrendingUp,
+    icono: Truck,
   },
   {
     num: 3,
-    oportunidad: "Cobertura de productos",
-    monto: "$123,906",
-    accion: "Expandir Torcidito Fuego a 22 tiendas adicionales",
-    responsable: "HEB",
-    color: "#6B7280",
-    icono: Package,
-  },
-  {
-    num: 4,
-    oportunidad: "Balance PDQ 340gr",
-    monto: "Cualitativo",
-    accion: "Auditoría de exhibición en 6 tiendas",
+    oportunidad: "Surtido PDQ 45gr",
+    monto: "5 tiendas",
+    accion: "Surtir PDQ completo en: CAT Monterrey, MTY Aztlán, REY Río Bravo, REY Aeropuerto, REY San Fernando",
     responsable: "DELIKOS",
     color: "#27AE60",
-    icono: LayoutGrid,
+    icono: Package,
   },
 ]
 
@@ -66,7 +57,7 @@ const useCountUp = (end: number, duration = 2000, startAnimation = false) => {
   return count
 }
 
-export default function Slide7ProximosPasos() {
+export default function Slide8ProximosPasos() {
   const [isLoaded, setIsLoaded] = useState(false)
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
@@ -81,7 +72,7 @@ export default function Slide7ProximosPasos() {
   }
 
   const activeIndex = selectedIndex !== null ? selectedIndex : hoveredIndex
-  const oportunidadAnimada = useCountUp(929083, 2000, isLoaded)
+  const oportunidadAnimada = useCountUp(340000, 2000, isLoaded)
 
   return (
     <div className="w-[1280px] h-[720px] bg-gradient-to-br from-gray-50 to-white p-12 font-sans flex flex-col">
@@ -220,29 +211,6 @@ export default function Slide7ProximosPasos() {
         </div>
       </div>
 
-      {/* Call to action */}
-      <div
-        className={`mt-6 p-5 bg-gradient-to-r from-[#E31837]/10 to-[#F7B500]/10 rounded-2xl border border-[#E31837]/20 transition-all duration-700 hover:shadow-xl cursor-pointer ${
-          isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-        }`}
-        style={{ transitionDelay: "700ms" }}
-      >
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <CheckCircle size={28} className="text-[#27AE60]" />
-            <div>
-              <span className="font-bold text-[#1A1A1A] text-lg">¿Próximos pasos?</span>
-              <span className="block text-gray-600">
-                Agendar reunión de seguimiento para revisar avances en cada iniciativa
-              </span>
-            </div>
-          </div>
-          <div className="flex items-center gap-2 px-6 py-3 bg-[#E31837] rounded-xl text-white font-medium hover:bg-[#C41230] transition-all">
-            <span>Agendar reunión</span>
-            <ArrowRight size={18} />
-          </div>
-        </div>
-      </div>
     </div>
   )
 }
