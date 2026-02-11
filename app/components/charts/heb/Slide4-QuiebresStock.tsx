@@ -8,68 +8,69 @@ import { AlertTriangle, TrendingDown, Truck, ArrowRight } from "lucide-react"
 // Excluye CAT MONTERREY (2160) - es CEDIS
 
 // Tiendas que necesitan surtido (combinando ambos PDQ)
+// Inventario y venta diaria del sabor con DOS más bajo
 const tiendasBajoStock = [
   {
     tienda: "REY RIO BRAVO",
     codigo: "2972",
-    problema: "PDQ 45gr casi agotado",
+    pdq: "45gr",
     dosMin: 4,
-    saboresBajos: ["NATURAL (11d)", "FUEGO (7d)", "JALAPEÑO (4d)"],
-    ventaDiaria: 51,
+    inventario: 66, // JALAPEÑO (el más bajo)
+    ventaDiaria: 17, // venta diaria de JALAPEÑO
     color: "#E31837"
   },
   {
     tienda: "REY SAN FERNANDO",
     codigo: "9107",
-    problema: "PDQ 45gr Natural crítico",
+    pdq: "45gr",
     dosMin: 3,
-    saboresBajos: ["NATURAL (3d)", "JALAPEÑO (8d)"],
-    ventaDiaria: 48,
+    inventario: 50, // NATURAL (el más bajo)
+    ventaDiaria: 17, // venta diaria de NATURAL
     color: "#E31837"
   },
   {
     tienda: "REY AEROPUERTO",
     codigo: "2995",
-    problema: "PDQ 45gr bajo",
+    pdq: "45gr",
     dosMin: 7,
-    saboresBajos: ["NATURAL (7d)", "JALAPEÑO (9d)"],
-    ventaDiaria: 29,
+    inventario: 66, // NATURAL
+    ventaDiaria: 9,
     color: "#F7B500"
   },
   {
     tienda: "MTY AZTLAN",
     codigo: "2956",
-    problema: "PDQ 45gr Fuego agotado",
+    pdq: "45gr",
     dosMin: 0,
-    saboresBajos: ["FUEGO (0d)"],
-    ventaDiaria: 12,
+    inventario: 449, // FUEGO tiene inv pero 0 venta reciente
+    ventaDiaria: 0, // sin venta = DOS 0
     color: "#E31837"
   },
   {
     tienda: "MTY BUENA VISTA",
     codigo: "9104",
-    problema: "PDQ 340gr bajo",
+    pdq: "340gr",
     dosMin: 0,
-    saboresBajos: ["SAL (0d)", "FUEGO (0d)", "JALAPEÑO (0d)"],
-    ventaDiaria: 3,
+    inventario: 160, // tiene inv pero sin venta
+    ventaDiaria: 0,
     color: "#E31837"
   },
   {
     tienda: "SAL SATELITE",
     codigo: "2938",
-    problema: "PDQ 340gr bajo",
+    pdq: "340gr",
     dosMin: 0,
-    saboresBajos: ["SAL (0d)", "FUEGO (0d)", "JALAPEÑO (0d)"],
-    ventaDiaria: 2,
+    inventario: 160,
+    ventaDiaria: 0,
     color: "#E31837"
   },
   {
     tienda: "MTY ZUAZUA",
     codigo: "2920",
-    problema: "PDQ 340gr parcial",
+    pdq: "340gr",
     dosMin: 0,
-    saboresBajos: ["SAL (0d)", "JALAPEÑO (0d)"],
-    ventaDiaria: 4,
+    inventario: 82, // SAL
+    ventaDiaria: 0,
     color: "#F7B500"
   },
 ]
@@ -140,13 +141,13 @@ export default function Slide4OportunidadSurtido() {
                   <div className="flex items-center gap-2">
                     {/* Indicator */}
                     <div
-                      className={`w-1 h-8 rounded-full`}
+                      className={`w-1 h-12 rounded-full`}
                       style={{ backgroundColor: tienda.color }}
                     />
 
                     {/* Info */}
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-1">
+                      <div className="flex items-center gap-1 mb-0.5">
                         <span className="font-bold text-sm text-[#1A1A1A] truncate">{tienda.tienda}</span>
                         {isCritical && (
                           <span className="px-1.5 py-0.5 bg-[#E31837] text-white text-[9px] font-bold rounded-full shrink-0">
@@ -154,7 +155,17 @@ export default function Slide4OportunidadSurtido() {
                           </span>
                         )}
                       </div>
-                      <p className="text-[10px] text-gray-500 truncate">{tienda.problema}</p>
+                      <p className="text-[10px] text-gray-500">PDQ {tienda.pdq}</p>
+                      {/* Inventario vs Venta */}
+                      <div className="mt-1 flex items-center gap-2 text-[10px]">
+                        <span className="text-gray-600">
+                          Inv: <span className="font-semibold">{tienda.inventario} pzs</span>
+                        </span>
+                        <span className="text-gray-400">|</span>
+                        <span className="text-gray-600">
+                          Venta: <span className="font-semibold text-[#E31837]">{tienda.ventaDiaria} pzs/día</span>
+                        </span>
+                      </div>
                     </div>
 
                     {/* DOS Badge */}
@@ -164,18 +175,6 @@ export default function Slide4OportunidadSurtido() {
                       </p>
                       <p className="text-[9px] text-gray-400">DOS</p>
                     </div>
-                  </div>
-
-                  {/* Sabores */}
-                  <div className="mt-1.5 flex flex-wrap gap-1">
-                    {tienda.saboresBajos.map((sabor, i) => (
-                      <span
-                        key={i}
-                        className="px-1.5 py-0.5 bg-gray-100 text-gray-600 text-[9px] rounded"
-                      >
-                        {sabor}
-                      </span>
-                    ))}
                   </div>
                 </div>
               )
