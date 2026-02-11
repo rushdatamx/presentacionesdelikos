@@ -1,56 +1,59 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Package, AlertTriangle, CheckCircle } from "lucide-react"
+import { Package, AlertTriangle, CheckCircle, TrendingDown, Eye } from "lucide-react"
 
 // Datos calculados desde: scripts/calcular_metricas_mitienda.py
 // Estado de inventario PDQ 45gr por tienda
 // Excluye CAT MONTERREY (2160)
 
-const tiendas45 = [
+// Tiendas con STOCK BAJO (alta rotación, poco inventario)
+const tiendasStockBajo = [
   {
     tienda: "REY RIO BRAVO",
     codigo: "2972",
     sabores: [
-      { nombre: "NATURAL", inv: 120, dos: 11, necesitaSurtir: true },
-      { nombre: "FUEGO", inv: 80, dos: 7, necesitaSurtir: true },
-      { nombre: "JALAPEÑO", inv: 66, dos: 4, necesitaSurtir: true },
+      { nombre: "NATURAL", inv: 120, dos: 11, ventaDiaria: 11 },
+      { nombre: "FUEGO", inv: 80, dos: 7, ventaDiaria: 11 },
+      { nombre: "JALAPEÑO", inv: 66, dos: 4, ventaDiaria: 17 },
     ],
-    necesitaSurtir: true
   },
   {
     tienda: "REY SAN FERNANDO",
     codigo: "9107",
     sabores: [
-      { nombre: "NATURAL", inv: 50, dos: 3, necesitaSurtir: true },
-      { nombre: "FUEGO", inv: 171, dos: 14, necesitaSurtir: false },
-      { nombre: "JALAPEÑO", inv: 105, dos: 8, necesitaSurtir: true },
+      { nombre: "NATURAL", inv: 50, dos: 3, ventaDiaria: 17 },
+      { nombre: "FUEGO", inv: 171, dos: 14, ventaDiaria: 12, ok: true },
+      { nombre: "JALAPEÑO", inv: 105, dos: 8, ventaDiaria: 13 },
     ],
-    necesitaSurtir: true
   },
   {
     tienda: "REY AEROPUERTO",
     codigo: "2995",
     sabores: [
-      { nombre: "NATURAL", inv: 66, dos: 7, necesitaSurtir: true },
-      { nombre: "FUEGO", inv: 123, dos: 19, necesitaSurtir: false },
-      { nombre: "JALAPEÑO", inv: 77, dos: 9, necesitaSurtir: true },
+      { nombre: "NATURAL", inv: 66, dos: 7, ventaDiaria: 9 },
+      { nombre: "FUEGO", inv: 123, dos: 19, ventaDiaria: 6, ok: true },
+      { nombre: "JALAPEÑO", inv: 77, dos: 9, ventaDiaria: 9 },
     ],
-    necesitaSurtir: true
-  },
-  {
-    tienda: "MTY AZTLAN",
-    codigo: "2956",
-    sabores: [
-      { nombre: "NATURAL", inv: 457, dos: 337, necesitaSurtir: false },
-      { nombre: "FUEGO", inv: 449, dos: 0, necesitaSurtir: true },
-      { nombre: "JALAPEÑO", inv: 486, dos: 1514, necesitaSurtir: false },
-    ],
-    necesitaSurtir: true
   },
 ]
 
-const tiendasASurtir = tiendas45.filter(t => t.necesitaSurtir).length
+// Tienda con PROBLEMA DE ANAQUEL (inventario pero 0 venta)
+const tiendaProblemaAnaquel = {
+  tienda: "MTY AZTLAN",
+  codigo: "2956",
+  sabores: [
+    { nombre: "NATURAL", inv: 457, dos: 337, ok: true },
+    { nombre: "FUEGO", inv: 449, dos: 0, problemaAnaquel: true },
+    { nombre: "JALAPEÑO", inv: 486, dos: 1514, ok: true },
+  ],
+}
+
+const colorMap: Record<string, string> = {
+  "NATURAL": "#F7B500",
+  "FUEGO": "#E31837",
+  "JALAPEÑO": "#27AE60",
+}
 
 export default function Slide7PDQ45() {
   const [isLoaded, setIsLoaded] = useState(false)
@@ -64,7 +67,7 @@ export default function Slide7PDQ45() {
     <div className="w-[1280px] h-[720px] bg-white p-8 font-sans flex flex-col">
       {/* Header */}
       <div
-        className={`mb-4 transition-all duration-700 ${
+        className={`mb-3 transition-all duration-700 ${
           isLoaded ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"
         }`}
       >
@@ -79,93 +82,81 @@ export default function Slide7PDQ45() {
               </span>
             </div>
             <h1 className="text-3xl font-bold text-[#1A1A1A] tracking-tight">
-              PDQ 45gr: {tiendasASurtir} tiendas necesitan surtido
+              PDQ 45gr: 4 tiendas requieren atención
             </h1>
             <p className="text-base text-gray-500 mt-1">
-              Inventario actual y días de cobertura por tienda
+              3 con stock bajo + 1 con problema de anaquel
             </p>
           </div>
 
           {/* Summary */}
-          <div className="px-4 py-3 bg-[#F7B500]/10 rounded-lg border border-[#F7B500]/20">
-            <div className="flex items-center gap-2">
-              <AlertTriangle size={20} className="text-[#F7B500]" />
-              <div>
-                <p className="text-xs text-gray-600">Tiendas a surtir</p>
-                <p className="text-2xl font-bold text-[#F7B500]">{tiendasASurtir}</p>
-              </div>
+          <div className="flex gap-2">
+            <div className="px-3 py-2 bg-[#E31837]/10 rounded-lg border border-[#E31837]/20">
+              <p className="text-[10px] text-gray-600">Stock bajo</p>
+              <p className="text-xl font-bold text-[#E31837]">3</p>
+            </div>
+            <div className="px-3 py-2 bg-[#9333EA]/10 rounded-lg border border-[#9333EA]/20">
+              <p className="text-[10px] text-gray-600">Anaquel</p>
+              <p className="text-xl font-bold text-[#9333EA]">1</p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Tiendas Cards */}
+      {/* Main Content */}
       <div className="flex-1 flex gap-3">
-        {tiendas45.map((tienda, index) => (
+        {/* Stock Bajo Cards */}
+        {tiendasStockBajo.map((tienda, index) => (
           <div
             key={tienda.codigo}
-            className={`flex-1 bg-white rounded-xl border-2 overflow-hidden transition-all duration-500 ${
+            className={`flex-1 bg-white rounded-xl border-2 border-[#E31837]/40 overflow-hidden transition-all duration-500 ${
               isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            } ${tienda.necesitaSurtir ? "border-[#F7B500]/50" : "border-gray-200"} shadow-md`}
+            } shadow-md`}
             style={{ transitionDelay: `${200 + index * 100}ms` }}
           >
             {/* Header */}
-            <div className={`p-2.5 ${tienda.necesitaSurtir ? "bg-[#F7B500]/10" : "bg-gray-50"}`}>
-              <div className="flex items-center justify-between mb-1">
-                {tienda.necesitaSurtir ? (
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#F7B500] text-white">
-                    SURTIR
+            <div className="p-2 bg-[#E31837]/10">
+              <div className="flex items-center justify-between mb-0.5">
+                <div className="flex items-center gap-1">
+                  <TrendingDown size={12} className="text-[#E31837]" />
+                  <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#E31837] text-white">
+                    STOCK BAJO
                   </span>
-                ) : (
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#27AE60] text-white">
-                    OK
-                  </span>
-                )}
-                <span className="text-[10px] text-gray-400">#{tienda.codigo}</span>
+                </div>
+                <span className="text-[9px] text-gray-400">#{tienda.codigo}</span>
               </div>
-              <h3 className="text-base font-bold text-[#1A1A1A]">{tienda.tienda}</h3>
+              <h3 className="text-sm font-bold text-[#1A1A1A]">{tienda.tienda}</h3>
             </div>
 
             {/* Sabores */}
-            <div className="p-2.5 flex-1">
-              <p className="text-[9px] font-semibold text-gray-500 mb-2 uppercase tracking-wider">
-                Por sabor
-              </p>
-              <div className="space-y-1.5">
+            <div className="p-2 flex-1">
+              <div className="space-y-1">
                 {tienda.sabores.map((sabor) => {
-                  const colorMap: Record<string, string> = {
-                    "NATURAL": "#F7B500",
-                    "FUEGO": "#E31837",
-                    "JALAPEÑO": "#27AE60",
-                  }
                   const color = colorMap[sabor.nombre] || "#gray"
+                  const isOk = 'ok' in sabor && sabor.ok
 
                   return (
                     <div
                       key={sabor.nombre}
-                      className={`p-1.5 rounded-lg border ${sabor.necesitaSurtir ? "bg-yellow-50 border-yellow-200" : "bg-gray-50 border-gray-200"}`}
+                      className={`p-1.5 rounded border ${isOk ? "bg-gray-50 border-gray-200" : "bg-red-50 border-red-200"}`}
                     >
                       <div className="flex items-center justify-between mb-0.5">
-                        <div className="flex items-center gap-1.5">
-                          <div
-                            className="w-1.5 h-1.5 rounded-full"
-                            style={{ backgroundColor: color }}
-                          />
-                          <span className="font-medium text-xs text-gray-800">{sabor.nombre}</span>
+                        <div className="flex items-center gap-1">
+                          <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: color }} />
+                          <span className="font-medium text-[10px] text-gray-800">{sabor.nombre}</span>
                         </div>
-                        {sabor.necesitaSurtir ? (
-                          <span className="px-1.5 py-0.5 bg-[#F7B500] text-white text-[9px] font-bold rounded">
-                            SURTIR
-                          </span>
+                        {isOk ? (
+                          <span className="px-1 py-0.5 bg-[#27AE60] text-white text-[8px] font-bold rounded">OK</span>
                         ) : (
-                          <span className="px-1.5 py-0.5 bg-[#27AE60] text-white text-[9px] font-bold rounded">
-                            OK
-                          </span>
+                          <span className="px-1 py-0.5 bg-[#E31837] text-white text-[8px] font-bold rounded">SURTIR</span>
                         )}
                       </div>
-                      <div className="flex justify-between text-[9px] text-gray-400">
+                      <div className="flex justify-between text-[8px] text-gray-500">
                         <span>Inv: {sabor.inv}</span>
-                        <span>DOS: {sabor.dos > 500 ? ">500" : sabor.dos}d</span>
+                        {'ventaDiaria' in sabor && !isOk && (
+                          <span className="text-[#E31837]">{sabor.ventaDiaria} pzs/día</span>
+                        )}
+                        <span className={isOk ? "" : "text-[#E31837] font-semibold"}>{sabor.dos}d</span>
                       </div>
                     </div>
                   )
@@ -174,27 +165,85 @@ export default function Slide7PDQ45() {
             </div>
 
             {/* Footer */}
-            <div className={`p-2 border-t ${tienda.necesitaSurtir ? "border-yellow-200 bg-yellow-50" : "border-gray-200 bg-gray-50"}`}>
+            <div className="p-1.5 border-t border-red-200 bg-red-50">
               <div className="flex items-center justify-center gap-1">
-                {tienda.necesitaSurtir ? (
-                  <>
-                    <AlertTriangle size={12} className="text-[#F7B500]" />
-                    <span className="font-bold text-[#F7B500] text-xs">Requiere surtido</span>
-                  </>
-                ) : (
-                  <>
-                    <CheckCircle size={12} className="text-[#27AE60]" />
-                    <span className="font-bold text-[#27AE60] text-xs">Inventario OK</span>
-                  </>
-                )}
+                <AlertTriangle size={10} className="text-[#E31837]" />
+                <span className="font-bold text-[#E31837] text-[10px]">Resurtir</span>
               </div>
             </div>
           </div>
         ))}
+
+        {/* Problema Anaquel Card */}
+        <div
+          className={`flex-1 bg-white rounded-xl border-2 border-[#9333EA]/40 overflow-hidden transition-all duration-500 ${
+            isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          } shadow-md`}
+          style={{ transitionDelay: "500ms" }}
+        >
+          {/* Header */}
+          <div className="p-2 bg-[#9333EA]/10">
+            <div className="flex items-center justify-between mb-0.5">
+              <div className="flex items-center gap-1">
+                <Eye size={12} className="text-[#9333EA]" />
+                <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#9333EA] text-white">
+                  ANAQUEL
+                </span>
+              </div>
+              <span className="text-[9px] text-gray-400">#{tiendaProblemaAnaquel.codigo}</span>
+            </div>
+            <h3 className="text-sm font-bold text-[#1A1A1A]">{tiendaProblemaAnaquel.tienda}</h3>
+          </div>
+
+          {/* Sabores */}
+          <div className="p-2 flex-1">
+            <div className="space-y-1">
+              {tiendaProblemaAnaquel.sabores.map((sabor) => {
+                const color = colorMap[sabor.nombre] || "#gray"
+                const isProblema = 'problemaAnaquel' in sabor && sabor.problemaAnaquel
+
+                return (
+                  <div
+                    key={sabor.nombre}
+                    className={`p-1.5 rounded border ${isProblema ? "bg-[#9333EA]/5 border-[#9333EA]/30" : "bg-gray-50 border-gray-200"}`}
+                  >
+                    <div className="flex items-center justify-between mb-0.5">
+                      <div className="flex items-center gap-1">
+                        <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: color }} />
+                        <span className="font-medium text-[10px] text-gray-800">{sabor.nombre}</span>
+                      </div>
+                      {isProblema ? (
+                        <span className="px-1 py-0.5 bg-[#9333EA] text-white text-[8px] font-bold rounded">0 VENTA</span>
+                      ) : (
+                        <span className="px-1 py-0.5 bg-[#27AE60] text-white text-[8px] font-bold rounded">OK</span>
+                      )}
+                    </div>
+                    <div className="flex justify-between text-[8px] text-gray-500">
+                      <span>Inv: {sabor.inv}</span>
+                      {isProblema ? (
+                        <span className="text-[#9333EA] font-semibold">Sin venta</span>
+                      ) : (
+                        <span>DOS: {sabor.dos > 500 ? ">500" : sabor.dos}d</span>
+                      )}
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+
+          {/* Footer */}
+          <div className="p-1.5 border-t border-[#9333EA]/20 bg-[#9333EA]/5">
+            <div className="flex items-center justify-center gap-1">
+              <Eye size={10} className="text-[#9333EA]" />
+              <span className="font-bold text-[#9333EA] text-[10px]">Verificar exhibición</span>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Footer */}
-      <div className="mt-4 pt-3 border-t border-gray-100">
+      <div className="mt-3 pt-2 border-t border-gray-100">
         <p className="text-[10px] text-gray-400 text-center">
           Fuente: Inventario MI TIENDA al 09/Feb/2026 | DOS = Días de cobertura | Excluye CAT Monterrey
         </p>
