@@ -8,13 +8,13 @@ import { Presentation, TrendingUp, Store, ChevronRight, ShoppingCart, Target } f
 const presentaciones = [
   {
     id: "mitienda",
-    titulo: "MI TIENDA Oportunidades 2026",
-    descripcion: "Análisis Sell-Out y oportunidades de crecimiento",
+    titulo: "MI TIENDA PDQ 2026",
+    descripcion: "Análisis PDQ 340gr y 45gr - Oportunidades de Surtido",
     slides: 7,
     color: "#E31837",
     icono: Target,
     logo: "/images/mitienda-logo.jpeg",
-    highlights: ["$4.58M Ventas", "$929K Oportunidad", "Sell-Out Ago-Feb"]
+    highlights: ["$1.41M Venta PDQ", "7 Tiendas a Surtir", "Jul 2025 - Feb 2026"]
   },
   {
     id: "merco",

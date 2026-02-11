@@ -17,7 +17,7 @@ const slides = [
   { id: 1, name: "Portada", component: Slide1Portada },
   { id: 2, name: "Resumen Ejecutivo", component: Slide2ResumenEjecutivo },
   { id: 3, name: "Top 5 Tiendas", component: Slide3TopTiendas },
-  { id: 4, name: "Quiebres de Stock", component: Slide4QuiebresStock },
+  { id: 4, name: "Oportunidad de Surtido", component: Slide4QuiebresStock },
   { id: 5, name: "PDQ 340gr", component: Slide5PDQ340 },
   { id: 6, name: "PDQ 45gr", component: Slide6PDQ45 },
   { id: 7, name: "Plan de Acción", component: Slide7ProximosPasos },

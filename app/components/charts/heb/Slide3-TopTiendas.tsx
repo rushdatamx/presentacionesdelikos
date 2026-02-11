@@ -1,216 +1,186 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Cell, LabelList, Tooltip } from "recharts"
-import { Star, TrendingUp, Sparkles } from "lucide-react"
+import { Trophy, Star, TrendingUp, MapPin } from "lucide-react"
 
-const data = [
-  { tienda: "MT REY BUGAMBILIAS", venta: 603931, porcentaje: 7.4, vsPromedio: 84.0, ventaDiaria: 1619 },
-  { tienda: "MT MAT LAS BRISAS", venta: 495551, porcentaje: 6.0, vsPromedio: 51.0, ventaDiaria: 1329 },
-  { tienda: "MT MTY ZUAZUA", venta: 478689, porcentaje: 5.8, vsPromedio: 45.9, ventaDiaria: 1283 },
-  { tienda: "MT REY PERIFERICO", venta: 462460, porcentaje: 5.6, vsPromedio: 40.9, ventaDiaria: 1240 },
-  { tienda: "MT REY SAN FERNANDO", venta: 460595, porcentaje: 5.6, vsPromedio: 40.4, ventaDiaria: 1235 },
+// Datos calculados desde: scripts/calcular_metricas_mitienda.py
+// Top 5 tiendas con mayor venta de PDQ (340gr + 45gr)
+// Excluye CAT MONTERREY (2160) - es CEDIS
+
+const topTiendas = [
+  { rank: 1, tienda: "NVO REVOLUCION", codigo: "2948", unidades: 8374, pctTotal: 6.5 },
+  { rank: 2, tienda: "MTY HUINALA", codigo: "2994", unidades: 8128, pctTotal: 6.3 },
+  { rank: 3, tienda: "MTY CIUDADELA", codigo: "2990", unidades: 7856, pctTotal: 6.1 },
+  { rank: 4, tienda: "REY SAN FERNANDO", codigo: "9107", unidades: 7919, pctTotal: 6.2 },
+  { rank: 5, tienda: "MTY ZUAZUA", codigo: "2920", unidades: 7382, pctTotal: 5.7 },
 ]
 
-const COLORS = ["#E31837", "#F7B500", "#1A1A1A", "#6B7280", "#9CA3AF"]
-
-const CustomTooltip = ({ active, payload }: any) => {
-  if (active && payload && payload.length) {
-    const d = payload[0].payload
-    return (
-      <div className="bg-white border-2 border-gray-200 rounded-xl shadow-2xl p-4 min-w-[200px]">
-        <p className="font-bold text-gray-900 mb-2">{d.tienda}</p>
-        <p className="text-2xl font-bold text-[#E31837]">${(d.venta / 1000).toFixed(0)}K</p>
-        <div className="flex items-center gap-2 mt-2 text-green-600">
-          <TrendingUp size={14} />
-          <span className="font-medium">+{d.vsPromedio}% vs promedio</span>
-        </div>
-      </div>
-    )
-  }
-  return null
-}
+const totalUnidadesTop5 = topTiendas.reduce((acc, t) => acc + t.unidades, 0)
+const pctConcentracion = 30.8 // Top 5 = 30.8% del total
 
 export default function Slide3TopTiendas() {
   const [isLoaded, setIsLoaded] = useState(false)
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
+  const [hoveredRow, setHoveredRow] = useState<number | null>(null)
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoaded(true), 100)
     return () => clearTimeout(timer)
   }, [])
 
-  const handleClick = (index: number) => {
-    setSelectedIndex(selectedIndex === index ? null : index)
+  const getRankStyle = (rank: number) => {
+    if (rank === 1) return { bg: "bg-[#F7B500]", text: "text-white" }
+    if (rank === 2) return { bg: "bg-gray-400", text: "text-white" }
+    if (rank === 3) return { bg: "bg-amber-600", text: "text-white" }
+    return { bg: "bg-gray-200", text: "text-gray-600" }
   }
-
-  const activeIndex = selectedIndex !== null ? selectedIndex : hoveredIndex
 
   return (
     <div className="w-[1280px] h-[720px] bg-white p-12 font-sans flex flex-col">
       {/* Header */}
       <div
-        className={`mb-4 flex justify-between items-start transition-all duration-700 ${
+        className={`mb-6 transition-all duration-700 ${
           isLoaded ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"
         }`}
       >
-        <div>
-          <h1 className="text-4xl font-bold text-[#1A1A1A] tracking-tight flex items-center gap-3">
-            <Star className="text-[#F7B500]" />
-            Nuestras Tiendas Estrella
-          </h1>
-          <p className="text-lg text-gray-500 mt-2">Top 5 performers del período</p>
+        <div className="flex items-center gap-3 mb-2">
+          <div className="p-2 bg-[#F7B500]/10 rounded-xl">
+            <Trophy size={28} className="text-[#F7B500]" />
+          </div>
+          <span className="text-sm font-semibold text-[#F7B500] uppercase tracking-wider">
+            Tiendas Estrella
+          </span>
         </div>
-
-        {/* KPI Badge */}
-        <div className="px-6 py-3 bg-gradient-to-r from-[#E31837]/10 to-[#F7B500]/10 rounded-2xl border border-[#E31837]/20">
-          <span className="text-sm text-gray-600">Top 5 = </span>
-          <span className="text-2xl font-bold text-[#E31837]">30.4%</span>
-          <span className="text-sm text-gray-600"> de la venta total</span>
-        </div>
+        <h1 className="text-4xl font-bold text-[#1A1A1A] tracking-tight">
+          Donde más rota el PDQ
+        </h1>
+        <p className="text-lg text-gray-500 mt-2">
+          Estas 5 tiendas mueven el 31% del volumen total
+        </p>
       </div>
 
-      {/* Content */}
+      {/* Main Content */}
       <div className="flex-1 flex gap-8">
-        {/* Table */}
+        {/* Left - Ranking */}
         <div
           className={`flex-1 transition-all duration-700 ${
             isLoaded ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"
           }`}
           style={{ transitionDelay: "200ms" }}
         >
-          <div className="bg-gray-50 rounded-2xl overflow-hidden">
-            {/* Header */}
-            <div className="grid grid-cols-5 gap-4 p-4 bg-gray-100 text-sm font-semibold text-gray-600">
-              <span>Tienda</span>
-              <span className="text-right">Venta 12 meses</span>
-              <span className="text-right">% del Total</span>
-              <span className="text-right">Venta Diaria</span>
-              <span className="text-right">vs Promedio</span>
-            </div>
-
-            {/* Rows */}
-            {data.map((item, index) => {
-              const isActive = activeIndex === index
-              const isDimmed = selectedIndex !== null && selectedIndex !== index
+          <div className="space-y-3">
+            {topTiendas.map((tienda, index) => {
+              const rankStyle = getRankStyle(tienda.rank)
+              const isHovered = hoveredRow === index
+              const barWidth = (tienda.unidades / topTiendas[0].unidades) * 100
 
               return (
                 <div
-                  key={item.tienda}
-                  className={`grid grid-cols-5 gap-4 p-4 border-b border-gray-200 cursor-pointer transition-all duration-300 ${
-                    isActive ? "bg-[#E31837]/5 scale-[1.01]" : isDimmed ? "opacity-40" : "hover:bg-gray-100"
+                  key={tienda.codigo}
+                  className={`p-4 rounded-2xl border-2 transition-all duration-300 cursor-pointer ${
+                    isHovered
+                      ? "border-[#F7B500] shadow-lg scale-[1.02] bg-[#F7B500]/5"
+                      : "border-gray-200 hover:border-gray-300 bg-white"
                   }`}
-                  onMouseEnter={() => setHoveredIndex(index)}
-                  onMouseLeave={() => setHoveredIndex(null)}
-                  onClick={() => handleClick(index)}
+                  style={{ transitionDelay: `${300 + index * 100}ms` }}
+                  onMouseEnter={() => setHoveredRow(index)}
+                  onMouseLeave={() => setHoveredRow(null)}
                 >
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-4">
+                    {/* Rank Badge */}
                     <div
-                      className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold text-white transition-all duration-300 ${
-                        isActive ? "scale-110" : ""
-                      }`}
-                      style={{ backgroundColor: COLORS[index] }}
+                      className={`w-12 h-12 rounded-xl flex items-center justify-center font-bold text-xl ${rankStyle.bg} ${rankStyle.text}`}
                     >
-                      {index + 1}
+                      {tienda.rank === 1 ? <Star size={24} /> : tienda.rank}
                     </div>
-                    <span className={`font-medium text-gray-800 text-sm transition-all duration-300 ${
-                      isActive ? "font-bold" : ""
-                    }`}>
-                      {item.tienda.replace("MT ", "")}
-                    </span>
+
+                    {/* Info */}
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2">
+                        <span className="font-bold text-lg text-[#1A1A1A]">{tienda.tienda}</span>
+                        <span className="text-xs text-gray-400">#{tienda.codigo}</span>
+                      </div>
+
+                      {/* Progress bar */}
+                      <div className="h-2 bg-gray-100 rounded-full mt-2 overflow-hidden">
+                        <div
+                          className="h-full rounded-full transition-all duration-1000 bg-gradient-to-r from-[#F7B500] to-[#E31837]"
+                          style={{
+                            width: isLoaded ? `${barWidth}%` : "0%",
+                            transitionDelay: `${400 + index * 100}ms`
+                          }}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Stats */}
+                    <div className="text-right">
+                      <p className="text-2xl font-bold text-[#1A1A1A]">
+                        {tienda.unidades.toLocaleString()}
+                      </p>
+                      <p className="text-sm text-gray-500">
+                        {tienda.pctTotal}% del total
+                      </p>
+                    </div>
                   </div>
-                  <span className={`text-right font-bold transition-all duration-300 ${
-                    isActive ? "text-[#E31837] scale-105" : "text-gray-900"
-                  }`}>
-                    ${(item.venta / 1000).toFixed(0)}K
-                  </span>
-                  <span className="text-right font-medium text-gray-600">
-                    {item.porcentaje}%
-                  </span>
-                  <span className="text-right font-medium text-[#F7B500]">
-                    ${item.ventaDiaria.toLocaleString()}/día
-                  </span>
-                  <span className={`text-right font-bold transition-all duration-300 ${
-                    isActive ? "scale-105" : ""
-                  }`} style={{ color: "#27AE60" }}>
-                    +{item.vsPromedio}%
-                  </span>
                 </div>
               )
             })}
           </div>
         </div>
 
-        {/* Chart */}
+        {/* Right - Insight */}
         <div
-          className={`w-[450px] transition-all duration-700 ${
+          className={`w-[380px] transition-all duration-700 ${
             isLoaded ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"
           }`}
-          style={{ transitionDelay: "300ms" }}
+          style={{ transitionDelay: "400ms" }}
         >
-          <ResponsiveContainer width="100%" height={320}>
-            <BarChart
-              data={data}
-              layout="vertical"
-              margin={{ top: 10, right: 80, left: 10, bottom: 10 }}
-            >
-              <XAxis type="number" hide />
-              <YAxis
-                type="category"
-                dataKey="tienda"
-                axisLine={false}
-                tickLine={false}
-                tick={{ fill: "#6B7280", fontSize: 11 }}
-                tickFormatter={(value) => value.replace("MT ", "")}
-                width={120}
-              />
-              <Tooltip content={<CustomTooltip />} cursor={{ fill: "rgba(227, 24, 55, 0.1)" }} />
-              <Bar
-                dataKey="venta"
-                radius={[0, 8, 8, 0]}
-                onMouseEnter={(_, index) => setHoveredIndex(index)}
-                onMouseLeave={() => setHoveredIndex(null)}
-                onClick={(_, index) => handleClick(index)}
-                animationDuration={1500}
-                animationBegin={500}
-              >
-                {data.map((_, index) => (
-                  <Cell
-                    key={`cell-${index}`}
-                    fill={COLORS[index]}
-                    style={{
-                      filter: activeIndex !== null && activeIndex !== index ? "opacity(0.3)" : "none",
-                      cursor: "pointer",
-                      transition: "all 0.3s ease"
-                    }}
-                  />
-                ))}
-                <LabelList
-                  dataKey="venta"
-                  position="right"
-                  formatter={(value: any) => `$${(value / 1000).toFixed(0)}K`}
-                  style={{ fill: "#1A1A1A", fontSize: 12, fontWeight: 700 }}
-                />
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
+          {/* Summary Card */}
+          <div className="p-6 bg-gradient-to-br from-[#F7B500]/10 to-[#F7B500]/5 rounded-3xl border-2 border-[#F7B500]/30 mb-6">
+            <div className="flex items-center gap-3 mb-4">
+              <TrendingUp size={24} className="text-[#F7B500]" />
+              <span className="font-bold text-lg text-[#1A1A1A]">Top 5 combinado</span>
+            </div>
+            <p className="text-5xl font-bold text-[#F7B500] mb-2">
+              {totalUnidadesTop5.toLocaleString()}
+            </p>
+            <p className="text-gray-600">
+              unidades vendidas
+            </p>
+            <div className="mt-4 pt-4 border-t border-[#F7B500]/20">
+              <p className="text-sm text-gray-600">
+                Representa el <span className="font-bold text-[#1A1A1A]">{pctConcentracion}%</span> del total de ventas PDQ en 25 tiendas
+              </p>
+            </div>
+          </div>
+
+          {/* Insight Box */}
+          <div className="p-5 bg-gray-50 rounded-2xl border border-gray-200">
+            <div className="flex items-center gap-2 mb-3">
+              <MapPin size={18} className="text-[#27AE60]" />
+              <span className="font-semibold text-gray-700">Patrón geográfico</span>
+            </div>
+            <p className="text-sm text-gray-600 leading-relaxed">
+              Las tiendas con mejor rotación están en zonas de alto tráfico:
+              Revolución, Huinala, Ciudadela.
+            </p>
+            <p className="text-sm text-gray-600 mt-3 leading-relaxed">
+              <span className="font-bold text-[#27AE60]">Oportunidad:</span> Replicar este éxito en tiendas con menor rotación asegurando disponibilidad de stock.
+            </p>
+          </div>
         </div>
       </div>
 
-      {/* Insight */}
+      {/* Footer */}
       <div
-        className={`mt-4 p-5 bg-gradient-to-r from-[#F7B500]/10 to-[#E31837]/10 rounded-2xl border border-[#F7B500]/30 transition-all duration-700 hover:shadow-lg cursor-pointer ${
-          isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+        className={`mt-6 pt-4 border-t border-gray-100 transition-all duration-700 ${
+          isLoaded ? "opacity-100" : "opacity-0"
         }`}
-        style={{ transitionDelay: "500ms" }}
+        style={{ transitionDelay: "700ms" }}
       >
-        <div className="flex items-center gap-3">
-          <Sparkles className="text-[#F7B500] flex-shrink-0" />
-          <p className="text-gray-800 font-medium">
-            <span className="font-bold">Estas tiendas tienen en común:</span> alta rotación de Duritos y presencia completa del portafolio
-          </p>
-        </div>
+        <p className="text-xs text-gray-400 text-center">
+          Fuente: Portal MI TIENDA (Sell-Out) | Jul 2025 - Feb 2026 | Solo PDQ 340gr y 45gr | Excluye CAT Monterrey
+        </p>
       </div>
     </div>
   )

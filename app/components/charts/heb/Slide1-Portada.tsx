@@ -37,7 +37,7 @@ export default function Slide1Portada() {
           </div>
           <div>
             <span className="text-2xl font-bold text-white">DELIKOS</span>
-            <span className="block text-sm text-gray-400">Análisis últimos 12 meses</span>
+            <span className="block text-sm text-gray-400">Análisis PDQ 340gr y 45gr</span>
           </div>
         </div>
 
@@ -91,7 +91,7 @@ export default function Slide1Portada() {
           >
             <Calendar size={20} className="text-[#F7B500]" />
             <span className="text-xl text-white font-medium">
-              Análisis Sell-Out | Febrero 2025 - Febrero 2026
+              Análisis Sell-Out PDQ | Julio 2025 - Febrero 2026
             </span>
           </div>
         </div>

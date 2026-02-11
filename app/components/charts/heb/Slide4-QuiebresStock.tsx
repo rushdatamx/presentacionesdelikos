@@ -1,231 +1,264 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { AlertTriangle, Package, Store, CheckCircle, ArrowRight } from "lucide-react"
+import { AlertTriangle, TrendingDown, Truck, ArrowRight } from "lucide-react"
 
-const productosAfectados = [
-  { producto: "Papa Casera Jalapeño 45gr", dias: 95, ventaPerdida: 98000, dos: 2.9, ventaDiaria: 1083 },
-  { producto: "Papa Casera Fuego 45gr", dias: 82, ventaPerdida: 85000, dos: 2.9, ventaDiaria: 1063 },
-  { producto: "Papas Fritas Jalapeño 70gr", dias: 68, ventaPerdida: 72000, dos: 3.2, ventaDiaria: 995 },
-  { producto: "Torcidito Fuego", dias: 45, ventaPerdida: 32000, dos: 4.1, ventaDiaria: 31 },
+// Datos calculados desde: scripts/calcular_metricas_mitienda.py
+// Tiendas con DOS < 14 días = Stock bajo, rotación alta, necesitan surtido
+// Excluye CAT MONTERREY (2160) - es CEDIS
+
+// Tiendas que necesitan surtido (combinando ambos PDQ)
+const tiendasBajoStock = [
+  {
+    tienda: "REY RIO BRAVO",
+    codigo: "2972",
+    problema: "PDQ 45gr casi agotado",
+    dosMin: 4,
+    saboresBajos: ["NATURAL (11d)", "FUEGO (7d)", "JALAPEÑO (4d)"],
+    ventaDiaria: 51,
+    color: "#E31837"
+  },
+  {
+    tienda: "REY SAN FERNANDO",
+    codigo: "9107",
+    problema: "PDQ 45gr Natural crítico",
+    dosMin: 3,
+    saboresBajos: ["NATURAL (3d)", "JALAPEÑO (8d)"],
+    ventaDiaria: 48,
+    color: "#E31837"
+  },
+  {
+    tienda: "REY AEROPUERTO",
+    codigo: "2995",
+    problema: "PDQ 45gr bajo",
+    dosMin: 7,
+    saboresBajos: ["NATURAL (7d)", "JALAPEÑO (9d)"],
+    ventaDiaria: 29,
+    color: "#F7B500"
+  },
+  {
+    tienda: "MTY AZTLAN",
+    codigo: "2956",
+    problema: "PDQ 45gr Fuego agotado",
+    dosMin: 0,
+    saboresBajos: ["FUEGO (0d)"],
+    ventaDiaria: 12,
+    color: "#E31837"
+  },
+  {
+    tienda: "MTY BUENA VISTA",
+    codigo: "9104",
+    problema: "PDQ 340gr bajo",
+    dosMin: 0,
+    saboresBajos: ["SAL (0d)", "FUEGO (0d)", "JALAPEÑO (0d)"],
+    ventaDiaria: 3,
+    color: "#E31837"
+  },
+  {
+    tienda: "SAL SATELITE",
+    codigo: "2938",
+    problema: "PDQ 340gr bajo",
+    dosMin: 0,
+    saboresBajos: ["SAL (0d)", "FUEGO (0d)", "JALAPEÑO (0d)"],
+    ventaDiaria: 2,
+    color: "#E31837"
+  },
+  {
+    tienda: "MTY ZUAZUA",
+    codigo: "2920",
+    problema: "PDQ 340gr parcial",
+    dosMin: 0,
+    saboresBajos: ["SAL (0d)", "JALAPEÑO (0d)"],
+    ventaDiaria: 4,
+    color: "#F7B500"
+  },
 ]
 
-const tiendasQuiebres = [
-  { tienda: "MT MTY LINCOLN", dias: 105 },
-  { tienda: "MT MTY ZUAZUA", dias: 89 },
-  { tienda: "MT NVO REFORMA", dias: 83 },
-  { tienda: "MT VALLE STA MARIA", dias: 78 },
-  { tienda: "MT MTY ELOY CAVAZOS", dias: 72 },
-]
+const totalTiendas = tiendasBajoStock.length
 
-// Hook para animacion count-up
-const useCountUp = (end: number, duration = 2000, startAnimation = false) => {
-  const [count, setCount] = useState(0)
-
-  useEffect(() => {
-    if (!startAnimation) return
-
-    let start = 0
-    const increment = end / (duration / 16)
-    const timer = setInterval(() => {
-      start += increment
-      if (start >= end) {
-        setCount(end)
-        clearInterval(timer)
-      } else {
-        setCount(Math.round(start))
-      }
-    }, 16)
-    return () => clearInterval(timer)
-  }, [end, duration, startAnimation])
-
-  return count
-}
-
-export default function Slide4QuiebresStock() {
+export default function Slide4OportunidadSurtido() {
   const [isLoaded, setIsLoaded] = useState(false)
-  const [hoveredProduct, setHoveredProduct] = useState<number | null>(null)
-  const [hoveredTienda, setHoveredTienda] = useState<number | null>(null)
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoaded(true), 100)
     return () => clearTimeout(timer)
   }, [])
 
-  const ventaPerdidaAnimada = useCountUp(340000, 2000, isLoaded)
-
   return (
     <div className="w-[1280px] h-[720px] bg-white p-12 font-sans flex flex-col">
       {/* Header */}
       <div
-        className={`mb-4 transition-all duration-700 ${
+        className={`mb-6 transition-all duration-700 ${
           isLoaded ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"
         }`}
       >
         <div className="flex items-center gap-3 mb-2">
           <div className="p-2 bg-[#E31837]/10 rounded-xl">
-            <AlertTriangle size={24} className="text-[#E31837]" />
+            <AlertTriangle size={28} className="text-[#E31837]" />
           </div>
-          <span className="text-sm font-semibold text-[#E31837] uppercase tracking-wider">Oportunidad #1</span>
-        </div>
-        <h1 className="text-4xl font-bold text-[#1A1A1A] tracking-tight">
-          Venta Perdida por Falta de Inventario
-        </h1>
-      </div>
-
-      {/* Main KPI */}
-      <div
-        className={`flex items-center justify-between p-6 bg-gradient-to-r from-[#E31837]/10 to-orange-100 rounded-2xl border border-[#E31837]/20 mb-6 transition-all duration-700 hover:shadow-xl cursor-pointer ${
-          isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-95"
-        }`}
-        style={{ transitionDelay: "200ms" }}
-      >
-        <div>
-          <span className="text-sm text-gray-600">Venta perdida estimada</span>
-          <span className="block text-5xl font-bold text-[#E31837]">
-            ${(ventaPerdidaAnimada / 1000).toFixed(0)}K
+          <span className="text-sm font-semibold text-[#E31837] uppercase tracking-wider">
+            Atención
           </span>
         </div>
+        <h1 className="text-4xl font-bold text-[#1A1A1A] tracking-tight">
+          Estas tiendas se están quedando sin producto
+        </h1>
+        <p className="text-lg text-gray-500 mt-2">
+          {totalTiendas} tiendas con menos de 14 días de inventario
+        </p>
       </div>
 
-      {/* Content */}
+      {/* Main Content */}
       <div className="flex-1 flex gap-8">
-        {/* Products affected */}
+        {/* Left - Tiendas List */}
         <div
           className={`flex-1 transition-all duration-700 ${
             isLoaded ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"
           }`}
-          style={{ transitionDelay: "300ms" }}
+          style={{ transitionDelay: "200ms" }}
         >
-          <h3 className="text-lg font-semibold text-gray-700 mb-4 flex items-center gap-2">
-            <Package size={18} className="text-[#E31837]" />
-            Productos más afectados
-          </h3>
-
-          <div className="bg-gray-50 rounded-2xl overflow-hidden">
-            <div className="grid grid-cols-5 gap-3 p-3 bg-gray-100 text-xs font-semibold text-gray-600">
-              <span>Producto</span>
-              <span className="text-center">DOS</span>
-              <span className="text-center">Venta/día</span>
-              <span className="text-center">Días sin stock</span>
-              <span className="text-right">Venta perdida</span>
-            </div>
-
-            {productosAfectados.map((item, index) => {
-              const isHovered = hoveredProduct === index
-              const maxDias = 95
-              const barWidth = (item.dias / maxDias) * 100
+          <div className="space-y-3">
+            {tiendasBajoStock.map((tienda, index) => {
+              const isHovered = hoveredIndex === index
+              const isCritical = tienda.dosMin < 7
 
               return (
                 <div
-                  key={item.producto}
-                  className={`grid grid-cols-5 gap-3 p-3 border-b border-gray-200 cursor-pointer transition-all duration-300 ${
-                    isHovered ? "bg-[#E31837]/5 scale-[1.01]" : "hover:bg-gray-100"
+                  key={tienda.codigo}
+                  className={`p-4 rounded-2xl border-2 transition-all duration-300 cursor-pointer ${
+                    isHovered
+                      ? "border-[#E31837] shadow-lg scale-[1.01] bg-red-50"
+                      : isCritical
+                      ? "border-red-200 bg-red-50/50"
+                      : "border-gray-200 hover:border-gray-300 bg-white"
                   }`}
-                  onMouseEnter={() => setHoveredProduct(index)}
-                  onMouseLeave={() => setHoveredProduct(null)}
+                  style={{ transitionDelay: `${300 + index * 50}ms` }}
+                  onMouseEnter={() => setHoveredIndex(index)}
+                  onMouseLeave={() => setHoveredIndex(null)}
                 >
-                  <span className={`font-medium text-sm transition-all duration-300 ${
-                    isHovered ? "font-bold text-[#E31837]" : "text-gray-800"
-                  }`}>
-                    {item.producto}
-                  </span>
-                  <span className={`text-center text-sm font-bold ${
-                    item.dos < 3 ? "text-[#E31837]" : "text-[#F7B500]"
-                  }`}>
-                    {item.dos}d
-                  </span>
-                  <span className="text-center text-sm font-medium text-gray-600">
-                    ${item.ventaDiaria.toLocaleString()}
-                  </span>
-                  <div className="flex items-center gap-2">
-                    <div className="flex-1 h-3 bg-gray-200 rounded-full overflow-hidden">
-                      <div
-                        className="h-full rounded-full transition-all duration-700"
-                        style={{
-                          width: isLoaded ? `${barWidth}%` : "0%",
-                          backgroundColor: item.dias > 100 ? "#E31837" : item.dias > 50 ? "#F7B500" : "#6B7280",
-                          transitionDelay: `${400 + index * 100}ms`
-                        }}
-                      />
+                  <div className="flex items-center gap-4">
+                    {/* Indicator */}
+                    <div
+                      className={`w-2 h-12 rounded-full`}
+                      style={{ backgroundColor: tienda.color }}
+                    />
+
+                    {/* Info */}
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2">
+                        <span className="font-bold text-lg text-[#1A1A1A]">{tienda.tienda}</span>
+                        {isCritical && (
+                          <span className="px-2 py-0.5 bg-[#E31837] text-white text-xs font-bold rounded-full">
+                            CRÍTICO
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-sm text-gray-500">{tienda.problema}</p>
                     </div>
-                    <span className={`text-sm font-bold w-10 transition-all duration-300 ${
-                      isHovered ? "scale-110" : ""
-                    }`} style={{ color: item.dias > 100 ? "#E31837" : "#1A1A1A" }}>
-                      {item.dias}d
-                    </span>
+
+                    {/* DOS Badge */}
+                    <div className="text-right">
+                      <p className="text-3xl font-bold" style={{ color: tienda.color }}>
+                        {tienda.dosMin}d
+                      </p>
+                      <p className="text-xs text-gray-400">DOS mínimo</p>
+                    </div>
                   </div>
-                  <span className={`text-right font-bold text-sm transition-all duration-300 ${
-                    isHovered ? "scale-105 text-[#E31837]" : "text-gray-900"
-                  }`}>
-                    ${(item.ventaPerdida / 1000).toFixed(0)}K
-                  </span>
+
+                  {/* Sabores */}
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {tienda.saboresBajos.map((sabor, i) => (
+                      <span
+                        key={i}
+                        className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-lg"
+                      >
+                        {sabor}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               )
             })}
           </div>
         </div>
 
-        {/* Stores with more stockouts */}
+        {/* Right - Summary */}
         <div
-          className={`w-[320px] transition-all duration-700 ${
+          className={`w-[380px] transition-all duration-700 ${
             isLoaded ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"
           }`}
           style={{ transitionDelay: "400ms" }}
         >
-          <h3 className="text-lg font-semibold text-gray-700 mb-4 flex items-center gap-2">
-            <Store size={18} className="text-[#F7B500]" />
-            Tiendas con más quiebres
-          </h3>
+          {/* Alert Card */}
+          <div className="p-6 bg-gradient-to-br from-[#E31837]/10 to-[#E31837]/5 rounded-3xl border-2 border-[#E31837]/30 mb-6">
+            <div className="flex items-center gap-3 mb-4">
+              <TrendingDown size={24} className="text-[#E31837]" />
+              <span className="font-bold text-lg text-[#1A1A1A]">Impacto</span>
+            </div>
+            <p className="text-gray-700 leading-relaxed mb-4">
+              Cuando el producto se agota, el cliente compra otra marca.
+              Estas <span className="font-bold text-[#E31837]">{totalTiendas} tiendas</span> están en riesgo de perder ventas.
+            </p>
+            <div className="p-4 bg-white rounded-xl">
+              <p className="text-sm text-gray-500 mb-1">Tiendas críticas (DOS &lt; 7d)</p>
+              <p className="text-3xl font-bold text-[#E31837]">
+                {tiendasBajoStock.filter(t => t.dosMin < 7).length}
+              </p>
+            </div>
+          </div>
 
-          <div className="space-y-2">
-            {tiendasQuiebres.map((item, index) => {
-              const isHovered = hoveredTienda === index
-
-              return (
-                <div
-                  key={item.tienda}
-                  className={`p-3 rounded-xl border transition-all duration-300 cursor-pointer ${
-                    isHovered
-                      ? "border-[#F7B500] bg-[#F7B500]/10 scale-[1.02]"
-                      : "border-gray-200 hover:border-gray-300"
-                  }`}
-                  onMouseEnter={() => setHoveredTienda(index)}
-                  onMouseLeave={() => setHoveredTienda(null)}
-                >
-                  <div className="flex justify-between items-center">
-                    <span className={`text-sm transition-all duration-300 ${
-                      isHovered ? "font-bold" : "font-medium"
-                    }`}>
-                      {item.tienda.replace("MT ", "")}
-                    </span>
-                    <span className={`text-sm font-bold transition-all duration-300 ${
-                      isHovered ? "text-[#E31837] scale-110" : "text-gray-600"
-                    }`}>
-                      {item.dias} días-producto
-                    </span>
-                  </div>
-                </div>
-              )
-            })}
+          {/* What is DOS */}
+          <div className="p-5 bg-gray-50 rounded-2xl border border-gray-200">
+            <p className="font-semibold text-gray-700 mb-2">¿Qué es DOS?</p>
+            <p className="text-sm text-gray-600 leading-relaxed">
+              <span className="font-bold">Días de Inventario</span> = cuántos días dura el stock actual según la venta diaria promedio.
+            </p>
+            <div className="mt-3 pt-3 border-t border-gray-200 space-y-2 text-sm">
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded-full bg-[#E31837]" />
+                <span className="text-gray-600">&lt; 7 días = Crítico</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded-full bg-[#F7B500]" />
+                <span className="text-gray-600">7-14 días = Bajo</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded-full bg-[#27AE60]" />
+                <span className="text-gray-600">&gt; 14 días = OK</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Action */}
+      {/* CTA */}
       <div
-        className={`mt-4 p-5 bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl border border-green-200 transition-all duration-700 hover:shadow-lg cursor-pointer ${
+        className={`mt-6 p-5 bg-gradient-to-r from-[#27AE60]/10 to-[#27AE60]/5 rounded-2xl border border-[#27AE60]/30 transition-all duration-700 hover:shadow-lg cursor-pointer ${
           isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         }`}
         style={{ transitionDelay: "600ms" }}
       >
-        <div className="flex items-center gap-3">
-          <CheckCircle className="text-green-600 flex-shrink-0" />
-          <p className="text-green-800 font-medium flex-1">
-            <span className="font-bold">Acción propuesta:</span> Incrementar inventario mínimo de Papa Jalapeño y Fuego en formato 340gr
-          </p>
-          <ArrowRight className="text-green-600" />
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <Truck size={28} className="text-[#27AE60]" />
+            <div>
+              <p className="font-bold text-[#1A1A1A]">Propuesta: Surtir estas {totalTiendas} tiendas esta semana</p>
+              <p className="text-sm text-gray-600">Ver detalle de cantidades por producto en las siguientes slides</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2 px-5 py-2 bg-[#27AE60] text-white rounded-xl font-semibold">
+            <span>Ver propuesta</span>
+            <ArrowRight size={18} />
+          </div>
         </div>
+      </div>
+
+      {/* Footer */}
+      <div className="mt-4 pt-3 border-t border-gray-100">
+        <p className="text-xs text-gray-400 text-center">
+          Fuente: Inventario MI TIENDA al 09/Feb/2026 | Excluye CAT Monterrey (CEDIS) | DOS = Inventario ÷ Venta diaria
+        </p>
       </div>
     </div>
   )
