@@ -45,7 +45,7 @@ export default function Slide1Portada() {
         style={{ transitionDelay: "200ms" }}
       >
         <Image
-          src="/images/delikos-logo.png"
+          src="/images/delikos-logo-nuevo.jpeg"
           alt="Delikos"
           width={400}
           height={200}

@@ -31,9 +31,9 @@ export default function Slide1Portada() {
 
       {/* Content */}
       <div className="flex-1 flex flex-col items-center justify-center relative z-10">
-        {/* Logo - animated */}
+        {/* Logos - animated */}
         <div
-          className={`mb-8 transition-all duration-700 ${
+          className={`mb-8 flex items-center gap-8 transition-all duration-700 ${
             isLoaded ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-8"
           }`}
           style={{ transitionDelay: "200ms" }}
@@ -41,8 +41,16 @@ export default function Slide1Portada() {
           <Image
             src="/images/delikos-logo-nuevo.jpeg"
             alt="Botanas Delikos"
-            width={400}
-            height={180}
+            width={200}
+            height={100}
+            className="object-contain hover:scale-105 transition-transform duration-300"
+          />
+          <span className="text-4xl font-bold text-[#F7B500]">+</span>
+          <Image
+            src="/images/merco-logo.jpg"
+            alt="MERCO"
+            width={200}
+            height={100}
             className="object-contain hover:scale-105 transition-transform duration-300"
           />
         </div>

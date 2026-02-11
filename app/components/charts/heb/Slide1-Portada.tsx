@@ -28,7 +28,7 @@ export default function Slide1Portada() {
         <div className="flex items-center gap-4">
           <div className="w-20 h-20 bg-white rounded-2xl flex items-center justify-center shadow-2xl hover:scale-105 transition-transform cursor-pointer">
             <Image
-              src="/images/delikos-logo.png"
+              src="/images/delikos-logo-nuevo.jpeg"
               alt="DELIKOS"
               width={60}
               height={60}
@@ -47,8 +47,14 @@ export default function Slide1Portada() {
             <span className="text-2xl font-bold text-white text-right block">HEB</span>
             <span className="block text-sm text-gray-400 text-right">Mi Tienda del Ahorro</span>
           </div>
-          <div className="w-20 h-20 bg-[#E31837] rounded-2xl flex items-center justify-center shadow-2xl hover:scale-105 transition-transform cursor-pointer">
-            <span className="text-3xl font-black text-white">HEB</span>
+          <div className="w-20 h-20 bg-white rounded-2xl flex items-center justify-center shadow-2xl hover:scale-105 transition-transform cursor-pointer overflow-hidden">
+            <Image
+              src="/images/mitienda-logo.jpeg"
+              alt="Mi Tienda HEB"
+              width={70}
+              height={70}
+              className="object-contain"
+            />
           </div>
         </div>
       </div>

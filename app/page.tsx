@@ -13,6 +13,7 @@ const presentaciones = [
     slides: 7,
     color: "#E31837",
     icono: Target,
+    logo: "/images/mitienda-logo.jpeg",
     highlights: ["$4.58M Ventas", "$929K Oportunidad", "Sell-Out Ago-Feb"]
   },
   {
@@ -22,6 +23,7 @@ const presentaciones = [
     slides: 6,
     color: "#F7B500",
     icono: Store,
+    logo: "/images/merco-logo.jpg",
     highlights: ["Crecimiento 143%", "Top Productos", "Performance Tiendas"]
   },
   {
@@ -31,6 +33,7 @@ const presentaciones = [
     slides: 9,
     color: "#1A1A1A",
     icono: TrendingUp,
+    logo: "/images/delikos-logo-nuevo.jpeg",
     highlights: ["$65.1M Total", "Mix por Categoría", "Arranque 2026"]
   }
 ]
@@ -54,7 +57,7 @@ export default function HomePage() {
       >
         <div className="flex items-center justify-center gap-4 mb-6">
           <Image
-            src="/images/delikos-logo.png"
+            src="/images/delikos-logo-nuevo.jpeg"
             alt="DELIKOS"
             width={80}
             height={80}
@@ -88,18 +91,28 @@ export default function HomePage() {
               onMouseEnter={() => setHoveredId(pres.id)}
               onMouseLeave={() => setHoveredId(null)}
             >
-              {/* Icon */}
+              {/* Logo */}
               <div
-                className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 ${
+                className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 overflow-hidden ${
                   isHovered ? "scale-110" : ""
                 }`}
-                style={{ backgroundColor: `${pres.color}15` }}
+                style={{ backgroundColor: pres.logo ? "#fff" : `${pres.color}15` }}
               >
-                <Icon
-                  size={32}
-                  style={{ color: pres.color }}
-                  className={isHovered ? "animate-bounce-subtle" : ""}
-                />
+                {pres.logo ? (
+                  <Image
+                    src={pres.logo}
+                    alt={pres.titulo}
+                    width={56}
+                    height={56}
+                    className="object-contain"
+                  />
+                ) : (
+                  <Icon
+                    size={32}
+                    style={{ color: pres.color }}
+                    className={isHovered ? "animate-bounce-subtle" : ""}
+                  />
+                )}
               </div>
 
               {/* Title */}
