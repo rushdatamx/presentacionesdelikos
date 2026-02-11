@@ -207,7 +207,7 @@ export default function Slide2ResumenEjecutivo() {
       >
         <p className="text-sm text-gray-400 text-center flex items-center justify-center gap-2">
           <AlertTriangle size={14} />
-          Datos verificados del portal MiTienda HEB
+          Datos verificados del portal Mi Tienda
         </p>
       </div>
     </div>

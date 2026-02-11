@@ -8,7 +8,7 @@ import { Presentation, TrendingUp, Store, ChevronRight, ShoppingCart, Target } f
 const presentaciones = [
   {
     id: "heb",
-    titulo: "HEB Oportunidades 2026",
+    titulo: "MI TIENDA Oportunidades 2026",
     descripcion: "Análisis Sell-Out y oportunidades de crecimiento",
     slides: 7,
     color: "#E31837",

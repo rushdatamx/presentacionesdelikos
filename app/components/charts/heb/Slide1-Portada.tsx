@@ -41,16 +41,16 @@ export default function Slide1Portada() {
           </div>
         </div>
 
-        {/* HEB Logo */}
+        {/* MI TIENDA Logo */}
         <div className="flex items-center gap-4">
           <div>
-            <span className="text-2xl font-bold text-white text-right block">HEB</span>
-            <span className="block text-sm text-gray-400 text-right">Mi Tienda del Ahorro</span>
+            <span className="text-2xl font-bold text-white text-right block">MI TIENDA</span>
+            <span className="block text-sm text-gray-400 text-right">Del Ahorro</span>
           </div>
           <div className="w-20 h-20 bg-white rounded-2xl flex items-center justify-center shadow-2xl hover:scale-105 transition-transform cursor-pointer overflow-hidden">
             <Image
               src="/images/mitienda-logo.jpeg"
-              alt="Mi Tienda HEB"
+              alt="Mi Tienda"
               width={70}
               height={70}
               className="object-contain"
@@ -80,7 +80,7 @@ export default function Slide1Portada() {
           <h2 className="text-5xl font-bold mb-8">
             <span className="text-[#F7B500]">DELIKOS</span>
             <span className="text-white"> en </span>
-            <span className="text-[#E31837]">HEB</span>
+            <span className="text-[#E31837]">MI TIENDA</span>
           </h2>
 
           <div
@@ -105,7 +105,7 @@ export default function Slide1Portada() {
         style={{ transitionDelay: "500ms" }}
       >
         <div className="flex items-center gap-2 text-gray-400">
-          <span className="text-sm">Datos: Portal MiTienda HEB</span>
+          <span className="text-sm">Datos: Portal Mi Tienda</span>
         </div>
 
         <div className="flex items-center gap-4">

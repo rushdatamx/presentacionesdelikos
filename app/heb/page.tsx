@@ -4,7 +4,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { ChevronLeft, ChevronRight, Home } from "lucide-react"
 
-// Import all HEB slides
+// Import all MI TIENDA slides
 import Slide1Portada from "../components/charts/heb/Slide1-Portada"
 import Slide2ResumenEjecutivo from "../components/charts/heb/Slide2-ResumenEjecutivo"
 import Slide3TopTiendas from "../components/charts/heb/Slide3-TopTiendas"
@@ -23,7 +23,7 @@ const slides = [
   { id: 7, name: "Plan de Acción", component: Slide7ProximosPasos },
 ]
 
-export default function HEBPresentation() {
+export default function MiTiendaPresentation() {
   const [currentSlide, setCurrentSlide] = useState(0)
 
   const goToSlide = (index: number) => {

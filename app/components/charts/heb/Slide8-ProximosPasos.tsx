@@ -9,7 +9,7 @@ const acciones = [
     oportunidad: "Quiebres de stock",
     monto: "$340K",
     accion: "Incrementar inventario mínimo de Papa Casera Jalapeño y Fuego 45gr",
-    responsable: "HEB + DELIKOS",
+    responsable: "MI TIENDA + DELIKOS",
     color: "#E31837",
     icono: AlertTriangle,
   },
@@ -190,12 +190,12 @@ export default function Slide8ProximosPasos() {
                       isActive ? "scale-105" : ""
                     }`}
                     style={{
-                      backgroundColor: item.responsable.includes("HEB") && item.responsable.includes("DELIKOS")
+                      backgroundColor: item.responsable.includes("MI TIENDA") && item.responsable.includes("DELIKOS")
                         ? "#E31837" + "20"
                         : item.responsable === "DELIKOS"
                         ? "#F7B500" + "20"
                         : "#1A1A1A" + "15",
-                      color: item.responsable.includes("HEB") && item.responsable.includes("DELIKOS")
+                      color: item.responsable.includes("MI TIENDA") && item.responsable.includes("DELIKOS")
                         ? "#E31837"
                         : item.responsable === "DELIKOS"
                         ? "#B8860B"
