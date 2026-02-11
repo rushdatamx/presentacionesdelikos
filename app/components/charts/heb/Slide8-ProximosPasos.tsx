@@ -1,25 +1,27 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Target, CheckCircle, Package, Truck, Calendar, ArrowRight, Handshake } from "lucide-react"
+import { AlertTriangle, Trophy, Package, CheckCircle, Clock } from "lucide-react"
 
-// Resumen de la propuesta completa
+// Tiendas que necesitan surtido (combinado PDQ 340gr + 45gr)
+const tiendasASurtir = [
+  { tienda: "REY RIO BRAVO", codigo: "2972", pdq: "45gr", dosMin: 4 },
+  { tienda: "REY SAN FERNANDO", codigo: "9107", pdq: "45gr", dosMin: 3 },
+  { tienda: "REY AEROPUERTO", codigo: "2995", pdq: "45gr", dosMin: 7 },
+  { tienda: "MTY AZTLAN", codigo: "2956", pdq: "45gr", dosMin: 0 },
+  { tienda: "MTY BUENA VISTA", codigo: "9104", pdq: "340gr", dosMin: 0 },
+  { tienda: "SAL SATELITE", codigo: "2938", pdq: "340gr", dosMin: 0 },
+  { tienda: "MTY ZUAZUA", codigo: "2920", pdq: "340gr", dosMin: 0 },
+]
 
-const resumenPropuesta = {
-  pdq340: {
-    tiendas: 3,
-    piezas: 1185,
-    pdqs: 8, // ~1185/160
-  },
-  pdq45: {
-    tiendas: 4,
-    piezas: 2368,
-    pdqs: 33, // ~2368/72
-  },
-}
-
-const totalTiendas = resumenPropuesta.pdq340.tiendas + resumenPropuesta.pdq45.tiendas
-const totalPiezas = resumenPropuesta.pdq340.piezas + resumenPropuesta.pdq45.piezas
+// Top 5 tiendas con mejor rotación - revisar si también necesitan surtido
+const topTiendas = [
+  { tienda: "NVO REVOLUCION", codigo: "2948", unidades: 8374, dosMin45: 44, dosMin340: 124, necesitaSurtir: false },
+  { tienda: "MTY HUINALA", codigo: "2994", unidades: 8128, dosMin45: 26, dosMin340: 25, necesitaSurtir: true },
+  { tienda: "MTY CIUDADELA", codigo: "2990", unidades: 7856, dosMin45: 35, dosMin340: 52, necesitaSurtir: false },
+  { tienda: "REY SAN FERNANDO", codigo: "9107", unidades: 7919, dosMin45: 3, dosMin340: 114, necesitaSurtir: true },
+  { tienda: "MTY ZUAZUA", codigo: "2920", unidades: 7382, dosMin45: 27, dosMin340: 0, necesitaSurtir: true },
+]
 
 export default function Slide8ProximosPasos() {
   const [isLoaded, setIsLoaded] = useState(false)
@@ -30,181 +32,167 @@ export default function Slide8ProximosPasos() {
   }, [])
 
   return (
-    <div className="w-[1280px] h-[720px] bg-gradient-to-br from-[#27AE60]/5 to-white p-12 font-sans flex flex-col">
+    <div className="w-[1280px] h-[720px] bg-white p-10 font-sans flex flex-col">
       {/* Header */}
       <div
-        className={`mb-8 text-center transition-all duration-700 ${
+        className={`mb-6 transition-all duration-700 ${
           isLoaded ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"
         }`}
       >
-        <div className="flex items-center justify-center gap-3 mb-4">
-          <div className="p-3 bg-[#27AE60]/10 rounded-2xl">
-            <Handshake size={36} className="text-[#27AE60]" />
+        <div className="flex items-center gap-3 mb-2">
+          <div className="p-2 bg-[#27AE60]/10 rounded-xl">
+            <CheckCircle size={28} className="text-[#27AE60]" />
           </div>
+          <span className="text-sm font-semibold text-[#27AE60] uppercase tracking-wider">
+            Resumen y Acción
+          </span>
         </div>
-        <h1 className="text-5xl font-bold text-[#1A1A1A] tracking-tight">
-          Siguiente Paso
+        <h1 className="text-4xl font-bold text-[#1A1A1A] tracking-tight">
+          Tiendas que requieren surtido
         </h1>
-        <p className="text-xl text-gray-500 mt-3">
-          Propuesta de pedido para mantener disponibilidad en tienda
-        </p>
       </div>
 
-      {/* Main Proposal */}
+      {/* Main Content - Two Sections */}
       <div
-        className={`flex-1 flex gap-8 transition-all duration-700 ${
+        className={`flex-1 flex gap-6 transition-all duration-700 ${
           isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-95"
         }`}
         style={{ transitionDelay: "200ms" }}
       >
-        {/* Left - Numbers */}
-        <div className="flex-1 flex flex-col justify-center">
-          <div className="p-8 bg-white rounded-3xl border-2 border-gray-200 shadow-lg">
-            <h3 className="text-lg font-semibold text-gray-500 mb-6 uppercase tracking-wider">
-              Resumen del Pedido
-            </h3>
-
-            {/* PDQ 340gr */}
-            <div className="p-5 bg-[#E31837]/5 rounded-2xl border border-[#E31837]/20 mb-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <Package size={24} className="text-[#E31837]" />
-                  <span className="font-bold text-lg text-[#1A1A1A]">PDQ 340gr</span>
-                </div>
-                <div className="text-right">
-                  <p className="text-2xl font-bold text-[#E31837]">
-                    {resumenPropuesta.pdq340.piezas.toLocaleString()} pzs
-                  </p>
-                  <p className="text-sm text-gray-500">
-                    ~{resumenPropuesta.pdq340.pdqs} PDQ en {resumenPropuesta.pdq340.tiendas} tiendas
-                  </p>
-                </div>
-              </div>
+        {/* Left - Tiendas a Surtir */}
+        <div className="flex-1">
+          <div className="p-5 bg-[#E31837]/5 rounded-2xl border border-[#E31837]/20 h-full">
+            <div className="flex items-center gap-3 mb-4">
+              <AlertTriangle size={20} className="text-[#E31837]" />
+              <h3 className="font-bold text-lg text-[#1A1A1A]">
+                7 tiendas con inventario bajo
+              </h3>
             </div>
 
-            {/* PDQ 45gr */}
-            <div className="p-5 bg-[#F7B500]/5 rounded-2xl border border-[#F7B500]/20 mb-6">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <Package size={24} className="text-[#F7B500]" />
-                  <span className="font-bold text-lg text-[#1A1A1A]">PDQ 45gr</span>
+            <div className="space-y-2">
+              {tiendasASurtir.map((tienda, index) => (
+                <div
+                  key={tienda.codigo}
+                  className={`p-3 bg-white rounded-xl border border-gray-200 flex items-center justify-between transition-all duration-300 ${
+                    isLoaded ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4"
+                  }`}
+                  style={{ transitionDelay: `${300 + index * 50}ms` }}
+                >
+                  <div className="flex items-center gap-3">
+                    <div className={`w-1.5 h-8 rounded-full ${tienda.dosMin < 7 ? "bg-[#E31837]" : "bg-[#F7B500]"}`} />
+                    <div>
+                      <p className="font-semibold text-[#1A1A1A]">{tienda.tienda}</p>
+                      <p className="text-xs text-gray-400">PDQ {tienda.pdq}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="text-right">
+                      <p className={`text-lg font-bold ${tienda.dosMin < 7 ? "text-[#E31837]" : "text-[#F7B500]"}`}>
+                        {tienda.dosMin}d
+                      </p>
+                      <p className="text-[10px] text-gray-400">DOS mín</p>
+                    </div>
+                    <span className="px-3 py-1 bg-[#E31837] text-white text-xs font-bold rounded-lg">
+                      SURTIR
+                    </span>
+                  </div>
                 </div>
-                <div className="text-right">
-                  <p className="text-2xl font-bold text-[#F7B500]">
-                    {resumenPropuesta.pdq45.piezas.toLocaleString()} pzs
-                  </p>
-                  <p className="text-sm text-gray-500">
-                    ~{resumenPropuesta.pdq45.pdqs} PDQ en {resumenPropuesta.pdq45.tiendas} tiendas
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Total */}
-            <div className="p-5 bg-[#27AE60]/10 rounded-2xl border-2 border-[#27AE60]/30">
-              <div className="flex items-center justify-between">
-                <span className="font-bold text-xl text-[#1A1A1A]">Total del pedido</span>
-                <div className="text-right">
-                  <p className="text-4xl font-bold text-[#27AE60]">
-                    {totalPiezas.toLocaleString()} pzs
-                  </p>
-                  <p className="text-sm text-gray-500">
-                    {totalTiendas} tiendas
-                  </p>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
 
-        {/* Right - Action */}
-        <div className="w-[450px] flex flex-col justify-center">
-          <div className="space-y-4">
-            {/* Step 1 */}
-            <div
-              className={`p-5 bg-white rounded-2xl border-2 border-gray-200 shadow-md transition-all duration-500 hover:border-[#27AE60] hover:shadow-lg ${
-                isLoaded ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"
-              }`}
-              style={{ transitionDelay: "300ms" }}
-            >
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 bg-[#27AE60] rounded-xl flex items-center justify-center text-white font-bold">
-                  1
-                </div>
-                <div>
-                  <p className="font-bold text-[#1A1A1A] text-lg">Aprobar pedido</p>
-                  <p className="text-gray-500 mt-1">
-                    Confirmar las cantidades propuestas para cada tienda
-                  </p>
-                </div>
-              </div>
+        {/* Right - Top Tiendas con DOS */}
+        <div className="w-[520px]">
+          <div className="p-5 bg-[#F7B500]/5 rounded-2xl border border-[#F7B500]/20 h-full">
+            <div className="flex items-center gap-3 mb-4">
+              <Trophy size={20} className="text-[#F7B500]" />
+              <h3 className="font-bold text-lg text-[#1A1A1A]">
+                Top 5 tiendas - ¿También surtir?
+              </h3>
             </div>
 
-            {/* Step 2 */}
-            <div
-              className={`p-5 bg-white rounded-2xl border-2 border-gray-200 shadow-md transition-all duration-500 hover:border-[#27AE60] hover:shadow-lg ${
-                isLoaded ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"
-              }`}
-              style={{ transitionDelay: "400ms" }}
-            >
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 bg-gray-300 rounded-xl flex items-center justify-center text-white font-bold">
-                  2
+            <div className="space-y-2">
+              {topTiendas.map((tienda, index) => (
+                <div
+                  key={tienda.codigo}
+                  className={`p-3 bg-white rounded-xl border ${tienda.necesitaSurtir ? "border-[#F7B500]" : "border-gray-200"} transition-all duration-300 ${
+                    isLoaded ? "opacity-100 translate-x-0" : "opacity-0 translate-x-4"
+                  }`}
+                  style={{ transitionDelay: `${300 + index * 50}ms` }}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm ${
+                        index === 0 ? "bg-[#F7B500] text-white" : "bg-gray-200 text-gray-600"
+                      }`}>
+                        {index + 1}
+                      </div>
+                      <div>
+                        <p className="font-semibold text-[#1A1A1A]">{tienda.tienda}</p>
+                        <p className="text-xs text-gray-400">{tienda.unidades.toLocaleString()} unidades vendidas</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <div className="text-center">
+                        <p className="text-xs text-gray-400">DOS 45gr</p>
+                        <p className={`font-bold ${tienda.dosMin45 < 14 ? "text-[#E31837]" : "text-[#27AE60]"}`}>
+                          {tienda.dosMin45}d
+                        </p>
+                      </div>
+                      <div className="text-center">
+                        <p className="text-xs text-gray-400">DOS 340gr</p>
+                        <p className={`font-bold ${tienda.dosMin340 < 14 ? "text-[#E31837]" : "text-[#27AE60]"}`}>
+                          {tienda.dosMin340}d
+                        </p>
+                      </div>
+                      {tienda.necesitaSurtir ? (
+                        <span className="px-2 py-1 bg-[#F7B500] text-white text-[10px] font-bold rounded">
+                          CONSIDERAR
+                        </span>
+                      ) : (
+                        <span className="px-2 py-1 bg-[#27AE60]/10 text-[#27AE60] text-[10px] font-bold rounded">
+                          OK
+                        </span>
+                      )}
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <p className="font-bold text-[#1A1A1A] text-lg">Programar envío</p>
-                  <p className="text-gray-500 mt-1">
-                    DELIKOS coordina entrega en las 7 tiendas identificadas
-                  </p>
-                </div>
-              </div>
+              ))}
             </div>
 
-            {/* Step 3 */}
-            <div
-              className={`p-5 bg-white rounded-2xl border-2 border-gray-200 shadow-md transition-all duration-500 hover:border-[#27AE60] hover:shadow-lg ${
-                isLoaded ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"
-              }`}
-              style={{ transitionDelay: "500ms" }}
-            >
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 bg-gray-300 rounded-xl flex items-center justify-center text-white font-bold">
-                  3
-                </div>
-                <div>
-                  <p className="font-bold text-[#1A1A1A] text-lg">Seguimiento</p>
-                  <p className="text-gray-500 mt-1">
-                    Revisión en 2 semanas para validar rotación y ajustar
-                  </p>
-                </div>
-              </div>
+            <div className="mt-4 p-3 bg-white rounded-xl border border-[#F7B500]/30">
+              <p className="text-sm text-gray-600">
+                <span className="font-bold text-[#F7B500]">3 de las top 5</span> tiendas tienen DOS bajo en algún producto.
+                Considera incluirlas en el pedido para evitar quiebres.
+              </p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* CTA */}
+      {/* Footer Summary */}
       <div
-        className={`mt-8 p-6 bg-[#27AE60] rounded-2xl transition-all duration-700 hover:shadow-2xl cursor-pointer ${
+        className={`mt-6 p-5 bg-gradient-to-r from-[#27AE60]/10 to-[#27AE60]/5 rounded-2xl border border-[#27AE60]/30 transition-all duration-700 ${
           isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         }`}
         style={{ transitionDelay: "600ms" }}
       >
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <CheckCircle size={32} className="text-white" />
+            <Package size={28} className="text-[#27AE60]" />
             <div>
-              <p className="font-bold text-white text-xl">
-                ¿Aprobamos este pedido?
+              <p className="font-bold text-[#1A1A1A] text-lg">
+                Acción: Surtir las 7 tiendas identificadas
               </p>
-              <p className="text-white/80">
-                {totalPiezas.toLocaleString()} piezas totales para {totalTiendas} tiendas
+              <p className="text-sm text-gray-600">
+                PDQ 340gr: 3 tiendas | PDQ 45gr: 4 tiendas
               </p>
             </div>
           </div>
-          <div className="flex items-center gap-3 px-6 py-3 bg-white text-[#27AE60] rounded-xl font-bold text-lg hover:bg-gray-100 transition-colors">
-            <span>Sí, aprobar</span>
-            <ArrowRight size={20} />
+          <div className="flex items-center gap-2 text-sm text-gray-500">
+            <Clock size={16} />
+            <span>Siguiente revisión: 2 semanas</span>
           </div>
         </div>
       </div>
@@ -212,7 +200,7 @@ export default function Slide8ProximosPasos() {
       {/* Footer */}
       <div className="mt-4 pt-3 border-t border-gray-100">
         <p className="text-xs text-gray-400 text-center">
-          Propuesta basada en inventario MI TIENDA al 09/Feb/2026 | Cantidades calculadas para 30 días de cobertura
+          Fuente: Inventario MI TIENDA al 09/Feb/2026 | DOS = Días de cobertura | Excluye CAT Monterrey
         </p>
       </div>
     </div>

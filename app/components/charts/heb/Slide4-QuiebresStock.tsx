@@ -110,15 +110,15 @@ export default function Slide4OportunidadSurtido() {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 flex gap-8">
-        {/* Left - Tiendas List */}
+      <div className="flex-1 flex gap-6">
+        {/* Left - Tiendas List (2 columns) */}
         <div
           className={`flex-1 transition-all duration-700 ${
             isLoaded ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"
           }`}
           style={{ transitionDelay: "200ms" }}
         >
-          <div className="space-y-3">
+          <div className="grid grid-cols-2 gap-3">
             {tiendasBajoStock.map((tienda, index) => {
               const isHovered = hoveredIndex === index
               const isCritical = tienda.dosMin < 7
@@ -126,9 +126,9 @@ export default function Slide4OportunidadSurtido() {
               return (
                 <div
                   key={tienda.codigo}
-                  className={`p-4 rounded-2xl border-2 transition-all duration-300 cursor-pointer ${
+                  className={`p-3 rounded-xl border-2 transition-all duration-300 cursor-pointer ${
                     isHovered
-                      ? "border-[#E31837] shadow-lg scale-[1.01] bg-red-50"
+                      ? "border-[#E31837] shadow-lg bg-red-50"
                       : isCritical
                       ? "border-red-200 bg-red-50/50"
                       : "border-gray-200 hover:border-gray-300 bg-white"
@@ -137,41 +137,41 @@ export default function Slide4OportunidadSurtido() {
                   onMouseEnter={() => setHoveredIndex(index)}
                   onMouseLeave={() => setHoveredIndex(null)}
                 >
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-3">
                     {/* Indicator */}
                     <div
-                      className={`w-2 h-12 rounded-full`}
+                      className={`w-1.5 h-10 rounded-full`}
                       style={{ backgroundColor: tienda.color }}
                     />
 
                     {/* Info */}
-                    <div className="flex-1">
+                    <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2">
-                        <span className="font-bold text-lg text-[#1A1A1A]">{tienda.tienda}</span>
+                        <span className="font-bold text-[#1A1A1A] truncate">{tienda.tienda}</span>
                         {isCritical && (
-                          <span className="px-2 py-0.5 bg-[#E31837] text-white text-xs font-bold rounded-full">
+                          <span className="px-2 py-0.5 bg-[#E31837] text-white text-[10px] font-bold rounded-full shrink-0">
                             CRÍTICO
                           </span>
                         )}
                       </div>
-                      <p className="text-sm text-gray-500">{tienda.problema}</p>
+                      <p className="text-xs text-gray-500 truncate">{tienda.problema}</p>
                     </div>
 
                     {/* DOS Badge */}
-                    <div className="text-right">
-                      <p className="text-3xl font-bold" style={{ color: tienda.color }}>
+                    <div className="text-right shrink-0">
+                      <p className="text-2xl font-bold" style={{ color: tienda.color }}>
                         {tienda.dosMin}d
                       </p>
-                      <p className="text-xs text-gray-400">DOS mínimo</p>
+                      <p className="text-[10px] text-gray-400">DOS mín</p>
                     </div>
                   </div>
 
                   {/* Sabores */}
-                  <div className="mt-3 flex flex-wrap gap-2">
+                  <div className="mt-2 flex flex-wrap gap-1">
                     {tienda.saboresBajos.map((sabor, i) => (
                       <span
                         key={i}
-                        className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-lg"
+                        className="px-2 py-0.5 bg-gray-100 text-gray-600 text-[10px] rounded"
                       >
                         {sabor}
                       </span>
@@ -185,46 +185,46 @@ export default function Slide4OportunidadSurtido() {
 
         {/* Right - Summary */}
         <div
-          className={`w-[380px] transition-all duration-700 ${
+          className={`w-[320px] transition-all duration-700 ${
             isLoaded ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"
           }`}
           style={{ transitionDelay: "400ms" }}
         >
           {/* Alert Card */}
-          <div className="p-6 bg-gradient-to-br from-[#E31837]/10 to-[#E31837]/5 rounded-3xl border-2 border-[#E31837]/30 mb-6">
-            <div className="flex items-center gap-3 mb-4">
-              <TrendingDown size={24} className="text-[#E31837]" />
-              <span className="font-bold text-lg text-[#1A1A1A]">Impacto</span>
+          <div className="p-5 bg-gradient-to-br from-[#E31837]/10 to-[#E31837]/5 rounded-2xl border-2 border-[#E31837]/30 mb-4">
+            <div className="flex items-center gap-3 mb-3">
+              <TrendingDown size={20} className="text-[#E31837]" />
+              <span className="font-bold text-[#1A1A1A]">Impacto</span>
             </div>
-            <p className="text-gray-700 leading-relaxed mb-4">
+            <p className="text-sm text-gray-700 leading-relaxed mb-3">
               Cuando el producto se agota, el cliente compra otra marca.
               Estas <span className="font-bold text-[#E31837]">{totalTiendas} tiendas</span> están en riesgo de perder ventas.
             </p>
-            <div className="p-4 bg-white rounded-xl">
-              <p className="text-sm text-gray-500 mb-1">Tiendas críticas (DOS &lt; 7d)</p>
-              <p className="text-3xl font-bold text-[#E31837]">
+            <div className="p-3 bg-white rounded-xl">
+              <p className="text-xs text-gray-500 mb-1">Tiendas críticas (DOS &lt; 7d)</p>
+              <p className="text-2xl font-bold text-[#E31837]">
                 {tiendasBajoStock.filter(t => t.dosMin < 7).length}
               </p>
             </div>
           </div>
 
           {/* What is DOS */}
-          <div className="p-5 bg-gray-50 rounded-2xl border border-gray-200">
-            <p className="font-semibold text-gray-700 mb-2">¿Qué es DOS?</p>
-            <p className="text-sm text-gray-600 leading-relaxed">
+          <div className="p-4 bg-gray-50 rounded-xl border border-gray-200">
+            <p className="font-semibold text-gray-700 mb-2 text-sm">¿Qué es DOS?</p>
+            <p className="text-xs text-gray-600 leading-relaxed">
               <span className="font-bold">Días de Inventario</span> = cuántos días dura el stock actual según la venta diaria promedio.
             </p>
-            <div className="mt-3 pt-3 border-t border-gray-200 space-y-2 text-sm">
+            <div className="mt-3 pt-3 border-t border-gray-200 space-y-1.5 text-xs">
               <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-[#E31837]" />
+                <div className="w-2.5 h-2.5 rounded-full bg-[#E31837]" />
                 <span className="text-gray-600">&lt; 7 días = Crítico</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-[#F7B500]" />
+                <div className="w-2.5 h-2.5 rounded-full bg-[#F7B500]" />
                 <span className="text-gray-600">7-14 días = Bajo</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-[#27AE60]" />
+                <div className="w-2.5 h-2.5 rounded-full bg-[#27AE60]" />
                 <span className="text-gray-600">&gt; 14 días = OK</span>
               </div>
             </div>
@@ -234,22 +234,22 @@ export default function Slide4OportunidadSurtido() {
 
       {/* CTA */}
       <div
-        className={`mt-6 p-5 bg-gradient-to-r from-[#27AE60]/10 to-[#27AE60]/5 rounded-2xl border border-[#27AE60]/30 transition-all duration-700 hover:shadow-lg cursor-pointer ${
+        className={`mt-4 p-4 bg-gradient-to-r from-[#27AE60]/10 to-[#27AE60]/5 rounded-xl border border-[#27AE60]/30 transition-all duration-700 ${
           isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         }`}
         style={{ transitionDelay: "600ms" }}
       >
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Truck size={28} className="text-[#27AE60]" />
+          <div className="flex items-center gap-3">
+            <Truck size={24} className="text-[#27AE60]" />
             <div>
-              <p className="font-bold text-[#1A1A1A]">Propuesta: Surtir estas {totalTiendas} tiendas esta semana</p>
-              <p className="text-sm text-gray-600">Ver detalle de cantidades por producto en las siguientes slides</p>
+              <p className="font-bold text-[#1A1A1A]">Propuesta: Surtir estas {totalTiendas} tiendas</p>
+              <p className="text-sm text-gray-600">Ver detalle por producto en las siguientes slides</p>
             </div>
           </div>
-          <div className="flex items-center gap-2 px-5 py-2 bg-[#27AE60] text-white rounded-xl font-semibold">
+          <div className="flex items-center gap-2 px-4 py-2 bg-[#27AE60] text-white rounded-lg font-semibold text-sm">
             <span>Ver propuesta</span>
-            <ArrowRight size={18} />
+            <ArrowRight size={16} />
           </div>
         </div>
       </div>

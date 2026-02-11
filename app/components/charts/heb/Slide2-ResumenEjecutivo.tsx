@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { TrendingUp, Package, Zap, CheckCircle } from "lucide-react"
+import { TrendingUp, Package } from "lucide-react"
 
 // Datos calculados desde: scripts/calcular_metricas_mitienda.py
 // Fuente: venta-delikos.csv + inventario-delikos.csv
@@ -96,91 +96,62 @@ export default function Slide2ResumenEjecutivo() {
             </p>
           </div>
 
-          {/* Supporting stats */}
-          <div className="grid grid-cols-2 gap-4 mt-6">
-            <div className="p-5 bg-gray-50 rounded-2xl border border-gray-200">
-              <div className="flex items-center gap-2 mb-2">
-                <Package size={20} className="text-[#F7B500]" />
-                <span className="text-sm text-gray-500">PDQ 45gr</span>
-              </div>
-              <p className="text-2xl font-bold text-[#1A1A1A]">125,569</p>
-              <p className="text-sm text-gray-400">unidades (91% del mix)</p>
-            </div>
-            <div className="p-5 bg-gray-50 rounded-2xl border border-gray-200">
-              <div className="flex items-center gap-2 mb-2">
-                <Package size={20} className="text-[#E31837]" />
-                <span className="text-sm text-gray-500">PDQ 340gr</span>
-              </div>
-              <p className="text-2xl font-bold text-[#1A1A1A]">2,849</p>
-              <p className="text-sm text-gray-400">unidades (9% del mix)</p>
-            </div>
-          </div>
         </div>
 
-        {/* Right - Key Points */}
+        {/* Right - Breakdown by PDQ type */}
         <div className="w-[450px] flex flex-col justify-center">
           <h3 className="text-lg font-semibold text-gray-700 mb-6">
-            ¿Por qué crecer con PDQ?
+            Desglose por presentación
           </h3>
 
-          <div className="space-y-4">
+          <div className="space-y-5">
+            {/* PDQ 45gr Card */}
             <div
-              className={`p-5 bg-white rounded-2xl border-2 border-gray-200 shadow-sm transition-all duration-500 hover:border-[#27AE60] hover:shadow-md ${
+              className={`p-6 bg-white rounded-2xl border-2 border-[#F7B500]/30 shadow-sm transition-all duration-500 ${
                 isLoaded ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"
               }`}
               style={{ transitionDelay: "300ms" }}
             >
-              <div className="flex items-start gap-4">
-                <div className="p-2 bg-[#27AE60]/10 rounded-xl">
-                  <Zap size={24} className="text-[#27AE60]" />
+              <div className="flex items-center gap-3 mb-4">
+                <div className="p-2 bg-[#F7B500]/10 rounded-xl">
+                  <Package size={24} className="text-[#F7B500]" />
                 </div>
-                <div>
-                  <p className="font-bold text-[#1A1A1A] text-lg">Exhibidor listo para piso</p>
-                  <p className="text-gray-500 mt-1">
-                    PDQ llega armado. Solo colocar en anaquel o isla.
-                    Menos mano de obra para la tienda.
-                  </p>
-                </div>
+                <span className="font-bold text-lg text-[#1A1A1A]">PDQ 45gr</span>
+                <span className="ml-auto px-3 py-1 bg-[#F7B500]/10 text-[#F7B500] text-sm font-bold rounded-full">
+                  91% del mix
+                </span>
+              </div>
+              <p className="text-4xl font-bold text-[#F7B500] mb-1">125,569</p>
+              <p className="text-gray-500">unidades vendidas</p>
+              <div className="mt-4 pt-4 border-t border-gray-100">
+                <p className="text-sm text-gray-600">
+                  <span className="font-semibold">643 unidades/día</span> promedio
+                </p>
               </div>
             </div>
 
+            {/* PDQ 340gr Card */}
             <div
-              className={`p-5 bg-white rounded-2xl border-2 border-gray-200 shadow-sm transition-all duration-500 hover:border-[#F7B500] hover:shadow-md ${
+              className={`p-6 bg-white rounded-2xl border-2 border-[#E31837]/30 shadow-sm transition-all duration-500 ${
                 isLoaded ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"
               }`}
               style={{ transitionDelay: "400ms" }}
             >
-              <div className="flex items-start gap-4">
-                <div className="p-2 bg-[#F7B500]/10 rounded-xl">
-                  <TrendingUp size={24} className="text-[#F7B500]" />
-                </div>
-                <div>
-                  <p className="font-bold text-[#1A1A1A] text-lg">Mayor visibilidad = Mayor rotación</p>
-                  <p className="text-gray-500 mt-1">
-                    Exhibición secundaria en pasillo genera compra por impulso.
-                    658 piezas/día lo comprueban.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div
-              className={`p-5 bg-white rounded-2xl border-2 border-gray-200 shadow-sm transition-all duration-500 hover:border-[#E31837] hover:shadow-md ${
-                isLoaded ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"
-              }`}
-              style={{ transitionDelay: "500ms" }}
-            >
-              <div className="flex items-start gap-4">
+              <div className="flex items-center gap-3 mb-4">
                 <div className="p-2 bg-[#E31837]/10 rounded-xl">
-                  <CheckCircle size={24} className="text-[#E31837]" />
+                  <Package size={24} className="text-[#E31837]" />
                 </div>
-                <div>
-                  <p className="font-bold text-[#1A1A1A] text-lg">3 sabores = Variedad completa</p>
-                  <p className="text-gray-500 mt-1">
-                    Cada PDQ incluye 3 sabores. El cliente encuentra
-                    su favorito sin buscar.
-                  </p>
-                </div>
+                <span className="font-bold text-lg text-[#1A1A1A]">PDQ 340gr</span>
+                <span className="ml-auto px-3 py-1 bg-[#E31837]/10 text-[#E31837] text-sm font-bold rounded-full">
+                  9% del mix
+                </span>
+              </div>
+              <p className="text-4xl font-bold text-[#E31837] mb-1">2,849</p>
+              <p className="text-gray-500">unidades vendidas</p>
+              <div className="mt-4 pt-4 border-t border-gray-100">
+                <p className="text-sm text-gray-600">
+                  <span className="font-semibold">15 unidades/día</span> promedio
+                </p>
               </div>
             </div>
           </div>
