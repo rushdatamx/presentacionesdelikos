@@ -1,81 +1,69 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { AlertTriangle, TrendingDown, Truck, ArrowRight } from "lucide-react"
+import { AlertTriangle, TrendingDown, Truck, ArrowRight, PackageX, Eye } from "lucide-react"
 
 // Datos calculados desde: scripts/calcular_metricas_mitienda.py
 // Tiendas con DOS < 14 días = Stock bajo, rotación alta, necesitan surtido
 // Excluye CAT MONTERREY (2160) - es CEDIS
 
-// Tiendas que necesitan surtido (combinando ambos PDQ)
-// Inventario y venta diaria del sabor con DOS más bajo
-const tiendasBajoStock = [
+// TIPO 1: Stock bajo (hay venta pero poco inventario)
+const tiendasStockBajo = [
   {
     tienda: "REY RIO BRAVO",
     codigo: "2972",
     pdq: "45gr",
     dosMin: 4,
-    inventario: 66, // JALAPEÑO (el más bajo)
-    ventaDiaria: 17, // venta diaria de JALAPEÑO
-    color: "#E31837"
+    inventario: 66,
+    ventaDiaria: 17,
   },
   {
     tienda: "REY SAN FERNANDO",
     codigo: "9107",
     pdq: "45gr",
     dosMin: 3,
-    inventario: 50, // NATURAL (el más bajo)
-    ventaDiaria: 17, // venta diaria de NATURAL
-    color: "#E31837"
+    inventario: 50,
+    ventaDiaria: 17,
   },
   {
     tienda: "REY AEROPUERTO",
     codigo: "2995",
     pdq: "45gr",
     dosMin: 7,
-    inventario: 66, // NATURAL
+    inventario: 66,
     ventaDiaria: 9,
-    color: "#F7B500"
   },
+]
+
+// TIPO 2: Problema de anaquel (hay inventario pero 0 venta = no está exhibido)
+const tiendasProblemaAnaquel = [
   {
     tienda: "MTY AZTLAN",
     codigo: "2956",
     pdq: "45gr",
-    dosMin: 0,
-    inventario: 449, // FUEGO tiene inv pero 0 venta reciente
-    ventaDiaria: 0, // sin venta = DOS 0
-    color: "#E31837"
+    inventario: 449,
   },
   {
     tienda: "MTY BUENA VISTA",
     codigo: "9104",
     pdq: "340gr",
-    dosMin: 0,
-    inventario: 160, // tiene inv pero sin venta
-    ventaDiaria: 0,
-    color: "#E31837"
+    inventario: 160,
   },
   {
     tienda: "SAL SATELITE",
     codigo: "2938",
     pdq: "340gr",
-    dosMin: 0,
     inventario: 160,
-    ventaDiaria: 0,
-    color: "#E31837"
   },
   {
     tienda: "MTY ZUAZUA",
     codigo: "2920",
     pdq: "340gr",
-    dosMin: 0,
-    inventario: 82, // SAL
-    ventaDiaria: 0,
-    color: "#F7B500"
+    inventario: 82,
   },
 ]
 
-const totalTiendas = tiendasBajoStock.length
+const totalTiendas = tiendasStockBajo.length + tiendasProblemaAnaquel.length
 
 export default function Slide4OportunidadSurtido() {
   const [isLoaded, setIsLoaded] = useState(false)
@@ -112,73 +100,101 @@ export default function Slide4OportunidadSurtido() {
 
       {/* Main Content */}
       <div className="flex-1 flex gap-4">
-        {/* Left - Tiendas List (2 columns) */}
+        {/* Left Column - Two sections */}
         <div
-          className={`flex-1 transition-all duration-700 ${
+          className={`flex-1 flex flex-col gap-3 transition-all duration-700 ${
             isLoaded ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"
           }`}
           style={{ transitionDelay: "200ms" }}
         >
-          <div className="grid grid-cols-2 gap-2">
-            {tiendasBajoStock.map((tienda, index) => {
-              const isHovered = hoveredIndex === index
-              const isCritical = tienda.dosMin < 7
+          {/* Section 1: Stock Bajo */}
+          <div className="flex-1">
+            <div className="flex items-center gap-2 mb-2">
+              <div className="p-1 bg-[#E31837]/10 rounded">
+                <TrendingDown size={14} className="text-[#E31837]" />
+              </div>
+              <span className="text-xs font-bold text-[#E31837]">STOCK BAJO</span>
+              <span className="text-[10px] text-gray-500">({tiendasStockBajo.length} tiendas) - Necesitan resurtido</span>
+            </div>
+            <div className="space-y-1.5">
+              {tiendasStockBajo.map((tienda, index) => {
+                const isCritical = tienda.dosMin < 7
+                return (
+                  <div
+                    key={tienda.codigo}
+                    className={`p-2 rounded-lg border-2 transition-all duration-300 ${
+                      isCritical ? "border-red-300 bg-red-50" : "border-yellow-300 bg-yellow-50"
+                    }`}
+                    style={{ transitionDelay: `${300 + index * 50}ms` }}
+                  >
+                    <div className="flex items-center gap-2">
+                      <div className={`w-1 h-10 rounded-full ${isCritical ? "bg-[#E31837]" : "bg-[#F7B500]"}`} />
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-1 mb-0.5">
+                          <span className="font-bold text-sm text-[#1A1A1A] truncate">{tienda.tienda}</span>
+                          {isCritical && (
+                            <span className="px-1.5 py-0.5 bg-[#E31837] text-white text-[9px] font-bold rounded-full shrink-0">
+                              CRÍTICO
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-[10px] text-gray-500">PDQ {tienda.pdq}</p>
+                        <div className="mt-0.5 flex items-center gap-2 text-[10px]">
+                          <span className="text-gray-600">Inv: <span className="font-semibold">{tienda.inventario} pzs</span></span>
+                          <span className="text-gray-400">|</span>
+                          <span className="text-gray-600">Venta: <span className="font-semibold text-[#E31837]">{tienda.ventaDiaria} pzs/día</span></span>
+                        </div>
+                      </div>
+                      <div className="text-right shrink-0">
+                        <p className={`text-xl font-bold ${isCritical ? "text-[#E31837]" : "text-[#F7B500]"}`}>
+                          {tienda.dosMin}d
+                        </p>
+                        <p className="text-[9px] text-gray-400">DOS</p>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
 
-              return (
+          {/* Section 2: Problema de Anaquel */}
+          <div className="flex-1">
+            <div className="flex items-center gap-2 mb-2">
+              <div className="p-1 bg-[#9333EA]/10 rounded">
+                <Eye size={14} className="text-[#9333EA]" />
+              </div>
+              <span className="text-xs font-bold text-[#9333EA]">PROBLEMA DE ANAQUEL</span>
+              <span className="text-[10px] text-gray-500">({tiendasProblemaAnaquel.length} tiendas) - Hay inv. pero no vende</span>
+            </div>
+            <div className="grid grid-cols-2 gap-1.5">
+              {tiendasProblemaAnaquel.map((tienda, index) => (
                 <div
                   key={tienda.codigo}
-                  className={`p-2.5 rounded-lg border-2 transition-all duration-300 cursor-pointer ${
-                    isHovered
-                      ? "border-[#E31837] shadow-lg bg-red-50"
-                      : isCritical
-                      ? "border-red-200 bg-red-50/50"
-                      : "border-gray-200 hover:border-gray-300 bg-white"
-                  }`}
-                  style={{ transitionDelay: `${300 + index * 50}ms` }}
-                  onMouseEnter={() => setHoveredIndex(index)}
-                  onMouseLeave={() => setHoveredIndex(null)}
+                  className="p-2 rounded-lg border-2 border-[#9333EA]/30 bg-[#9333EA]/5 transition-all duration-300"
+                  style={{ transitionDelay: `${500 + index * 50}ms` }}
                 >
                   <div className="flex items-center gap-2">
-                    {/* Indicator */}
-                    <div
-                      className={`w-1 h-12 rounded-full`}
-                      style={{ backgroundColor: tienda.color }}
-                    />
-
-                    {/* Info */}
+                    <div className="w-1 h-10 rounded-full bg-[#9333EA]" />
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-1 mb-0.5">
                         <span className="font-bold text-sm text-[#1A1A1A] truncate">{tienda.tienda}</span>
-                        {isCritical && (
-                          <span className="px-1.5 py-0.5 bg-[#E31837] text-white text-[9px] font-bold rounded-full shrink-0">
-                            CRÍTICO
-                          </span>
-                        )}
                       </div>
                       <p className="text-[10px] text-gray-500">PDQ {tienda.pdq}</p>
-                      {/* Inventario vs Venta */}
-                      <div className="mt-1 flex items-center gap-2 text-[10px]">
-                        <span className="text-gray-600">
-                          Inv: <span className="font-semibold">{tienda.inventario} pzs</span>
-                        </span>
-                        <span className="text-gray-400">|</span>
-                        <span className="text-gray-600">
-                          Venta: <span className="font-semibold text-[#E31837]">{tienda.ventaDiaria} pzs/día</span>
-                        </span>
+                      <div className="mt-0.5 flex items-center gap-2 text-[10px]">
+                        <span className="text-gray-600">Inv: <span className="font-semibold">{tienda.inventario} pzs</span></span>
+                        <span className="text-[#9333EA] font-semibold">| 0 venta</span>
                       </div>
                     </div>
-
-                    {/* DOS Badge */}
-                    <div className="text-right shrink-0">
-                      <p className="text-xl font-bold" style={{ color: tienda.color }}>
-                        {tienda.dosMin}d
-                      </p>
-                      <p className="text-[9px] text-gray-400">DOS</p>
+                    <div className="shrink-0">
+                      <span className="px-1.5 py-0.5 bg-[#9333EA] text-white text-[9px] font-bold rounded">
+                        VERIFICAR
+                      </span>
                     </div>
                   </div>
                 </div>
-              )
-            })}
+              ))}
+            </div>
           </div>
         </div>
 
@@ -189,42 +205,46 @@ export default function Slide4OportunidadSurtido() {
           }`}
           style={{ transitionDelay: "400ms" }}
         >
-          {/* Alert Card */}
-          <div className="p-4 bg-gradient-to-br from-[#E31837]/10 to-[#E31837]/5 rounded-xl border-2 border-[#E31837]/30 mb-3">
-            <div className="flex items-center gap-2 mb-2">
-              <TrendingDown size={18} className="text-[#E31837]" />
-              <span className="font-bold text-sm text-[#1A1A1A]">Impacto</span>
-            </div>
-            <p className="text-xs text-gray-700 leading-relaxed mb-2">
-              Cuando el producto se agota, el cliente compra otra marca.
-              Estas <span className="font-bold text-[#E31837]">{totalTiendas} tiendas</span> están en riesgo.
-            </p>
-            <div className="p-2 bg-white rounded-lg">
-              <p className="text-[10px] text-gray-500 mb-0.5">Tiendas críticas (DOS &lt; 7d)</p>
-              <p className="text-xl font-bold text-[#E31837]">
-                {tiendasBajoStock.filter(t => t.dosMin < 7).length}
+          {/* Summary Cards */}
+          <div className="space-y-2">
+            {/* Stock Bajo Summary */}
+            <div className="p-3 bg-gradient-to-br from-[#E31837]/10 to-[#E31837]/5 rounded-xl border border-[#E31837]/30">
+              <div className="flex items-center gap-2 mb-1">
+                <TrendingDown size={16} className="text-[#E31837]" />
+                <span className="font-bold text-xs text-[#1A1A1A]">Stock Bajo</span>
+              </div>
+              <p className="text-[10px] text-gray-600 mb-1">
+                Alta rotación, poco inventario
               </p>
+              <p className="text-xl font-bold text-[#E31837]">{tiendasStockBajo.length} tiendas</p>
+              <p className="text-[9px] text-gray-500">Acción: RESURTIR</p>
+            </div>
+
+            {/* Problema Anaquel Summary */}
+            <div className="p-3 bg-gradient-to-br from-[#9333EA]/10 to-[#9333EA]/5 rounded-xl border border-[#9333EA]/30">
+              <div className="flex items-center gap-2 mb-1">
+                <Eye size={16} className="text-[#9333EA]" />
+                <span className="font-bold text-xs text-[#1A1A1A]">Problema Anaquel</span>
+              </div>
+              <p className="text-[10px] text-gray-600 mb-1">
+                Hay inventario pero 0 venta
+              </p>
+              <p className="text-xl font-bold text-[#9333EA]">{tiendasProblemaAnaquel.length} tiendas</p>
+              <p className="text-[9px] text-gray-500">Acción: VERIFICAR en tienda</p>
             </div>
           </div>
 
-          {/* What is DOS */}
-          <div className="p-3 bg-gray-50 rounded-lg border border-gray-200">
-            <p className="font-semibold text-gray-700 mb-1.5 text-xs">¿Qué es DOS?</p>
-            <p className="text-[10px] text-gray-600 leading-relaxed">
-              <span className="font-bold">Días de Inventario</span> = cuántos días dura el stock según la venta diaria.
-            </p>
-            <div className="mt-2 pt-2 border-t border-gray-200 space-y-1 text-[10px]">
+          {/* Legend */}
+          <div className="p-2 bg-gray-50 rounded-lg border border-gray-200 mt-2">
+            <p className="font-semibold text-gray-700 mb-1 text-[10px]">Tipos de problema</p>
+            <div className="space-y-1 text-[9px]">
               <div className="flex items-center gap-1.5">
                 <div className="w-2 h-2 rounded-full bg-[#E31837]" />
-                <span className="text-gray-600">&lt; 7 días = Crítico</span>
+                <span className="text-gray-600">Stock bajo = resurtir</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <div className="w-2 h-2 rounded-full bg-[#F7B500]" />
-                <span className="text-gray-600">7-14 días = Bajo</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <div className="w-2 h-2 rounded-full bg-[#27AE60]" />
-                <span className="text-gray-600">&gt; 14 días = OK</span>
+                <div className="w-2 h-2 rounded-full bg-[#9333EA]" />
+                <span className="text-gray-600">Anaquel = verificar exhibición</span>
               </div>
             </div>
           </div>
@@ -239,15 +259,19 @@ export default function Slide4OportunidadSurtido() {
         style={{ transitionDelay: "600ms" }}
       >
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <Truck size={20} className="text-[#27AE60]" />
             <div>
-              <p className="font-bold text-sm text-[#1A1A1A]">Propuesta: Surtir estas {totalTiendas} tiendas</p>
-              <p className="text-xs text-gray-600">Ver detalle por producto en las siguientes slides</p>
+              <p className="font-bold text-sm text-[#1A1A1A]">Próximos pasos</p>
+              <div className="flex items-center gap-3 text-xs text-gray-600">
+                <span><span className="font-semibold text-[#E31837]">{tiendasStockBajo.length}</span> tiendas → Resurtir</span>
+                <span className="text-gray-300">|</span>
+                <span><span className="font-semibold text-[#9333EA]">{tiendasProblemaAnaquel.length}</span> tiendas → Verificar anaquel</span>
+              </div>
             </div>
           </div>
           <div className="flex items-center gap-1.5 px-3 py-1.5 bg-[#27AE60] text-white rounded-lg font-semibold text-xs">
-            <span>Ver propuesta</span>
+            <span>Ver detalle</span>
             <ArrowRight size={14} />
           </div>
         </div>
