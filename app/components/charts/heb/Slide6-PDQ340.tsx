@@ -51,38 +51,38 @@ export default function Slide6PDQ340() {
   }, [])
 
   return (
-    <div className="w-[1280px] h-[720px] bg-white p-12 font-sans flex flex-col">
+    <div className="w-[1280px] h-[720px] bg-white p-8 font-sans flex flex-col">
       {/* Header */}
       <div
-        className={`mb-6 transition-all duration-700 ${
+        className={`mb-4 transition-all duration-700 ${
           isLoaded ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"
         }`}
       >
         <div className="flex items-center justify-between">
           <div>
-            <div className="flex items-center gap-3 mb-2">
-              <div className="p-2 bg-[#E31837]/10 rounded-xl">
-                <Package size={28} className="text-[#E31837]" />
+            <div className="flex items-center gap-2 mb-1">
+              <div className="p-1.5 bg-[#E31837]/10 rounded-lg">
+                <Package size={22} className="text-[#E31837]" />
               </div>
-              <span className="text-sm font-semibold text-[#E31837] uppercase tracking-wider">
+              <span className="text-xs font-semibold text-[#E31837] uppercase tracking-wider">
                 Estado de Inventario
               </span>
             </div>
-            <h1 className="text-4xl font-bold text-[#1A1A1A] tracking-tight">
+            <h1 className="text-3xl font-bold text-[#1A1A1A] tracking-tight">
               PDQ 340gr: {tiendasASurtir} tiendas necesitan surtido
             </h1>
-            <p className="text-lg text-gray-500 mt-2">
+            <p className="text-base text-gray-500 mt-1">
               Inventario actual y días de cobertura por tienda
             </p>
           </div>
 
           {/* Summary */}
-          <div className="px-6 py-4 bg-[#E31837]/10 rounded-xl border border-[#E31837]/20">
-            <div className="flex items-center gap-3">
-              <AlertTriangle size={24} className="text-[#E31837]" />
+          <div className="px-4 py-3 bg-[#E31837]/10 rounded-lg border border-[#E31837]/20">
+            <div className="flex items-center gap-2">
+              <AlertTriangle size={20} className="text-[#E31837]" />
               <div>
-                <p className="text-sm text-gray-600">Tiendas a surtir</p>
-                <p className="text-3xl font-bold text-[#E31837]">{tiendasASurtir}</p>
+                <p className="text-xs text-gray-600">Tiendas a surtir</p>
+                <p className="text-2xl font-bold text-[#E31837]">{tiendasASurtir}</p>
               </div>
             </div>
           </div>
@@ -90,38 +90,38 @@ export default function Slide6PDQ340() {
       </div>
 
       {/* Tiendas Cards */}
-      <div className="flex-1 flex gap-6">
+      <div className="flex-1 flex gap-4">
         {tiendas340.map((tienda, index) => (
           <div
             key={tienda.codigo}
-            className={`flex-1 bg-white rounded-2xl border-2 overflow-hidden transition-all duration-500 ${
+            className={`flex-1 bg-white rounded-xl border-2 overflow-hidden transition-all duration-500 ${
               isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             } ${tienda.necesitaSurtir ? "border-[#E31837]/50" : "border-gray-200"} shadow-md`}
             style={{ transitionDelay: `${200 + index * 100}ms` }}
           >
             {/* Header */}
-            <div className={`p-5 ${tienda.necesitaSurtir ? "bg-[#E31837]/10" : "bg-gray-50"}`}>
-              <div className="flex items-center justify-between mb-2">
+            <div className={`p-3 ${tienda.necesitaSurtir ? "bg-[#E31837]/10" : "bg-gray-50"}`}>
+              <div className="flex items-center justify-between mb-1">
                 {tienda.necesitaSurtir ? (
-                  <span className="px-3 py-1 rounded-full text-xs font-bold bg-[#E31837] text-white">
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#E31837] text-white">
                     SURTIR
                   </span>
                 ) : (
-                  <span className="px-3 py-1 rounded-full text-xs font-bold bg-[#27AE60] text-white">
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#27AE60] text-white">
                     OK
                   </span>
                 )}
-                <span className="text-xs text-gray-400">#{tienda.codigo}</span>
+                <span className="text-[10px] text-gray-400">#{tienda.codigo}</span>
               </div>
-              <h3 className="text-xl font-bold text-[#1A1A1A]">{tienda.tienda}</h3>
+              <h3 className="text-lg font-bold text-[#1A1A1A]">{tienda.tienda}</h3>
             </div>
 
             {/* Sabores */}
-            <div className="p-5 flex-1">
-              <p className="text-sm font-semibold text-gray-500 mb-4 uppercase tracking-wider">
+            <div className="p-3 flex-1">
+              <p className="text-[10px] font-semibold text-gray-500 mb-2 uppercase tracking-wider">
                 Por sabor
               </p>
-              <div className="space-y-3">
+              <div className="space-y-2">
                 {tienda.sabores.map((sabor) => {
                   const colorMap: Record<string, string> = {
                     "SAL": "#F7B500",
@@ -133,28 +133,28 @@ export default function Slide6PDQ340() {
                   return (
                     <div
                       key={sabor.nombre}
-                      className={`p-3 rounded-xl border ${sabor.necesitaSurtir ? "bg-red-50 border-red-200" : "bg-gray-50 border-gray-200"}`}
+                      className={`p-2 rounded-lg border ${sabor.necesitaSurtir ? "bg-red-50 border-red-200" : "bg-gray-50 border-gray-200"}`}
                     >
-                      <div className="flex items-center justify-between mb-2">
-                        <div className="flex items-center gap-2">
+                      <div className="flex items-center justify-between mb-1">
+                        <div className="flex items-center gap-1.5">
                           <div
-                            className="w-3 h-3 rounded-full"
+                            className="w-2 h-2 rounded-full"
                             style={{ backgroundColor: color }}
                           />
-                          <span className="font-semibold text-gray-800">{sabor.nombre}</span>
+                          <span className="font-semibold text-sm text-gray-800">{sabor.nombre}</span>
                         </div>
                         {sabor.necesitaSurtir ? (
-                          <span className="px-3 py-1 bg-[#E31837] text-white text-sm font-bold rounded-lg">
+                          <span className="px-2 py-0.5 bg-[#E31837] text-white text-[10px] font-bold rounded">
                             SURTIR
                           </span>
                         ) : (
-                          <span className="px-3 py-1 bg-[#27AE60] text-white text-sm font-bold rounded-lg">
+                          <span className="px-2 py-0.5 bg-[#27AE60] text-white text-[10px] font-bold rounded">
                             OK
                           </span>
                         )}
                       </div>
-                      <div className="flex justify-between text-xs text-gray-500">
-                        <span>Inventario: {sabor.inv} pzs</span>
+                      <div className="flex justify-between text-[10px] text-gray-500">
+                        <span>Inv: {sabor.inv} pzs</span>
                         <span>DOS: {sabor.dos > 500 ? ">500" : sabor.dos}d</span>
                       </div>
                     </div>
@@ -164,17 +164,17 @@ export default function Slide6PDQ340() {
             </div>
 
             {/* Footer */}
-            <div className={`p-4 border-t ${tienda.necesitaSurtir ? "border-red-200 bg-red-50" : "border-gray-200 bg-gray-50"}`}>
-              <div className="flex items-center justify-center gap-2">
+            <div className={`p-2 border-t ${tienda.necesitaSurtir ? "border-red-200 bg-red-50" : "border-gray-200 bg-gray-50"}`}>
+              <div className="flex items-center justify-center gap-1.5">
                 {tienda.necesitaSurtir ? (
                   <>
-                    <AlertTriangle size={18} className="text-[#E31837]" />
-                    <span className="font-bold text-[#E31837]">Requiere surtido</span>
+                    <AlertTriangle size={14} className="text-[#E31837]" />
+                    <span className="font-bold text-sm text-[#E31837]">Requiere surtido</span>
                   </>
                 ) : (
                   <>
-                    <CheckCircle size={18} className="text-[#27AE60]" />
-                    <span className="font-bold text-[#27AE60]">Inventario OK</span>
+                    <CheckCircle size={14} className="text-[#27AE60]" />
+                    <span className="font-bold text-sm text-[#27AE60]">Inventario OK</span>
                   </>
                 )}
               </div>
@@ -184,8 +184,8 @@ export default function Slide6PDQ340() {
       </div>
 
       {/* Footer */}
-      <div className="mt-6 pt-4 border-t border-gray-100">
-        <p className="text-xs text-gray-400 text-center">
+      <div className="mt-4 pt-3 border-t border-gray-100">
+        <p className="text-[10px] text-gray-400 text-center">
           Fuente: Inventario MI TIENDA al 09/Feb/2026 | DOS = Días de cobertura | Excluye CAT Monterrey
         </p>
       </div>

@@ -51,80 +51,79 @@ export default function Slide2ResumenEjecutivo() {
   const rotacionAnimada = useCountUp(metricas.rotacionDiaria, 1500, isLoaded)
 
   return (
-    <div className="w-[1280px] h-[720px] bg-white p-12 font-sans flex flex-col">
+    <div className="w-[1280px] h-[720px] bg-white p-8 font-sans flex flex-col">
       {/* Header */}
       <div
-        className={`mb-8 transition-all duration-700 ${
+        className={`mb-4 transition-all duration-700 ${
           isLoaded ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"
         }`}
       >
-        <div className="flex items-center gap-3 mb-2">
-          <div className="p-2 bg-[#27AE60]/10 rounded-xl">
-            <TrendingUp size={28} className="text-[#27AE60]" />
+        <div className="flex items-center gap-2 mb-1">
+          <div className="p-1.5 bg-[#27AE60]/10 rounded-lg">
+            <TrendingUp size={22} className="text-[#27AE60]" />
           </div>
-          <span className="text-sm font-semibold text-[#27AE60] uppercase tracking-wider">
+          <span className="text-xs font-semibold text-[#27AE60] uppercase tracking-wider">
             Performance PDQ
           </span>
         </div>
-        <h1 className="text-4xl font-bold text-[#1A1A1A] tracking-tight">
+        <h1 className="text-3xl font-bold text-[#1A1A1A] tracking-tight">
           El producto está rotando
         </h1>
-        <p className="text-lg text-gray-500 mt-2">
+        <p className="text-base text-gray-500 mt-1">
           {metricas.periodo} | 25 tiendas HEB | Solo PDQ Papa Casera
         </p>
       </div>
 
       {/* Main Message */}
       <div
-        className={`flex-1 flex gap-8 transition-all duration-700 ${
+        className={`flex-1 flex gap-6 transition-all duration-700 ${
           isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-95"
         }`}
         style={{ transitionDelay: "200ms" }}
       >
         {/* Left - Big Number */}
         <div className="flex-1 flex flex-col justify-center">
-          <div className="p-8 bg-gradient-to-br from-[#27AE60]/10 to-[#27AE60]/5 rounded-3xl border-2 border-[#27AE60]/30">
-            <p className="text-xl text-gray-600 mb-2">Unidades vendidas en tienda</p>
+          <div className="p-6 bg-gradient-to-br from-[#27AE60]/10 to-[#27AE60]/5 rounded-2xl border-2 border-[#27AE60]/30">
+            <p className="text-lg text-gray-600 mb-2">Unidades vendidas en tienda</p>
             <div className="flex items-baseline gap-3">
-              <span className="text-8xl font-bold text-[#27AE60]">
+              <span className="text-7xl font-bold text-[#27AE60]">
                 {(unidadesAnimadas / 1000).toFixed(0)}K
               </span>
-              <span className="text-2xl text-gray-500">piezas</span>
+              <span className="text-xl text-gray-500">piezas</span>
             </div>
-            <p className="text-gray-500 mt-4">
+            <p className="text-gray-500 mt-3">
               = <span className="font-bold text-[#1A1A1A]">{rotacionAnimada}</span> unidades/día promedio
             </p>
           </div>
-
         </div>
 
         {/* Right - Breakdown by PDQ type */}
-        <div className="w-[450px] flex flex-col justify-center">
-          <h3 className="text-lg font-semibold text-gray-700 mb-6">
+        <div className="w-[420px] flex flex-col justify-center">
+          <h3 className="text-base font-semibold text-gray-700 mb-4">
             Desglose por presentación
           </h3>
 
-          <div className="space-y-5">
+          <div className="space-y-4">
             {/* PDQ 45gr Card */}
             <div
-              className={`p-6 bg-white rounded-2xl border-2 border-[#F7B500]/30 shadow-sm transition-all duration-500 ${
+              className={`p-4 bg-white rounded-xl border-2 border-[#F7B500]/30 shadow-sm transition-all duration-500 ${
                 isLoaded ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"
               }`}
               style={{ transitionDelay: "300ms" }}
             >
-              <div className="flex items-center gap-3 mb-4">
-                <div className="p-2 bg-[#F7B500]/10 rounded-xl">
-                  <Package size={24} className="text-[#F7B500]" />
+              <div className="flex items-center gap-2 mb-3">
+                <div className="p-1.5 bg-[#F7B500]/10 rounded-lg">
+                  <Package size={20} className="text-[#F7B500]" />
                 </div>
-                <span className="font-bold text-lg text-[#1A1A1A]">PDQ 45gr</span>
-                <span className="ml-auto px-3 py-1 bg-[#F7B500]/10 text-[#F7B500] text-sm font-bold rounded-full">
+                <span className="font-bold text-[#1A1A1A]">PDQ 45gr</span>
+                <span className="ml-auto px-2 py-0.5 bg-[#F7B500]/10 text-[#F7B500] text-xs font-bold rounded-full">
                   91% del mix
                 </span>
               </div>
-              <p className="text-4xl font-bold text-[#F7B500] mb-1">125,569</p>
-              <p className="text-gray-500">unidades vendidas</p>
-              <div className="mt-4 pt-4 border-t border-gray-100">
-                <p className="text-sm text-gray-600">
+              <p className="text-3xl font-bold text-[#F7B500] mb-1">125,569</p>
+              <p className="text-sm text-gray-500">unidades vendidas</p>
+              <div className="mt-3 pt-3 border-t border-gray-100">
+                <p className="text-xs text-gray-600">
                   <span className="font-semibold">643 unidades/día</span> promedio
                 </p>
               </div>
@@ -132,24 +131,24 @@ export default function Slide2ResumenEjecutivo() {
 
             {/* PDQ 340gr Card */}
             <div
-              className={`p-6 bg-white rounded-2xl border-2 border-[#E31837]/30 shadow-sm transition-all duration-500 ${
+              className={`p-4 bg-white rounded-xl border-2 border-[#E31837]/30 shadow-sm transition-all duration-500 ${
                 isLoaded ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"
               }`}
               style={{ transitionDelay: "400ms" }}
             >
-              <div className="flex items-center gap-3 mb-4">
-                <div className="p-2 bg-[#E31837]/10 rounded-xl">
-                  <Package size={24} className="text-[#E31837]" />
+              <div className="flex items-center gap-2 mb-3">
+                <div className="p-1.5 bg-[#E31837]/10 rounded-lg">
+                  <Package size={20} className="text-[#E31837]" />
                 </div>
-                <span className="font-bold text-lg text-[#1A1A1A]">PDQ 340gr</span>
-                <span className="ml-auto px-3 py-1 bg-[#E31837]/10 text-[#E31837] text-sm font-bold rounded-full">
+                <span className="font-bold text-[#1A1A1A]">PDQ 340gr</span>
+                <span className="ml-auto px-2 py-0.5 bg-[#E31837]/10 text-[#E31837] text-xs font-bold rounded-full">
                   9% del mix
                 </span>
               </div>
-              <p className="text-4xl font-bold text-[#E31837] mb-1">2,849</p>
-              <p className="text-gray-500">unidades vendidas</p>
-              <div className="mt-4 pt-4 border-t border-gray-100">
-                <p className="text-sm text-gray-600">
+              <p className="text-3xl font-bold text-[#E31837] mb-1">2,849</p>
+              <p className="text-sm text-gray-500">unidades vendidas</p>
+              <div className="mt-3 pt-3 border-t border-gray-100">
+                <p className="text-xs text-gray-600">
                   <span className="font-semibold">15 unidades/día</span> promedio
                 </p>
               </div>
@@ -160,7 +159,7 @@ export default function Slide2ResumenEjecutivo() {
 
       {/* Footer */}
       <div
-        className={`mt-6 pt-4 border-t border-gray-100 transition-all duration-700 ${
+        className={`mt-4 pt-3 border-t border-gray-100 transition-all duration-700 ${
           isLoaded ? "opacity-100" : "opacity-0"
         }`}
         style={{ transitionDelay: "600ms" }}

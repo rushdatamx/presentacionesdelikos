@@ -32,67 +32,67 @@ export default function Slide8ProximosPasos() {
   }, [])
 
   return (
-    <div className="w-[1280px] h-[720px] bg-white p-10 font-sans flex flex-col">
+    <div className="w-[1280px] h-[720px] bg-white p-8 font-sans flex flex-col">
       {/* Header */}
       <div
-        className={`mb-6 transition-all duration-700 ${
+        className={`mb-4 transition-all duration-700 ${
           isLoaded ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"
         }`}
       >
-        <div className="flex items-center gap-3 mb-2">
-          <div className="p-2 bg-[#27AE60]/10 rounded-xl">
-            <CheckCircle size={28} className="text-[#27AE60]" />
+        <div className="flex items-center gap-2 mb-1">
+          <div className="p-1.5 bg-[#27AE60]/10 rounded-lg">
+            <CheckCircle size={22} className="text-[#27AE60]" />
           </div>
-          <span className="text-sm font-semibold text-[#27AE60] uppercase tracking-wider">
+          <span className="text-xs font-semibold text-[#27AE60] uppercase tracking-wider">
             Resumen y Acción
           </span>
         </div>
-        <h1 className="text-4xl font-bold text-[#1A1A1A] tracking-tight">
+        <h1 className="text-3xl font-bold text-[#1A1A1A] tracking-tight">
           Tiendas que requieren surtido
         </h1>
       </div>
 
       {/* Main Content - Two Sections */}
       <div
-        className={`flex-1 flex gap-6 transition-all duration-700 ${
+        className={`flex-1 flex gap-4 transition-all duration-700 ${
           isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-95"
         }`}
         style={{ transitionDelay: "200ms" }}
       >
         {/* Left - Tiendas a Surtir */}
         <div className="flex-1">
-          <div className="p-5 bg-[#E31837]/5 rounded-2xl border border-[#E31837]/20 h-full">
-            <div className="flex items-center gap-3 mb-4">
-              <AlertTriangle size={20} className="text-[#E31837]" />
-              <h3 className="font-bold text-lg text-[#1A1A1A]">
+          <div className="p-4 bg-[#E31837]/5 rounded-xl border border-[#E31837]/20 h-full">
+            <div className="flex items-center gap-2 mb-3">
+              <AlertTriangle size={18} className="text-[#E31837]" />
+              <h3 className="font-bold text-[#1A1A1A]">
                 7 tiendas con inventario bajo
               </h3>
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-1.5">
               {tiendasASurtir.map((tienda, index) => (
                 <div
                   key={tienda.codigo}
-                  className={`p-3 bg-white rounded-xl border border-gray-200 flex items-center justify-between transition-all duration-300 ${
+                  className={`p-2 bg-white rounded-lg border border-gray-200 flex items-center justify-between transition-all duration-300 ${
                     isLoaded ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4"
                   }`}
                   style={{ transitionDelay: `${300 + index * 50}ms` }}
                 >
-                  <div className="flex items-center gap-3">
-                    <div className={`w-1.5 h-8 rounded-full ${tienda.dosMin < 7 ? "bg-[#E31837]" : "bg-[#F7B500]"}`} />
+                  <div className="flex items-center gap-2">
+                    <div className={`w-1 h-6 rounded-full ${tienda.dosMin < 7 ? "bg-[#E31837]" : "bg-[#F7B500]"}`} />
                     <div>
-                      <p className="font-semibold text-[#1A1A1A]">{tienda.tienda}</p>
-                      <p className="text-xs text-gray-400">PDQ {tienda.pdq}</p>
+                      <p className="font-semibold text-sm text-[#1A1A1A]">{tienda.tienda}</p>
+                      <p className="text-[10px] text-gray-400">PDQ {tienda.pdq}</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2">
                     <div className="text-right">
-                      <p className={`text-lg font-bold ${tienda.dosMin < 7 ? "text-[#E31837]" : "text-[#F7B500]"}`}>
+                      <p className={`text-base font-bold ${tienda.dosMin < 7 ? "text-[#E31837]" : "text-[#F7B500]"}`}>
                         {tienda.dosMin}d
                       </p>
-                      <p className="text-[10px] text-gray-400">DOS mín</p>
+                      <p className="text-[9px] text-gray-400">DOS</p>
                     </div>
-                    <span className="px-3 py-1 bg-[#E31837] text-white text-xs font-bold rounded-lg">
+                    <span className="px-2 py-0.5 bg-[#E31837] text-white text-[10px] font-bold rounded">
                       SURTIR
                     </span>
                   </div>
@@ -103,55 +103,55 @@ export default function Slide8ProximosPasos() {
         </div>
 
         {/* Right - Top Tiendas con DOS */}
-        <div className="w-[520px]">
-          <div className="p-5 bg-[#F7B500]/5 rounded-2xl border border-[#F7B500]/20 h-full">
-            <div className="flex items-center gap-3 mb-4">
-              <Trophy size={20} className="text-[#F7B500]" />
-              <h3 className="font-bold text-lg text-[#1A1A1A]">
+        <div className="w-[480px]">
+          <div className="p-4 bg-[#F7B500]/5 rounded-xl border border-[#F7B500]/20 h-full">
+            <div className="flex items-center gap-2 mb-3">
+              <Trophy size={18} className="text-[#F7B500]" />
+              <h3 className="font-bold text-[#1A1A1A]">
                 Top 5 tiendas - ¿También surtir?
               </h3>
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-1.5">
               {topTiendas.map((tienda, index) => (
                 <div
                   key={tienda.codigo}
-                  className={`p-3 bg-white rounded-xl border ${tienda.necesitaSurtir ? "border-[#F7B500]" : "border-gray-200"} transition-all duration-300 ${
+                  className={`p-2 bg-white rounded-lg border ${tienda.necesitaSurtir ? "border-[#F7B500]" : "border-gray-200"} transition-all duration-300 ${
                     isLoaded ? "opacity-100 translate-x-0" : "opacity-0 translate-x-4"
                   }`}
                   style={{ transitionDelay: `${300 + index * 50}ms` }}
                 >
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm ${
+                    <div className="flex items-center gap-2">
+                      <div className={`w-6 h-6 rounded flex items-center justify-center font-bold text-xs ${
                         index === 0 ? "bg-[#F7B500] text-white" : "bg-gray-200 text-gray-600"
                       }`}>
                         {index + 1}
                       </div>
                       <div>
-                        <p className="font-semibold text-[#1A1A1A]">{tienda.tienda}</p>
-                        <p className="text-xs text-gray-400">{tienda.unidades.toLocaleString()} unidades vendidas</p>
+                        <p className="font-semibold text-sm text-[#1A1A1A]">{tienda.tienda}</p>
+                        <p className="text-[10px] text-gray-400">{tienda.unidades.toLocaleString()} u</p>
                       </div>
                     </div>
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-3">
                       <div className="text-center">
-                        <p className="text-xs text-gray-400">DOS 45gr</p>
-                        <p className={`font-bold ${tienda.dosMin45 < 14 ? "text-[#E31837]" : "text-[#27AE60]"}`}>
+                        <p className="text-[9px] text-gray-400">45gr</p>
+                        <p className={`font-bold text-sm ${tienda.dosMin45 < 14 ? "text-[#E31837]" : "text-[#27AE60]"}`}>
                           {tienda.dosMin45}d
                         </p>
                       </div>
                       <div className="text-center">
-                        <p className="text-xs text-gray-400">DOS 340gr</p>
-                        <p className={`font-bold ${tienda.dosMin340 < 14 ? "text-[#E31837]" : "text-[#27AE60]"}`}>
+                        <p className="text-[9px] text-gray-400">340gr</p>
+                        <p className={`font-bold text-sm ${tienda.dosMin340 < 14 ? "text-[#E31837]" : "text-[#27AE60]"}`}>
                           {tienda.dosMin340}d
                         </p>
                       </div>
                       {tienda.necesitaSurtir ? (
-                        <span className="px-2 py-1 bg-[#F7B500] text-white text-[10px] font-bold rounded">
+                        <span className="px-1.5 py-0.5 bg-[#F7B500] text-white text-[9px] font-bold rounded">
                           CONSIDERAR
                         </span>
                       ) : (
-                        <span className="px-2 py-1 bg-[#27AE60]/10 text-[#27AE60] text-[10px] font-bold rounded">
+                        <span className="px-1.5 py-0.5 bg-[#27AE60]/10 text-[#27AE60] text-[9px] font-bold rounded">
                           OK
                         </span>
                       )}
@@ -161,10 +161,10 @@ export default function Slide8ProximosPasos() {
               ))}
             </div>
 
-            <div className="mt-4 p-3 bg-white rounded-xl border border-[#F7B500]/30">
-              <p className="text-sm text-gray-600">
-                <span className="font-bold text-[#F7B500]">3 de las top 5</span> tiendas tienen DOS bajo en algún producto.
-                Considera incluirlas en el pedido para evitar quiebres.
+            <div className="mt-3 p-2 bg-white rounded-lg border border-[#F7B500]/30">
+              <p className="text-xs text-gray-600">
+                <span className="font-bold text-[#F7B500]">3 de las top 5</span> tiendas tienen DOS bajo.
+                Considera incluirlas para evitar quiebres.
               </p>
             </div>
           </div>
@@ -173,33 +173,33 @@ export default function Slide8ProximosPasos() {
 
       {/* Footer Summary */}
       <div
-        className={`mt-6 p-5 bg-gradient-to-r from-[#27AE60]/10 to-[#27AE60]/5 rounded-2xl border border-[#27AE60]/30 transition-all duration-700 ${
+        className={`mt-4 p-3 bg-gradient-to-r from-[#27AE60]/10 to-[#27AE60]/5 rounded-xl border border-[#27AE60]/30 transition-all duration-700 ${
           isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         }`}
         style={{ transitionDelay: "600ms" }}
       >
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Package size={28} className="text-[#27AE60]" />
+          <div className="flex items-center gap-3">
+            <Package size={22} className="text-[#27AE60]" />
             <div>
-              <p className="font-bold text-[#1A1A1A] text-lg">
+              <p className="font-bold text-[#1A1A1A]">
                 Acción: Surtir las 7 tiendas identificadas
               </p>
-              <p className="text-sm text-gray-600">
+              <p className="text-xs text-gray-600">
                 PDQ 340gr: 3 tiendas | PDQ 45gr: 4 tiendas
               </p>
             </div>
           </div>
-          <div className="flex items-center gap-2 text-sm text-gray-500">
-            <Clock size={16} />
+          <div className="flex items-center gap-1.5 text-xs text-gray-500">
+            <Clock size={14} />
             <span>Siguiente revisión: 2 semanas</span>
           </div>
         </div>
       </div>
 
       {/* Footer */}
-      <div className="mt-4 pt-3 border-t border-gray-100">
-        <p className="text-xs text-gray-400 text-center">
+      <div className="mt-3 pt-2 border-t border-gray-100">
+        <p className="text-[10px] text-gray-400 text-center">
           Fuente: Inventario MI TIENDA al 09/Feb/2026 | DOS = Días de cobertura | Excluye CAT Monterrey
         </p>
       </div>
