@@ -70,10 +70,10 @@ export default function Slide6PDQ340() {
               </span>
             </div>
             <h1 className="text-3xl font-bold text-[#1A1A1A] tracking-tight">
-              PDQ 340gr: {tiendasProblemaAnaquel} tiendas con producto no exhibido
+              PDQ 340gr: Oportunidad de exhibición en {tiendasProblemaAnaquel} tiendas
             </h1>
             <p className="text-base text-gray-500 mt-1">
-              Hay inventario pero 0 venta = producto en bodega, no en piso
+              El inventario está disponible, podemos mejorar la exhibición en piso
             </p>
           </div>
 
@@ -166,7 +166,7 @@ export default function Slide6PDQ340() {
             <div className="p-2 border-t border-[#9333EA]/20 bg-[#9333EA]/5">
               <div className="flex items-center justify-center gap-1.5">
                 <Eye size={14} className="text-[#9333EA]" />
-                <span className="font-bold text-sm text-[#9333EA]">Verificar exhibición</span>
+                <span className="font-bold text-sm text-[#9333EA]">Revisar exhibición</span>
               </div>
             </div>
           </div>
@@ -181,8 +181,8 @@ export default function Slide6PDQ340() {
         style={{ transitionDelay: "500ms" }}
       >
         <p className="text-xs text-gray-700">
-          <span className="font-bold text-[#9333EA]">¿Por qué 0 venta con inventario?</span> El producto llegó a la tienda pero probablemente está en bodega.
-          <span className="font-semibold"> Acción:</span> Visitar tienda y verificar si el PDQ está montado y visible en piso de venta.
+          <span className="font-bold text-[#9333EA]">Observación:</span> El producto ya se encuentra en tienda. Consideramos que al colocarlo en piso de venta,
+          la rotación puede iniciar rápidamente. <span className="font-semibold">Propuesta:</span> Coordinar la exhibición del PDQ en estas tiendas para activar la venta.
         </p>
       </div>
 

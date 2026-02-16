@@ -82,10 +82,10 @@ export default function Slide7PDQ45() {
               </span>
             </div>
             <h1 className="text-3xl font-bold text-[#1A1A1A] tracking-tight">
-              PDQ 45gr: 4 tiendas requieren atención
+              PDQ 45gr: Oportunidades en 4 tiendas
             </h1>
             <p className="text-base text-gray-500 mt-1">
-              3 con stock bajo + 1 con problema de anaquel
+              3 con oportunidad de resurtido + 1 con oportunidad de exhibición
             </p>
           </div>
 
@@ -168,7 +168,7 @@ export default function Slide7PDQ45() {
             <div className="p-1.5 border-t border-red-200 bg-red-50">
               <div className="flex items-center justify-center gap-1">
                 <AlertTriangle size={10} className="text-[#E31837]" />
-                <span className="font-bold text-[#E31837] text-[10px]">Resurtir</span>
+                <span className="font-bold text-[#E31837] text-[10px]">Propuesta: Resurtir</span>
               </div>
             </div>
           </div>
@@ -236,7 +236,7 @@ export default function Slide7PDQ45() {
           <div className="p-1.5 border-t border-[#9333EA]/20 bg-[#9333EA]/5">
             <div className="flex items-center justify-center gap-1">
               <Eye size={10} className="text-[#9333EA]" />
-              <span className="font-bold text-[#9333EA] text-[10px]">Verificar exhibición</span>
+              <span className="font-bold text-[#9333EA] text-[10px]">Propuesta: Revisar exhibición</span>
             </div>
           </div>
         </div>

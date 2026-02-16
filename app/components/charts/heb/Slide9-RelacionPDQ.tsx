@@ -264,7 +264,7 @@ export default function Slide9RelacionPDQ() {
                 <span className="px-2 py-0.5 bg-[#27AE60] text-white text-[10px] font-bold rounded">
                   SOLICITAR PRÓXIMA SEMANA
                 </span>
-                <p className="text-[10px] text-gray-500 mt-1">Enviar OC a comprador HEB</p>
+                <p className="text-[10px] text-gray-500 mt-1">Enviar OC a comprador MI TIENDA</p>
               </div>
             </div>
 

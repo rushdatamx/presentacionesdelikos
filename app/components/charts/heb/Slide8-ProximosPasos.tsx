@@ -52,7 +52,7 @@ export default function Slide8ProximosPasos() {
           </span>
         </div>
         <h1 className="text-3xl font-bold text-[#1A1A1A] tracking-tight">
-          Tiendas que requieren surtido
+          Propuesta de surtido por tienda
         </h1>
       </div>
 
@@ -142,7 +142,7 @@ export default function Slide8ProximosPasos() {
             <div className="flex items-center gap-2 mb-3">
               <Trophy size={18} className="text-[#F7B500]" />
               <h3 className="font-bold text-[#1A1A1A]">
-                Top 5 tiendas - ¿También surtir?
+                Top 5 tiendas - ¿Considerar resurtido?
               </h3>
             </div>
 
@@ -197,8 +197,8 @@ export default function Slide8ProximosPasos() {
 
             <div className="mt-3 p-2 bg-white rounded-lg border border-[#F7B500]/30">
               <p className="text-xs text-gray-600">
-                <span className="font-bold text-[#F7B500]">2 de las top 5</span> tiendas tienen DOS bajo.
-                Considera incluirlas para evitar quiebres.
+                <span className="font-bold text-[#F7B500]">2 de las top 5</span> tiendas muestran inventario por debajo del óptimo.
+                Sugerimos incluirlas en el resurtido para mantener su buena rotación.
               </p>
             </div>
           </div>
@@ -217,12 +217,12 @@ export default function Slide8ProximosPasos() {
             <Package size={20} className="text-[#27AE60]" />
             <div>
               <p className="font-bold text-sm text-[#1A1A1A]">
-                Próximos pasos
+                Propuesta de acción conjunta
               </p>
               <div className="flex items-center gap-3 text-xs text-gray-600">
-                <span><span className="font-semibold text-[#E31837]">{tiendasStockBajo.length}</span> tiendas → Resurtir PDQ</span>
+                <span><span className="font-semibold text-[#E31837]">{tiendasStockBajo.length}</span> tiendas → Programar resurtido de PDQ</span>
                 <span className="text-gray-300">|</span>
-                <span><span className="font-semibold text-[#9333EA]">{tiendasProblemaAnaquel.length}</span> tiendas → Visitar y verificar anaquel</span>
+                <span><span className="font-semibold text-[#9333EA]">{tiendasProblemaAnaquel.length}</span> tiendas → Coordinar revisión de exhibición</span>
               </div>
             </div>
           </div>

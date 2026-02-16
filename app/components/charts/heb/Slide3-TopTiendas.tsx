@@ -149,7 +149,7 @@ export default function Slide3TopTiendas() {
             </p>
             <div className="mt-4 pt-4 border-t border-[#F7B500]/20">
               <p className="text-sm text-gray-600">
-                Representa el <span className="font-bold text-[#1A1A1A]">{pctConcentracion}%</span> del total de ventas PDQ en 25 tiendas
+                Representa el <span className="font-bold text-[#1A1A1A]">{pctConcentracion}%</span> del total de ventas PDQ en 25 tiendas MI TIENDA
               </p>
             </div>
           </div>
@@ -165,7 +165,7 @@ export default function Slide3TopTiendas() {
               Revolución, Huinala, Ciudadela.
             </p>
             <p className="text-sm text-gray-600 mt-3 leading-relaxed">
-              <span className="font-bold text-[#27AE60]">Oportunidad:</span> Replicar este éxito en tiendas con menor rotación asegurando disponibilidad de stock.
+              <span className="font-bold text-[#27AE60]">Oportunidad:</span> Podemos replicar este desempeño en más tiendas asegurando disponibilidad continua.
             </p>
           </div>
         </div>
@@ -179,7 +179,7 @@ export default function Slide3TopTiendas() {
         style={{ transitionDelay: "700ms" }}
       >
         <p className="text-xs text-gray-400 text-center">
-          Fuente: Portal MI TIENDA (Sell-Out) | S40 FY2025 - S15 FY2026 | Solo PDQ 340gr y 45gr | Excluye CAT Monterrey
+          Fuente: Portal MI TIENDA (Sell-Out) | Periodo 2024-12 a 2026-04 | Solo PDQ 340gr y 45gr | Excluye CAT Monterrey
         </p>
       </div>
     </div>

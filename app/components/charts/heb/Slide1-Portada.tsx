@@ -91,7 +91,7 @@ export default function Slide1Portada() {
           >
             <Calendar size={20} className="text-[#F7B500]" />
             <span className="text-xl text-white font-medium">
-              Análisis Sell-Out PDQ | S40 FY2025 - S15 FY2026
+              Análisis Sell-Out PDQ | Periodo 2024-12 a 2026-04
             </span>
           </div>
         </div>
@@ -115,7 +115,7 @@ export default function Slide1Portada() {
         </div>
 
         <div className="text-right">
-          <span className="text-2xl font-bold text-white">S15 FY2026</span>
+          <span className="text-2xl font-bold text-white">Periodo 2026-04</span>
         </div>
       </div>
     </div>

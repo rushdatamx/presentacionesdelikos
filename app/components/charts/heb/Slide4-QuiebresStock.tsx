@@ -91,10 +91,10 @@ export default function Slide4OportunidadSurtido() {
           </span>
         </div>
         <h1 className="text-3xl font-bold text-[#1A1A1A] tracking-tight">
-          Estas tiendas se están quedando sin producto
+          Oportunidad de resurtido en tiendas con alta rotación
         </h1>
         <p className="text-base text-gray-500 mt-1">
-          {totalTiendas} tiendas con menos de 14 días de inventario
+          {totalTiendas} tiendas donde podemos mejorar la disponibilidad
         </p>
       </div>
 
@@ -114,7 +114,7 @@ export default function Slide4OportunidadSurtido() {
                 <TrendingDown size={14} className="text-[#E31837]" />
               </div>
               <span className="text-xs font-bold text-[#E31837]">STOCK BAJO</span>
-              <span className="text-[10px] text-gray-500">({tiendasStockBajo.length} tiendas) - Necesitan resurtido</span>
+              <span className="text-[10px] text-gray-500">({tiendasStockBajo.length} tiendas) - Oportunidad de resurtido</span>
             </div>
             <div className="space-y-1.5">
               {tiendasStockBajo.map((tienda, index) => {
@@ -165,7 +165,7 @@ export default function Slide4OportunidadSurtido() {
                 <Eye size={14} className="text-[#9333EA]" />
               </div>
               <span className="text-xs font-bold text-[#9333EA]">PROBLEMA DE ANAQUEL</span>
-              <span className="text-[10px] text-gray-500">({tiendasProblemaAnaquel.length} tiendas) - Hay inv. pero no vende</span>
+              <span className="text-[10px] text-gray-500">({tiendasProblemaAnaquel.length} tiendas) - Revisión de exhibición</span>
             </div>
             <div className="grid grid-cols-2 gap-1.5">
               {tiendasProblemaAnaquel.map((tienda, index) => (
@@ -214,10 +214,10 @@ export default function Slide4OportunidadSurtido() {
                 <span className="font-bold text-xs text-[#1A1A1A]">Stock Bajo</span>
               </div>
               <p className="text-[10px] text-gray-600 mb-1">
-                Alta rotación, poco inventario
+                Alta rotación, inventario por debajo del óptimo
               </p>
               <p className="text-xl font-bold text-[#E31837]">{tiendasStockBajo.length} tiendas</p>
-              <p className="text-[9px] text-gray-500">Acción: RESURTIR</p>
+              <p className="text-[9px] text-gray-500">Propuesta: Resurtir para mantener disponibilidad</p>
             </div>
 
             {/* Problema Anaquel Summary */}
@@ -227,10 +227,10 @@ export default function Slide4OportunidadSurtido() {
                 <span className="font-bold text-xs text-[#1A1A1A]">Problema Anaquel</span>
               </div>
               <p className="text-[10px] text-gray-600 mb-1">
-                Hay inventario pero 0 venta
+                Inventario disponible, pendiente de exhibir
               </p>
               <p className="text-xl font-bold text-[#9333EA]">{tiendasProblemaAnaquel.length} tiendas</p>
-              <p className="text-[9px] text-gray-500">Acción: VERIFICAR en tienda</p>
+              <p className="text-[9px] text-gray-500">Propuesta: Revisar exhibición en piso</p>
             </div>
           </div>
 
@@ -240,11 +240,11 @@ export default function Slide4OportunidadSurtido() {
             <div className="space-y-1 text-[9px]">
               <div className="flex items-center gap-1.5">
                 <div className="w-2 h-2 rounded-full bg-[#E31837]" />
-                <span className="text-gray-600">Stock bajo = resurtir</span>
+                <span className="text-gray-600">Stock bajo = oportunidad de resurtido</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <div className="w-2 h-2 rounded-full bg-[#9333EA]" />
-                <span className="text-gray-600">Anaquel = verificar exhibición</span>
+                <span className="text-gray-600">Anaquel = revisar exhibición</span>
               </div>
             </div>
           </div>
@@ -262,11 +262,11 @@ export default function Slide4OportunidadSurtido() {
           <div className="flex items-center gap-3">
             <Truck size={20} className="text-[#27AE60]" />
             <div>
-              <p className="font-bold text-sm text-[#1A1A1A]">Próximos pasos</p>
+              <p className="font-bold text-sm text-[#1A1A1A]">Propuesta de acción conjunta</p>
               <div className="flex items-center gap-3 text-xs text-gray-600">
-                <span><span className="font-semibold text-[#E31837]">{tiendasStockBajo.length}</span> tiendas → Resurtir</span>
+                <span><span className="font-semibold text-[#E31837]">{tiendasStockBajo.length}</span> tiendas → Programar resurtido</span>
                 <span className="text-gray-300">|</span>
-                <span><span className="font-semibold text-[#9333EA]">{tiendasProblemaAnaquel.length}</span> tiendas → Verificar anaquel</span>
+                <span><span className="font-semibold text-[#9333EA]">{tiendasProblemaAnaquel.length}</span> tiendas → Revisar exhibición juntos</span>
               </div>
             </div>
           </div>

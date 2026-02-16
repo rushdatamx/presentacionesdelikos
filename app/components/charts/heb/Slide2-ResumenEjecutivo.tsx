@@ -5,7 +5,7 @@ import { TrendingUp, Package } from "lucide-react"
 
 // Datos calculados desde: scripts/calcular_metricas_mitienda.py
 // Fuente: venta-delikos.csv + inventario-delikos.csv
-// Período: S40 FY2025 - S15 FY2026 (29 semanas fiscales) | Excluye CAT MONTERREY (2160)
+// Período: 2024-12 a 2026-04 (29 semanas fiscales) | Excluye CAT MONTERREY (2160)
 
 const metricas = {
   unidadesVendidas: 134448,
@@ -13,7 +13,7 @@ const metricas = {
   diasAnalisis: 201, // Jul 30 2025 - Feb 15 2026
   rotacionDiaria: 669, // 134448 / 201 días
   semanasFiscales: 29,
-  periodo: "S40 FY2025 - S15 FY2026"
+  periodo: "Periodo 2024-12 a 2026-04"
 }
 
 // Hook para animación count-up
@@ -71,7 +71,7 @@ export default function Slide2ResumenEjecutivo() {
           El producto está rotando
         </h1>
         <p className="text-base text-gray-500 mt-1">
-          {metricas.periodo} ({metricas.semanasFiscales} semanas fiscales) | 25 tiendas HEB | Solo PDQ Papa Casera
+          {metricas.periodo} ({metricas.semanasFiscales} semanas fiscales) | 25 tiendas MI TIENDA | Solo PDQ Papa Casera
         </p>
       </div>
 
