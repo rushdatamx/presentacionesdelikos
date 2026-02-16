@@ -10,28 +10,28 @@ import { AlertTriangle, TrendingDown, Truck, ArrowRight, PackageX, Eye } from "l
 // TIPO 1: Stock bajo (hay venta pero poco inventario)
 const tiendasStockBajo = [
   {
-    tienda: "REY RIO BRAVO",
-    codigo: "2972",
+    tienda: "MAT LAS BRISAS",
+    codigo: "2906",
     pdq: "45gr",
-    dosMin: 4,
-    inventario: 66,
-    ventaDiaria: 17,
-  },
-  {
-    tienda: "REY SAN FERNANDO",
-    codigo: "9107",
-    pdq: "45gr",
-    dosMin: 3,
-    inventario: 50,
-    ventaDiaria: 17,
+    dosMin: 13,
+    inventario: 335,
+    ventaDiaria: 26,
   },
   {
     tienda: "REY AEROPUERTO",
     codigo: "2995",
     pdq: "45gr",
-    dosMin: 7,
-    inventario: 66,
-    ventaDiaria: 9,
+    dosMin: 5,
+    inventario: 42,
+    ventaDiaria: 8,
+  },
+  {
+    tienda: "REY SAN FERNANDO",
+    codigo: "9107",
+    pdq: "45gr",
+    dosMin: 11,
+    inventario: 117,
+    ventaDiaria: 11,
   },
 ]
 
@@ -280,7 +280,7 @@ export default function Slide4OportunidadSurtido() {
       {/* Footer */}
       <div className="mt-3 pt-2 border-t border-gray-100">
         <p className="text-[10px] text-gray-400 text-center">
-          Fuente: Inventario MI TIENDA al 09/Feb/2026 | Excluye CAT Monterrey (CEDIS) | DOS = Inventario ÷ Venta diaria
+          Fuente: Inventario MI TIENDA al 15/Feb/2026 (S15 FY2026) | Excluye CAT Monterrey (CEDIS) | DOS = Inventario ÷ Venta diaria
         </p>
       </div>
     </div>

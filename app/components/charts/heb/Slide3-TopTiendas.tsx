@@ -8,15 +8,15 @@ import { Trophy, Star, TrendingUp, MapPin } from "lucide-react"
 // Excluye CAT MONTERREY (2160) - es CEDIS
 
 const topTiendas = [
-  { rank: 1, tienda: "NVO REVOLUCION", codigo: "2948", unidades: 8374, pctTotal: 6.5 },
-  { rank: 2, tienda: "MTY HUINALA", codigo: "2994", unidades: 8128, pctTotal: 6.3 },
-  { rank: 3, tienda: "MTY CIUDADELA", codigo: "2990", unidades: 7856, pctTotal: 6.1 },
-  { rank: 4, tienda: "REY SAN FERNANDO", codigo: "9107", unidades: 7919, pctTotal: 6.2 },
-  { rank: 5, tienda: "MTY ZUAZUA", codigo: "2920", unidades: 7382, pctTotal: 5.7 },
+  { rank: 1, tienda: "NVO REVOLUCION", codigo: "2948", unidades: 9039, pctTotal: 6.8 },
+  { rank: 2, tienda: "REY SAN FERNANDO", codigo: "9107", unidades: 8213, pctTotal: 6.1 },
+  { rank: 3, tienda: "MAT LAS BRISAS", codigo: "2906", unidades: 8272, pctTotal: 5.9 },
+  { rank: 4, tienda: "MTY HUINALA", codigo: "2994", unidades: 8260, pctTotal: 6.0 },
+  { rank: 5, tienda: "NVO REFORMA", codigo: "2911", unidades: 7956, pctTotal: 6.0 },
 ]
 
 const totalUnidadesTop5 = topTiendas.reduce((acc, t) => acc + t.unidades, 0)
-const pctConcentracion = 30.8 // Top 5 = 30.8% del total
+const pctConcentracion = 31.0 // Top 5 = 31.0% del total
 
 export default function Slide3TopTiendas() {
   const [isLoaded, setIsLoaded] = useState(false)
@@ -179,7 +179,7 @@ export default function Slide3TopTiendas() {
         style={{ transitionDelay: "700ms" }}
       >
         <p className="text-xs text-gray-400 text-center">
-          Fuente: Portal MI TIENDA (Sell-Out) | Jul 2025 - Feb 2026 | Solo PDQ 340gr y 45gr | Excluye CAT Monterrey
+          Fuente: Portal MI TIENDA (Sell-Out) | S40 FY2025 - S15 FY2026 | Solo PDQ 340gr y 45gr | Excluye CAT Monterrey
         </p>
       </div>
     </div>

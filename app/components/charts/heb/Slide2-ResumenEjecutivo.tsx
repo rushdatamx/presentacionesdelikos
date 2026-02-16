@@ -5,14 +5,15 @@ import { TrendingUp, Package } from "lucide-react"
 
 // Datos calculados desde: scripts/calcular_metricas_mitienda.py
 // Fuente: venta-delikos.csv + inventario-delikos.csv
-// Período: Jul 2025 - Feb 2026 | Excluye CAT MONTERREY (2160)
+// Período: S40 FY2025 - S15 FY2026 (29 semanas fiscales) | Excluye CAT MONTERREY (2160)
 
 const metricas = {
-  unidadesVendidas: 128418,
+  unidadesVendidas: 134448,
   tiendasActivas: 25,
-  diasAnalisis: 195, // Jul 30 2025 - Feb 9 2026
-  rotacionDiaria: 658, // 128418 / 195 días
-  periodo: "Jul 2025 - Feb 2026"
+  diasAnalisis: 201, // Jul 30 2025 - Feb 15 2026
+  rotacionDiaria: 669, // 134448 / 201 días
+  semanasFiscales: 29,
+  periodo: "S40 FY2025 - S15 FY2026"
 }
 
 // Hook para animación count-up
@@ -70,7 +71,7 @@ export default function Slide2ResumenEjecutivo() {
           El producto está rotando
         </h1>
         <p className="text-base text-gray-500 mt-1">
-          {metricas.periodo} | 25 tiendas HEB | Solo PDQ Papa Casera
+          {metricas.periodo} ({metricas.semanasFiscales} semanas fiscales) | 25 tiendas HEB | Solo PDQ Papa Casera
         </p>
       </div>
 
@@ -117,14 +118,14 @@ export default function Slide2ResumenEjecutivo() {
                 </div>
                 <span className="font-bold text-[#1A1A1A]">PDQ 45gr</span>
                 <span className="ml-auto px-2 py-0.5 bg-[#F7B500]/10 text-[#F7B500] text-xs font-bold rounded-full">
-                  91% del mix
+                  87% del mix
                 </span>
               </div>
-              <p className="text-3xl font-bold text-[#F7B500] mb-1">125,569</p>
+              <p className="text-3xl font-bold text-[#F7B500] mb-1">129,932</p>
               <p className="text-sm text-gray-500">unidades vendidas</p>
               <div className="mt-3 pt-3 border-t border-gray-100">
                 <p className="text-xs text-gray-600">
-                  <span className="font-semibold">643 unidades/día</span> promedio
+                  <span className="font-semibold">646 unidades/día</span> promedio
                 </p>
               </div>
             </div>
@@ -142,14 +143,14 @@ export default function Slide2ResumenEjecutivo() {
                 </div>
                 <span className="font-bold text-[#1A1A1A]">PDQ 340gr</span>
                 <span className="ml-auto px-2 py-0.5 bg-[#E31837]/10 text-[#E31837] text-xs font-bold rounded-full">
-                  9% del mix
+                  13% del mix
                 </span>
               </div>
-              <p className="text-3xl font-bold text-[#E31837] mb-1">2,849</p>
+              <p className="text-3xl font-bold text-[#E31837] mb-1">4,516</p>
               <p className="text-sm text-gray-500">unidades vendidas</p>
               <div className="mt-3 pt-3 border-t border-gray-100">
                 <p className="text-xs text-gray-600">
-                  <span className="font-semibold">15 unidades/día</span> promedio
+                  <span className="font-semibold">22 unidades/día</span> promedio
                 </p>
               </div>
             </div>

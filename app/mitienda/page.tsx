@@ -12,6 +12,7 @@ import Slide4QuiebresStock from "../components/charts/heb/Slide4-QuiebresStock"
 import Slide5PDQ340 from "../components/charts/heb/Slide6-PDQ340"
 import Slide6PDQ45 from "../components/charts/heb/Slide7-PDQ45"
 import Slide7ProximosPasos from "../components/charts/heb/Slide8-ProximosPasos"
+import Slide8RelacionPDQ from "../components/charts/heb/Slide9-RelacionPDQ"
 
 const slides = [
   { id: 1, name: "Portada", component: Slide1Portada },
@@ -21,6 +22,7 @@ const slides = [
   { id: 5, name: "PDQ 340gr", component: Slide5PDQ340 },
   { id: 6, name: "PDQ 45gr", component: Slide6PDQ45 },
   { id: 7, name: "Plan de Acción", component: Slide7ProximosPasos },
+  { id: 8, name: "Relación PDQ (OC)", component: Slide8RelacionPDQ },
 ]
 
 export default function MiTiendaPresentation() {

@@ -7,7 +7,7 @@ import { Package, AlertTriangle, CheckCircle, Eye } from "lucide-react"
 // Estado de inventario PDQ 340gr por tienda
 // Excluye CAT MONTERREY (2160)
 
-// Todas las tiendas 340gr tienen DOS=0 con inventario = PROBLEMA DE ANAQUEL
+// Tiendas 340gr con DOS=0 = PROBLEMA DE ANAQUEL (inventario pero 0 venta)
 const tiendas340 = [
   {
     tienda: "MTY BUENA VISTA",
@@ -34,7 +34,7 @@ const tiendas340 = [
     codigo: "2920",
     sabores: [
       { nombre: "SAL", inv: 82, dos: 0, problemaAnaquel: true },
-      { nombre: "FUEGO", inv: 84, dos: 785, problemaAnaquel: false },
+      { nombre: "FUEGO", inv: 84, dos: 0, problemaAnaquel: true },
       { nombre: "JALAPEÑO", inv: 80, dos: 0, problemaAnaquel: true },
     ],
     problemaAnaquel: true
@@ -189,7 +189,7 @@ export default function Slide6PDQ340() {
       {/* Footer */}
       <div className="mt-3 pt-2 border-t border-gray-100">
         <p className="text-[10px] text-gray-400 text-center">
-          Fuente: Inventario MI TIENDA al 09/Feb/2026 | DOS = Días de cobertura | Excluye CAT Monterrey
+          Fuente: Inventario MI TIENDA al 15/Feb/2026 (S15 FY2026) | DOS = Días de cobertura | Excluye CAT Monterrey
         </p>
       </div>
     </div>

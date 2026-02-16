@@ -5,9 +5,9 @@ import { AlertTriangle, Trophy, Package, CheckCircle, Clock, TrendingDown, Eye }
 
 // STOCK BAJO: Alta rotación, poco inventario - necesitan resurtido
 const tiendasStockBajo = [
-  { tienda: "REY RIO BRAVO", codigo: "2972", pdq: "45gr", dosMin: 4 },
-  { tienda: "REY SAN FERNANDO", codigo: "9107", pdq: "45gr", dosMin: 3 },
-  { tienda: "REY AEROPUERTO", codigo: "2995", pdq: "45gr", dosMin: 7 },
+  { tienda: "MAT LAS BRISAS", codigo: "2906", pdq: "45gr", dosMin: 13 },
+  { tienda: "REY AEROPUERTO", codigo: "2995", pdq: "45gr", dosMin: 5 },
+  { tienda: "REY SAN FERNANDO", codigo: "9107", pdq: "45gr", dosMin: 11 },
 ]
 
 // PROBLEMA DE ANAQUEL: Hay inventario pero 0 venta - verificar exhibición
@@ -20,11 +20,11 @@ const tiendasProblemaAnaquel = [
 
 // Top 5 tiendas con mejor rotación - revisar si también necesitan surtido
 const topTiendas = [
-  { tienda: "NVO REVOLUCION", codigo: "2948", unidades: 8374, dosMin45: 44, dosMin340: 124, necesitaSurtir: false },
-  { tienda: "MTY HUINALA", codigo: "2994", unidades: 8128, dosMin45: 26, dosMin340: 25, necesitaSurtir: true },
-  { tienda: "MTY CIUDADELA", codigo: "2990", unidades: 7856, dosMin45: 35, dosMin340: 52, necesitaSurtir: false },
-  { tienda: "REY SAN FERNANDO", codigo: "9107", unidades: 7919, dosMin45: 3, dosMin340: 114, necesitaSurtir: true },
-  { tienda: "MTY ZUAZUA", codigo: "2920", unidades: 7382, dosMin45: 27, dosMin340: 0, necesitaSurtir: true },
+  { tienda: "NVO REVOLUCION", codigo: "2948", unidades: 9039, dosMin45: 31, dosMin340: 50, necesitaSurtir: false },
+  { tienda: "REY SAN FERNANDO", codigo: "9107", unidades: 8213, dosMin45: 11, dosMin340: 62, necesitaSurtir: true },
+  { tienda: "MAT LAS BRISAS", codigo: "2906", unidades: 8272, dosMin45: 13, dosMin340: 2250, necesitaSurtir: true },
+  { tienda: "MTY HUINALA", codigo: "2994", unidades: 8260, dosMin45: 48, dosMin340: 21, necesitaSurtir: false },
+  { tienda: "NVO REFORMA", codigo: "2911", unidades: 7956, dosMin45: 33, dosMin340: 41, necesitaSurtir: false },
 ]
 
 export default function Slide8ProximosPasos() {
@@ -197,7 +197,7 @@ export default function Slide8ProximosPasos() {
 
             <div className="mt-3 p-2 bg-white rounded-lg border border-[#F7B500]/30">
               <p className="text-xs text-gray-600">
-                <span className="font-bold text-[#F7B500]">3 de las top 5</span> tiendas tienen DOS bajo.
+                <span className="font-bold text-[#F7B500]">2 de las top 5</span> tiendas tienen DOS bajo.
                 Considera incluirlas para evitar quiebres.
               </p>
             </div>
@@ -236,7 +236,7 @@ export default function Slide8ProximosPasos() {
       {/* Footer */}
       <div className="mt-3 pt-2 border-t border-gray-100">
         <p className="text-[10px] text-gray-400 text-center">
-          Fuente: Inventario MI TIENDA al 09/Feb/2026 | DOS = Días de cobertura | Excluye CAT Monterrey
+          Fuente: Inventario MI TIENDA al 15/Feb/2026 (S15 FY2026) | DOS = Días de cobertura | Excluye CAT Monterrey
         </p>
       </div>
     </div>

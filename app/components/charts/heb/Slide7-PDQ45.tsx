@@ -10,30 +10,30 @@ import { Package, AlertTriangle, CheckCircle, TrendingDown, Eye } from "lucide-r
 // Tiendas con STOCK BAJO (alta rotación, poco inventario)
 const tiendasStockBajo = [
   {
-    tienda: "REY RIO BRAVO",
-    codigo: "2972",
+    tienda: "MAT LAS BRISAS",
+    codigo: "2906",
     sabores: [
-      { nombre: "NATURAL", inv: 120, dos: 11, ventaDiaria: 11 },
-      { nombre: "FUEGO", inv: 80, dos: 7, ventaDiaria: 11 },
-      { nombre: "JALAPEÑO", inv: 66, dos: 4, ventaDiaria: 17 },
-    ],
-  },
-  {
-    tienda: "REY SAN FERNANDO",
-    codigo: "9107",
-    sabores: [
-      { nombre: "NATURAL", inv: 50, dos: 3, ventaDiaria: 17 },
-      { nombre: "FUEGO", inv: 171, dos: 14, ventaDiaria: 12, ok: true },
-      { nombre: "JALAPEÑO", inv: 105, dos: 8, ventaDiaria: 13 },
+      { nombre: "NATURAL", inv: 335, dos: 13, ventaDiaria: 26 },
+      { nombre: "FUEGO", inv: 317, dos: 14, ventaDiaria: 23, ok: true },
+      { nombre: "JALAPEÑO", inv: 352, dos: 19, ventaDiaria: 19, ok: true },
     ],
   },
   {
     tienda: "REY AEROPUERTO",
     codigo: "2995",
     sabores: [
-      { nombre: "NATURAL", inv: 66, dos: 7, ventaDiaria: 9 },
-      { nombre: "FUEGO", inv: 123, dos: 19, ventaDiaria: 6, ok: true },
-      { nombre: "JALAPEÑO", inv: 77, dos: 9, ventaDiaria: 9 },
+      { nombre: "NATURAL", inv: 42, dos: 5, ventaDiaria: 8 },
+      { nombre: "FUEGO", inv: 113, dos: 21, ventaDiaria: 5, ok: true },
+      { nombre: "JALAPEÑO", inv: 44, dos: 6, ventaDiaria: 7 },
+    ],
+  },
+  {
+    tienda: "REY SAN FERNANDO",
+    codigo: "9107",
+    sabores: [
+      { nombre: "NATURAL", inv: 188, dos: 14, ventaDiaria: 13, ok: true },
+      { nombre: "FUEGO", inv: 142, dos: 13, ventaDiaria: 11 },
+      { nombre: "JALAPEÑO", inv: 117, dos: 11, ventaDiaria: 11 },
     ],
   },
 ]
@@ -43,9 +43,9 @@ const tiendaProblemaAnaquel = {
   tienda: "MTY AZTLAN",
   codigo: "2956",
   sabores: [
-    { nombre: "NATURAL", inv: 457, dos: 337, ok: true },
+    { nombre: "NATURAL", inv: 450, dos: 280, ok: true },
     { nombre: "FUEGO", inv: 449, dos: 0, problemaAnaquel: true },
-    { nombre: "JALAPEÑO", inv: 486, dos: 1514, ok: true },
+    { nombre: "JALAPEÑO", inv: 464, dos: 419, ok: true },
   ],
 }
 
@@ -245,7 +245,7 @@ export default function Slide7PDQ45() {
       {/* Footer */}
       <div className="mt-3 pt-2 border-t border-gray-100">
         <p className="text-[10px] text-gray-400 text-center">
-          Fuente: Inventario MI TIENDA al 09/Feb/2026 | DOS = Días de cobertura | Excluye CAT Monterrey
+          Fuente: Inventario MI TIENDA al 15/Feb/2026 (S15 FY2026) | DOS = Días de cobertura | Excluye CAT Monterrey
         </p>
       </div>
     </div>

@@ -10,11 +10,11 @@ const presentaciones = [
     id: "mitienda",
     titulo: "MI TIENDA PDQ 2026",
     descripcion: "Análisis PDQ 340gr y 45gr - Oportunidades de Surtido",
-    slides: 7,
+    slides: 8,
     color: "#E31837",
     icono: Target,
     logo: "/images/mitienda-logo.jpeg",
-    highlights: ["$1.41M Venta PDQ", "7 Tiendas a Surtir", "Jul 2025 - Feb 2026"]
+    highlights: ["$1.54M Venta PDQ", "7 Tiendas a Surtir", "S40 FY2025 - S15 FY2026"]
   },
   {
     id: "merco",
