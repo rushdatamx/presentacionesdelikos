@@ -3,14 +3,14 @@
 import { useState, useEffect } from "react"
 import { ClipboardList, Package, Calendar, AlertTriangle } from "lucide-react"
 
-// Resumen de PDQs requeridos
+// Resumen de PDQs requeridos (1 PDQ por tienda destino)
 const pdqResumen = [
-  { presentacion: "PDQ Papa Casera 340gr", pdqs: 2, piezasPorPDQ: 240, totalPiezas: 480, upc: "7502256161779" },
-  { presentacion: "PDQ Papa Casera 45gr", pdqs: 2, piezasPorPDQ: 1260, totalPiezas: 2520, upc: "7502256161670" },
+  { presentacion: "PDQ Papa Casera 340gr", pdqs: 1, piezasPorPDQ: 240, totalPiezas: 240, upc: "7502256161779" },
+  { presentacion: "PDQ Papa Casera 45gr", pdqs: 4, piezasPorPDQ: 1260, totalPiezas: 5040, upc: "7502256161670" },
 ]
 
-const totalPDQs = 4
-const totalPiezas = 3000
+const totalPDQs = 5
+const totalPiezas = 5280
 
 // Tiendas destino por PDQ
 const tiendasDestino = [
