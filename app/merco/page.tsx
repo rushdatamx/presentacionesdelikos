@@ -5,20 +5,12 @@ import Link from "next/link"
 import { ChevronLeft, ChevronRight, Home } from "lucide-react"
 
 // Import all MERCO slides
-import Slide1Portada from "../components/charts/merco/Slide1-Portada"
-import Slide2RelacionComercial from "../components/charts/merco/Slide2-RelacionComercial"
-import Slide3TopProductos from "../components/charts/merco/Slide3-TopProductos"
-import Slide4PerformanceTiendas from "../components/charts/merco/Slide4-PerformanceTiendas"
-import Slide5Oportunidades from "../components/charts/merco/Slide5-Oportunidades"
-import Slide6RotacionProductos from "../components/charts/merco/Slide6-RotacionProductos"
+import Q1TopTiendas from "../components/charts/merco/Q1-TopTiendas"
+import Q1InventarioDDI from "../components/charts/merco/Q1-InventarioDDI"
 
 const slides = [
-  { id: 1, name: "Portada", component: Slide1Portada },
-  { id: 2, name: "Relación Comercial", component: Slide2RelacionComercial },
-  { id: 3, name: "Top Productos", component: Slide3TopProductos },
-  { id: 4, name: "Performance Tiendas", component: Slide4PerformanceTiendas },
-  { id: 5, name: "Oportunidades", component: Slide5Oportunidades },
-  { id: 6, name: "Rotación Productos", component: Slide6RotacionProductos },
+  { id: 1, name: "Top Tiendas", component: Q1TopTiendas },
+  { id: 2, name: "Inventario & DDI", component: Q1InventarioDDI },
 ]
 
 export default function MercoPresentation() {

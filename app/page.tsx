@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { Presentation, TrendingUp, Store, ChevronRight, ShoppingCart, Target } from "lucide-react"
+import { Presentation, TrendingUp, Store, ChevronRight, ShoppingCart, Target, Calendar } from "lucide-react"
 
 const presentaciones = [
   {
@@ -18,13 +18,13 @@ const presentaciones = [
   },
   {
     id: "merco",
-    titulo: "MERCO Review 2025",
-    descripcion: "Análisis de desempeño con cliente MERCO",
-    slides: 6,
+    titulo: "MERCO Quincenal #1",
+    descripcion: "Top Tiendas + Inventario & DDI — 18 Feb 2026",
+    slides: 2,
     color: "#F7B500",
-    icono: Store,
+    icono: Calendar,
     logo: "/images/merco-logo.jpg",
-    highlights: ["Crecimiento 143%", "Top Productos", "Performance Tiendas"]
+    highlights: ["18 Feb 2026", "Top Tiendas Zoom", "Inventario DDI"]
   },
   {
     id: "sell-in",
